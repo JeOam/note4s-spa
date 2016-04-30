@@ -1,0 +1,33 @@
+<template>
+  <div id="app">
+    <navigation></navigation>
+    <main-container></main-container>
+  </div>
+</template>
+
+<script>
+import Navigation from './components/Navigation'
+import MainContainer from './components/MainContainer'
+
+export default {
+  components: {
+    Navigation,
+    MainContainer
+  }
+}
+</script>
+
+<style>
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
+}
+div {
+  display: block;
+}
+a {
+  color: #4078c0;
+  text-decoration: none;
+}
+</style>
