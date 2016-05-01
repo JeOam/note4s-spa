@@ -2,15 +2,16 @@
   <ul class="notebook-container">
     <li><span>My Notes: </span></li>
     <li>
-      <select class="notebook-select">
-        <option value="{{ notebook.id }}" v-for="notebook in notebooks">
+      <select class="notebook-select" @change="selectNotebook(selected, $event)" v-model="selected">
+        <option v-bind:value="notebook.id" v-for="notebook in notebooks">
           {{ notebook.name }}
         </option>
       </select>
     </li>
   </ul>
+
   <div id="main-sortable">
-    <div v-if="!notes.length"> Empty Note Book.</div>
+    <div v-if="!notebookInfo.length"> Empty Note Book.</div>
     <div class="sub-sortable" v-for="session in notebookInfo" v-if="notebookInfo.length">
       <div class="title-sortable" >
         {{ session.sessionName }}
@@ -20,24 +21,22 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script>
+import { getNotebooks, getNotebookInfo, getSelectedNotebookId } from '../vuex/getters'
+
 export default {
-  data () {
-    return {
-      notebooks: [
-        { id: 1, name: 'Learn JavaScript' },
-        { id: 2, name: 'Learn Vue.js' },
-        { id: 3, name: 'Build Something Awesome' }
-      ],
-      notebookInfo: [
-        { sessionName: 'Session1', notes: [{ link: '#1', title: 'Title1' },
-                                           { link: '#2', title: 'Title2' }]},
-        { sessionName: 'Session2', notes: [{ link: '#3', title: 'Title3' },
-                                           { link: '#4', title: 'Title4' }]}
-      ]
+  vuex: {
+    getters: {
+      selected: getSelectedNotebookId,
+      notebooks: getNotebooks,
+      notebookInfo: getNotebookInfo
+    }
+  },
+  methods: {
+    selectNotebook (selected, $event) {
+      debugger
     }
   }
 }

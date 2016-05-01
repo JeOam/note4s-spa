@@ -8,12 +8,14 @@
 <script>
 import Navigation from './components/Navigation'
 import MainContainer from './components/MainContainer'
+import store from './vuex/store'
 
 export default {
   components: {
     Navigation,
     MainContainer
-  }
+  },
+  store: store
 }
 </script>
 
