@@ -5,7 +5,3 @@ export function getNotebooks (state) {
 export function getNotebookInfo (state) {
   return state.notebookInfo
 }
-
-export function getSelectedNotebookId (state) {
-  return state.selectedNotebookId
-}

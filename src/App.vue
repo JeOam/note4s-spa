@@ -1,19 +1,17 @@
 <template>
   <div id="app">
     <navigation></navigation>
-    <main-container></main-container>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Navigation from './components/Navigation'
-import MainContainer from './components/MainContainer'
 import store from './vuex/store'
 
 export default {
   components: {
-    Navigation,
-    MainContainer
+    Navigation
   },
   store: store
 }

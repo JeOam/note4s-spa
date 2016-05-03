@@ -1,5 +1,9 @@
+import api from '../api/server'
 
+export const fetchNotebooks = function ({dispatch}, e) {
+  dispatch('GETNOTEBOOKS', api.getNotebooks(e))
+}
 
-export const incrementCounter = function ({ dispatch, state }) {
-  dispatch('INCREMENT', 1)
+export const updateNotebookInfo = function ({dispatch}, e) {
+  dispatch('UPDATENOTEBOOKINFO', e.target.value)
 }

@@ -8,12 +8,7 @@ Vue.use(Vuex)
 // the app starts up
 const state = {
   // Set up our initial state
-  notebooks: [
-    { id: 1, name: 'Learn JavaScript' },
-    { id: 2, name: 'Learn Vue.js' },
-    { id: 3, name: 'Build Something Awesome' }
-  ],
-  selectedNotebookId: 1,
+  notebooks: [],
   notebookInfo: [
     { sessionName: 'Session1', notes: [{ link: '#1', title: 'Title1' },
                                        { link: '#2', title: 'Title2' }]},
@@ -25,11 +20,15 @@ const state = {
 // Create an object storing various mutations. We will write the mutation
 const mutations = {
   // set up our mutations
-  GETNOTEBOOKS (state) {
-    state.notebooks = [
-      { id: 1, name: '1Learn JavaScript' },
-      { id: 2, name: '1Learn Vue.js' },
-      { id: 3, name: '1Build Something Awesome' }
+  GETNOTEBOOKS (state, notebooks) {
+    state.notebooks = notebooks
+  },
+  UPDATENOTEBOOKINFO (state, notebookId) {
+    state.notebookInfo = [
+      { sessionName: 'Session3', notes: [{ link: '#1', title: 'Title1' },
+                                         { link: '#2', title: 'Title2' }]},
+      { sessionName: 'Session4', notes: [{ link: '#3', title: 'Title3' },
+                                         { link: '#4', title: 'Title4' }]}
     ]
   }
 }

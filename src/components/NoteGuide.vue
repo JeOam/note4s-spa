@@ -2,7 +2,7 @@
   <ul class="notebook-container">
     <li><span>My Notes: </span></li>
     <li>
-      <select class="notebook-select" @change="selectNotebook(selected, $event)" v-model="selected">
+      <select class="notebook-select" @change="updateNotebookInfo">
         <option v-bind:value="notebook.id" v-for="notebook in notebooks">
           {{ notebook.name }}
         </option>
@@ -24,21 +24,24 @@
 </template>
 
 <script>
-import { getNotebooks, getNotebookInfo, getSelectedNotebookId } from '../vuex/getters'
+import { getNotebooks, getNotebookInfo } from '../vuex/getters'
+import { fetchNotebooks, updateNotebookInfo } from '../vuex/actions'
 
 export default {
   vuex: {
     getters: {
-      selected: getSelectedNotebookId,
       notebooks: getNotebooks,
       notebookInfo: getNotebookInfo
+    },
+    actions: {
+      fetchNotebooks,
+      updateNotebookInfo
     }
   },
-  methods: {
-    selectNotebook (selected, $event) {
-      debugger
-    }
+  created () {
+    this.fetchNotebooks()
   }
+
 }
 </script>
 
