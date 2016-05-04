@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import { getNotebooks, getNotebookInfo } from '../vuex/getters'
-import { fetchNotebooks, updateNotebookInfo } from '../vuex/actions'
+import { getNotebooks, getNotebookInfo } from '../../vuex/getters'
+import { fetchNotebooks, updateNotebookInfo } from '../../vuex/actions'
 
 export default {
   vuex: {

@@ -4,13 +4,13 @@
       <div class="right-pannel">
         <div class="seperator20"></div>
         <div class="box">
-          a
+          <slot name="right-pannel-slot"></slot>
         </div>
       </div>
       <div class="main-pannel">
         <div class="seperator20"></div>
         <div class="box">
-          <note-guide></note-guide>
+          <slot name="main-pannel-slot"></slot>
         </div>
       </div>
     </div>
@@ -18,13 +18,6 @@
 </template>
 
 <script>
-import NoteGuide from './NoteGuide'
-
-export default {
-  components: {
-    NoteGuide
-  }
-}
 </script>
 
 <style scoped>

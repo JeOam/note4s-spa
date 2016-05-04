@@ -2,11 +2,11 @@ export default function (router) {
   router.map({
     '/': {
       name: 'index',
-      component: require('./components/index.vue')
+      component: require('./components/index/Index.vue')
     },
-    '/test': {
-      name: 'test',
-      component: require('./components/NoteGuide.vue')
+    '/signin': {
+      name: 'signin',
+      component: require('./components/login/Signin.vue')
     }
   })
 }
