@@ -16,6 +16,7 @@
     "vue": "^1.0.18",
     "vuex": "^0.6.3",
     "vue-router": "^0.7.13",
+    "vue-awesome": "^0.3.0",
     "superagent": "^1.8.3",
     "babel-runtime": "^5.8.0"
   },

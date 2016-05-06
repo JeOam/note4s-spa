@@ -4,9 +4,9 @@ export default function (router) {
       name: 'index',
       component: require('./components/index/Index.vue')
     },
-    '/signin': {
-      name: 'signin',
-      component: require('./components/login/Signin.vue')
+    '/login': {
+      name: 'login',
+      component: require('./components/login/Login.vue')
     }
   })
 }

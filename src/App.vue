@@ -30,4 +30,10 @@ a {
   color: #4078c0;
   text-decoration: none;
 }
+a:hover, a:visited, a:link, a:active {
+  text-decoration: none;
+}
+input {
+  outline: none;
+}
 </style>
