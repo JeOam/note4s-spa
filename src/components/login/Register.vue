@@ -1,17 +1,19 @@
 <template>
   <main-container>
     <div slot="main-pannel-slot">
-      login
+      <register-form></register-form>
     </div>
   </main-container>
 </template>
 
 <script>
 import MainContainer from '../MainContainer'
+import RegisterForm from './RegisterForm'
 
 export default {
   components: {
-    MainContainer
+    MainContainer,
+    RegisterForm
   }
 }
 </script>

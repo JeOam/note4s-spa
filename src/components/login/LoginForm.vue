@@ -31,16 +31,6 @@
 </div>
 </template>
 
-<script>
-import MainContainer from '../MainContainer'
-
-export default {
-  components: {
-    MainContainer
-  }
-}
-</script>
-
 <style>
 a {
   color: #778087;

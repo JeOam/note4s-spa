@@ -7,6 +7,10 @@ export default function (router) {
     '/login': {
       name: 'login',
       component: require('./components/login/Login.vue')
+    },
+    '/register': {
+      name: 'register',
+      component: require('./components/login/Register.vue')
     }
   })
 }
