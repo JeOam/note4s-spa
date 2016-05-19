@@ -11,6 +11,10 @@ export default function (router) {
     '/register': {
       name: 'register',
       component: require('./components/login/Register.vue')
+    },
+    '/profile': {
+      name: 'profile',
+      component: require('./components/profile/Profile.vue')
     }
   })
 }

@@ -40,6 +40,7 @@ a:hover, a:visited, a:link, a:active {
   height: 44px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.22);
   display: block;
+  width: 100%;
 }
 .container > div {
   padding-top: 6px;
