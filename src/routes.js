@@ -15,6 +15,14 @@ export default function (router) {
     '/profile': {
       name: 'profile',
       component: require('./components/profile/Profile.vue')
+    },
+    '/create': {
+      name: 'create',
+      component: require('./components/note/Create.vue')
+    },
+    '/detail': {
+      name: 'detail',
+      component: require('./components/note/Detail.vue')
     }
   })
 }
