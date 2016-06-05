@@ -1,4 +1,15 @@
 // const request = require('superagent')
+// import { router } from '../main'
+var localStorage = window.localStorage
+
+var checkAuth = function () {
+  var token = localStorage.getItem('token')
+  if (token) {
+    return true
+  } else {
+    return false
+  }
+}
 
 export default {
   getNotebooks (userId) {
@@ -8,5 +19,6 @@ export default {
       { id: 2, name: 'Learn Vue.js' },
       { id: 3, name: 'Build Something Awesome' }
     ]
-  }
+  },
+  checkAuth
 }

@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import VueAwesome from 'vue-awesome'
 import App from './App'
 import configRouter from './routes'
 
 Vue.use(VueRouter)
+Vue.use(VueResource)
+
 Vue.component('icon', VueAwesome)
 
 const router = new VueRouter({

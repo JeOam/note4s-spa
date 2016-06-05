@@ -25,3 +25,9 @@ npm test
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+参考项目：
+
+* [auth0-blog/vue-jwt-authentication](https://github.com/auth0-blog/vue-jwt-authentication)
+* [skyronic/vue-spa](https://github.com/skyronic/vue-spa)

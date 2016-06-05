@@ -1,13 +1,18 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import api from '../api/server'
 
 // Make vue aware of vuex
 Vue.use(Vuex)
-
+// var localStorage = window.localStorage
 // We create an object to hold the initial state when
 // the app starts up
+
 const state = {
   // Set up our initial state
+  user: {
+    authenticated: api.checkAuth()
+  },
   notebooks: [],
   notebookInfo: [
     { sessionName: 'Session1', notes: [{ link: '#1', title: 'Title1' },
