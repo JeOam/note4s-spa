@@ -11,7 +11,7 @@ Vue.use(VueResource)
 Vue.http.options.root = 'http://127.0.0.1:8000'
 
 Vue.component('icon', VueAwesome)
-// Vue.$alert('password is required!')
+
 const router = new VueRouter({
   history: true,
   saveScrollPosition: true,

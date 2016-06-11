@@ -16,10 +16,8 @@
     "babel-runtime": "^5.8.0",
     "vue": "^1.0.18",
     "vue-awesome": "^0.3.0",
-    "vue-msgbox": "^0.2.7",
     "vue-resource": "^0.7.2",
     "vue-router": "^0.7.13",
-    "vue-alert": "^1.0.2",
     "vuex": "^0.6.3"
   },
   "devDependencies": {
