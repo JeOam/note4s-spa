@@ -5,3 +5,11 @@ export function getNotebooks (state) {
 export function getNotebookInfo (state) {
   return state.notebookInfo
 }
+
+export function getAlertMessage (state) {
+  return state.alertMessage
+}
+
+export function getAlertType (state) {
+  return state.alertType
+}

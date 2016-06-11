@@ -9,6 +9,7 @@
       </div>
       <div class="main-pannel">
         <div class="seperator20"></div>
+        <alert></alert>
         <div class="box">
           <slot name="main-pannel-slot"></slot>
         </div>
@@ -18,6 +19,13 @@
 </template>
 
 <script>
+import Alert from './Alert'
+
+export default {
+  components: {
+    Alert
+  }
+}
 </script>
 
 <style scoped>

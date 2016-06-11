@@ -21,9 +21,9 @@
         <td width="570" align="right" class="link">
           <a href="/create">Create Note</a>
             &nbsp;&nbsp;&nbsp;
-          <a href="/profile">Me</a>
-        </tr>
-      </table>
+        <a href="/profile">Me</a>
+      </tr>
+    </table>
   </div>
 </div>
 </template>

@@ -4,6 +4,7 @@ export default function (router) {
   router.map({
     '/': {
       name: 'index',
+      auth: true,
       component: require('./components/index/Index.vue')
     },
     '/login': {
@@ -26,11 +27,12 @@ export default function (router) {
     },
     '/detail': {
       name: 'detail',
+      auth: true,
       component: require('./components/note/Detail.vue')
     }
   })
   router.beforeEach(function (transition) {
-    if (transition.to.auth && !store.state.user.authenticated) {
+    if (transition.to.auth && !store.state.token) {
       let redirect = encodeURIComponent(transition.to.path)
       transition.redirect('/login?redirect=' + redirect)
     } else {

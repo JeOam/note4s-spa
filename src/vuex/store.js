@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import api from '../api/server'
 
 // Make vue aware of vuex
 Vue.use(Vuex)
@@ -8,11 +7,21 @@ Vue.use(Vuex)
 // We create an object to hold the initial state when
 // the app starts up
 
+let localStorage = window.localStorage
+let getToken = function () {
+  var token = localStorage.getItem('token')
+  if (token) {
+    return token
+  } else {
+    return ''
+  }
+}
+
 const state = {
   // Set up our initial state
-  user: {
-    authenticated: api.checkAuth()
-  },
+  token: getToken(),
+  alertMessage: '',
+  alertType: 'warning',
   notebooks: [],
   notebookInfo: [
     { sessionName: 'Session1', notes: [{ link: '#1', title: 'Title1' },
@@ -35,6 +44,18 @@ const mutations = {
       { sessionName: 'Session4', notes: [{ link: '#3', title: 'Title3' },
                                          { link: '#4', title: 'Title4' }]}
     ]
+  },
+  SETALERT (state, message, type) {
+    state.alertMessage = message
+    state.alertType = type
+  },
+  LOGIN (state, token) {
+    localStorage.setItem('token', token)
+    state.token = token
+  },
+  LOGOUT (state) {
+    localStorage.removeItem('token')
+    state.token = ''
   }
 }
 

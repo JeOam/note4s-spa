@@ -5,27 +5,62 @@
   <icon name="lock" scale="0.8" class="lock-icon"></icon>
 </div>
 <div class="login-container">
-  <form method="post" action="/signin" class="form-horizontal">
+  <div class="form-horizontal">
     <div class="form-group form-group-sm">
-      <label class="col-xs-2 control-label my-control-label">用户名</label>
+      <label class="col-xs-2 control-label my-control-label">Email</label>
       <div class="col-xs-5">
-        <input type="text" class="form-control" id="username" name="username" placeholder="用户名或电子邮箱地址">
+        <input type="text" class="form-control" v-model="email" placeholder="电子邮箱地址">
       </div>
     </div>
     <div class="form-group form-group-sm">
       <label class="col-xs-2 control-label">密码</label>
       <div class="col-xs-5">
-        <input type="password" class="form-control" id="password" name="password">
+        <input type="password" class="form-control" v-model="password">
       </div>
     </div>
     <div class="form-group form-group-sm">
       <div class="col-xs-offset-2 col-xs-6">
-        <button type="submit" class="btn btn-default btn-sm">登录</button> <a href="/forgot">我忘记密码了?</a>
+        <button class="btn btn-default btn-sm" v-on:click="loginClick">登录</button> <a href="/forgot">我忘记密码了?</a>
       </div>
     </div>
-  </form>
+  </div>
 </div>
 </template>
+
+<script>
+import { login, logout } from '../../vuex/actions'
+
+export default {
+  data: function () {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  vuex: {
+    actions: {
+      login,
+      logout
+    }
+  },
+  methods: {
+    loginClick () {
+      var router = this.$router
+      this.login(this.email, this.password, function () {
+        if (router._currentRoute.query && router._currentRoute.query.redirect) {
+          router.go(decodeURIComponent(router._currentRoute.query.redirect))
+        } else {
+          router.go('/')
+        }
+      })
+    }
+  },
+  created: function () {
+    // `this` points to the vm instance
+    this.logout()
+  }
+}
+</script>
 
 <style>
 a {
