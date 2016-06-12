@@ -46,7 +46,7 @@ export default {
   methods: {
     loginClick () {
       var router = this.$router
-      this.login(this.email, this.password, function () {
+      this.login(this.email, this.password).then(function () {
         if (router._currentRoute.query && router._currentRoute.query.redirect) {
           router.go(decodeURIComponent(router._currentRoute.query.redirect))
         } else {

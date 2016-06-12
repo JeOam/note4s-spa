@@ -2,16 +2,25 @@
   <ul class="notebook-container">
     <li><span>My Notes: </span></li>
     <li>
-      <select class="notebook-select" @change="updateNotebookInfo">
-        <option v-bind:value="notebook.id" v-for="notebook in notebooks">
-          {{ notebook.name }}
-        </option>
-      </select>
+      <div v-if="!notebooks.length">
+        <select class="notebook-select">
+          <option>
+            Default Notebook
+          </option>
+        </select>
+      </div>
+      <div v-if="notebooks.length">
+        <select class="notebook-select" @change="updateNotebookInfo">
+          <option v-bind:value="notebook.id" v-for="notebook in notebooks">
+            {{ notebook.name }}
+          </option>
+        </select>
+      </div>
     </li>
   </ul>
 
   <div id="main-sortable">
-    <div v-if="!notebookInfo.length"> Empty Note Book.</div>
+    <div v-if="!notebookInfo || !notebookInfo.length"> Empty Note Book.</div>
     <div class="sub-sortable" v-for="session in notebookInfo" v-if="notebookInfo.length">
       <div class="title-sortable" >
         {{ session.sessionName }}

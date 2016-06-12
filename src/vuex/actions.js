@@ -11,14 +11,16 @@ export const updateNotebookInfo = function ({dispatch}, e) {
   dispatch('UPDATENOTEBOOKINFO', e.target.value)
 }
 
-export const login = function ({dispatch}, email, password, callback) {
-  api.login(email, password, function (data) {
-    if (data.status === falure) {
-      dispatch('SETALERT', data.message, 'warning')
-    } else if (data.status === success) {
-      dispatch('LOGIN', data.data.key)
-      callback()
-    }
+export const login = function ({dispatch}, email, password) {
+  return new Promise((resolve, reject) => {
+    api.login(email, password).then(function (data) {
+      if (data.status === falure) {
+        dispatch('SETALERT', data.message, 'warning')
+      } else if (data.status === success) {
+        dispatch('LOGIN', data.data.key)
+        resolve()
+      }
+    })
   })
 }
 
