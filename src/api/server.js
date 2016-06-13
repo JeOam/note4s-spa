@@ -5,7 +5,7 @@ var login = function (email, password) {
     Vue.http.post('api/rest-auth/login/', {email: email, password: password}).then((response) => {
       resolve(response.data)
     }, (response) => {
-      reject({
+      resolve({
         'status': 'FAILURE',
         'message': '登录失败，请检查网络连接。'
       })
