@@ -1,0 +1,17 @@
+@import '~nprogress/nprogress';
+
+#nprogress {
+  $color: #778087;
+
+  .bar {
+    background: $color;
+  }
+  .peg {
+    box-shadow: 0 0 10px $color, 0 0 5px $color;
+  }
+
+  .spinner-icon {
+    border-top-color: $color;
+    border-left-color: $color;
+  }
+}

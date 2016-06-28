@@ -17,7 +17,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import 'scss/nprogress';
+
 body {
   padding: 0;
   margin: 0;

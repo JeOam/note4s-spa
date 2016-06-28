@@ -1,3 +1,4 @@
+import NProgress from 'nprogress'
 import store from './vuex/store' // vuex store instance
 
 export default function (router) {
@@ -32,11 +33,15 @@ export default function (router) {
     }
   })
   router.beforeEach(function (transition) {
+    NProgress.start()
     if (transition.to.auth && !store.state.token) {
       let redirect = encodeURIComponent(transition.to.path)
       transition.redirect('/login?redirect=' + redirect)
     } else {
       transition.next()
     }
+  })
+  router.afterEach(() => {
+    NProgress.done()
   })
 }
