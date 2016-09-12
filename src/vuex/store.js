@@ -17,6 +17,15 @@ let getToken = function () {
   }
 }
 
+let getAlertMessage = function () {
+  var message = localStorage.getItem('alertMessage')
+  if (message) {
+    return message
+  } else {
+    return ''
+  }
+}
+
 let getCacheNotebooks = function () {
   var notebooks = localStorage.getItem('notebooks')
   if (notebooks) {
@@ -45,7 +54,7 @@ let getCacheNotebookInfo = function (notebook) {
 const state = {
   // Set up our initial state
   token: getToken(),
-  alertMessage: '',
+  alertMessage: getAlertMessage(),
   alertType: 'warning',
   notebooks: [],
   // notebooks: getCacheNotebooks(),
@@ -62,7 +71,8 @@ const mutations = {
     state.notebookInfo = notebookInfo
   },
   SETALERT (state, message, type) {
-    state.alertMessage = message
+    localStorage.setItem('alertMessage', message)
+    state.alertMessage = getAlertMessage()
     state.alertType = type
   },
   LOGIN (state, token) {
