@@ -1,5 +1,5 @@
 <template>
-  <ul class="notebook-container">
+  <!-- <ul class="notebook-container">
     <li><span>My Notes: </span></li>
     <li>
       <div v-if="!notebooks.length">
@@ -29,7 +29,7 @@
         <li><a href="{{ note.link }}">{{ note.title }}</a></li>
       </div>
     </div>
-  </div>
+  </div> -->
 </template>
 
 <script>

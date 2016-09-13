@@ -19,23 +19,4 @@ export default {
 
 <style lang="scss">
 @import 'scss/nprogress';
-
-body {
-  padding: 0;
-  margin: 0;
-  font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
-}
-div {
-  display: block;
-}
-a {
-  color: #4078c0;
-  text-decoration: none;
-}
-a:hover, a:visited, a:link, a:active {
-  text-decoration: none;
-}
-input {
-  outline: none;
-}
 </style>

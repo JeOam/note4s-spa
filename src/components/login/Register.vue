@@ -1,9 +1,9 @@
 <template>
-  <main-container>
+  <!-- <main-container>
     <div slot="main-pannel-slot">
       <register-form></register-form>
     </div>
-  </main-container>
+  </main-container> -->
 </template>
 
 <script>
