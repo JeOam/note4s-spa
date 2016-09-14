@@ -1,6 +1,6 @@
 // import NProgress from 'nprogress'
 export default [
-  {path: '/', name: 'index', component: require('./components/index/Index.vue')}
+  {path: '/', name: 'index', component: require('./components/Index.vue')}
 ]
 
 // function (router) {
