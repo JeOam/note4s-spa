@@ -1,3 +1,5 @@
+import 'babel-polyfill'
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
@@ -30,9 +32,9 @@ const afterEach = function (route, redirect, next) {
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
-  routes: routes,
-  beforeEach: beforeEach,
-  afterEach: afterEach
+  routes,
+  beforeEach,
+  afterEach
 })
 
 new Vue({

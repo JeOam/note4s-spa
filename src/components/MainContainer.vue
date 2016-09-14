@@ -32,7 +32,6 @@ export default {
 .main-container {
   text-align: center;
   background-color: #e2e2e2;
-  background-image: url("../assets/shadow_light.png");
   background-repeat: repeat-x;
 }
 

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import Navigation from './components/Navigation'
-import store from './vuex/store'
+import Navigation from 'layout/Navigation'
+import store from 'our-vuex/store'
 
 export default {
   components: {
@@ -18,5 +18,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'scss/nprogress';
+@import 'src/scss/app';
 </style>

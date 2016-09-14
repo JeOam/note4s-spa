@@ -18,7 +18,11 @@ module.exports = {
     alias: {
       'src': path.resolve(__dirname, '../src'),
       'assets': path.resolve(__dirname, '../src/assets'),
-      'components': path.resolve(__dirname, '../src/components')
+      'components': path.resolve(__dirname, '../src/components'),
+      'api': path.resolve(__dirname, '../src/api'),
+      'filters': path.resolve(__dirname, '../src/filters'),
+      'our-vuex': path.resolve(__dirname, '../src/vuex'),
+      'layout': path.resolve(__dirname, '../src/components/layout')
     }
   },
   resolveLoader: {
@@ -83,4 +87,10 @@ module.exports = {
       })
     ]
   }
+  // plugins: [
+  //   new webpack.ProvidePlugin({
+  //     $: "jquery",
+  //     jQuery: "jquery"
+  //   })
+  // ]
 }
