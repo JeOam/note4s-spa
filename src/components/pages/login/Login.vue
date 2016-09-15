@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MainContainer from '../MainContainer'
+import MainContainer from 'layout/MainContainer'
 import LoginForm from './LoginForm'
 
 export default {

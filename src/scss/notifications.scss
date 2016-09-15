@@ -1,0 +1,34 @@
+.notifications {
+  position: fixed;
+  top: 55px;
+  right: 20px;
+  z-index: 1024;
+  pointer-events: none;
+  max-width: 320px;
+}
+.notification {
+  border-radius: 5px;
+  padding: 20px;
+  position: relative;
+  min-width: 240px;
+  backface-visibility: hidden;
+  pointer-events: all;
+  margin-bottom: 5px;
+}
+.notification.is-success {
+  background-color: #44a340;
+  color: white;
+}
+.notification.is-warning {
+  background-color: #fce473;
+  color: rgba(17, 17, 17, 0.5);
+}
+.notification.is-error {
+  background-color: #ed6c63;
+  color: white;
+}
+.notification .delete {
+  border-radius: 0 3px;
+  float: right;
+  margin: -20px -20px 0 20px;
+}

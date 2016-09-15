@@ -1,56 +1,38 @@
 <template>
-  <!-- <ul class="notebook-container">
-    <li><span>My Notes: </span></li>
-    <li>
-      <div v-if="!notebooks.length">
-        <select class="notebook-select">
-          <option>
-            Default Notebook
-          </option>
-        </select>
-      </div>
-      <div v-if="notebooks.length">
-        <select class="notebook-select" @change="updateNotebookInfo">
-          <option v-bind:value="notebook.id" v-for="notebook in notebooks">
-            {{ notebook.name }}
-          </option>
-        </select>
-      </div>
-    </li>
-  </ul>
-
   <div id="main-sortable">
+    <ul class="notebook-container">
+      <li><span>My Notes: </span></li>
+      <li>
+        <div v-if="!notebooks.length">
+          <select class="notebook-select">
+            <option>
+              Default Notebook
+            </option>
+          </select>
+        </div>
+        <div v-if="notebooks.length">
+          <select class="notebook-select" @change="updateNotebookInfo">
+            <option :value="notebook.id" v-for="notebook in notebooks">
+              {{ notebook.name }}
+            </option>
+          </select>
+        </div>
+      </li>
+    </ul>
     <div v-if="!notebookInfo || !notebookInfo.length"> Empty Note Book.</div>
     <div class="sub-sortable" v-for="session in notebookInfo" v-if="notebookInfo.length">
       <div class="title-sortable" >
         {{ session.sessionName }}
       </div>
       <div class="item-sortable" v-for="note in session.notes" >
-        <li><a href="{{ note.link }}">{{ note.title }}</a></li>
+        <li><a :href="note.link">{{ note.title }}</a></li>
       </div>
     </div>
-  </div> -->
+  </div>
 </template>
 
 <script>
-import { getNotebooks, getNotebookInfo } from '../../vuex/getters'
-import { fetchNotebooks, updateNotebookInfo } from '../../vuex/actions'
-
 export default {
-  vuex: {
-    getters: {
-      notebooks: getNotebooks,
-      notebookInfo: getNotebookInfo
-    },
-    actions: {
-      fetchNotebooks,
-      updateNotebookInfo
-    }
-  },
-  created () {
-    this.fetchNotebooks()
-  }
-
 }
 </script>
 

@@ -37,5 +37,6 @@ npm test
 * 异步函数调用采用 async await 的写法
 
 参考：
+* [2.0 Changes](https://github.com/vuejs/vue/issues/2873)
 * [bulma-templates](https://github.com/dansup/bulma-templates): html templates for the bulma css framework
 * [「大概可能也许是」目前最好的 JavaScript 异步方案 async/await](https://segmentfault.com/a/1190000004031880)

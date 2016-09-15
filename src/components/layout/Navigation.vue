@@ -27,6 +27,7 @@
             Search
           </button>
         </span>
+        <router-link to="login" class="nav-item">Login</router-link>
         <span class="nav-item">
           <a class="button is-primary">
             <span class="icon">

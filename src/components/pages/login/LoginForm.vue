@@ -1,71 +1,54 @@
 <template>
+  <div class="columns">
+    <div class="column is-8 is-offset-2">
+      <h4 class="subtitle">Login</h4>
+      <p class="control has-icon">
+        <input v-model="email" class="input" type="email" placeholder="Email">
+        <i class="fa fa-envelope"></i>
+      </p>
+      <p class="control has-icon">
+        <input v-model="password" class="input" type="password" placeholder="Password">
+        <i class="fa fa-lock"></i>
+      </p>
+      <p class="control">
+        <button @click="clickLogin" class="button is-info">
+          Login
+        </button>
+      </p>
+      <hr>
+      <p class="has-text-centered">
+        <a href="#">Register an Account</a>
+        |
+        <a href="#">Forgot password</a>
+        |
+        <a href="#">Need help?</a>
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
-import { login, logout } from '../../vuex/actions'
+import api from 'api'
 
 export default {
-  data: function () {
+  data () {
     return {
       email: '',
       password: ''
     }
   },
-  vuex: {
-    actions: {
-      login,
-      logout
-    }
-  },
   methods: {
-    loginClick () {
-      var router = this.$router
-      this.login(this.email, this.password).then(function () {
-        if (router._currentRoute.query && router._currentRoute.query.redirect) {
-          router.go(decodeURIComponent(router._currentRoute.query.redirect))
-        } else {
-          router.go('/')
-        }
+    clickLogin () {
+      api.user.login({
+        email: this.email,
+        password: this.password
+      }).then(result => {
+        debugger
       })
     }
-  },
-  created: function () {
-    // `this` points to the vm instance
-    this.logout()
   }
 }
 </script>
 
 <style>
-a {
-  color: #778087;
-  text-decoration: none;
-}
-.header {
-    padding: 10px;
-    font-size: 14px;
-    line-height: 120%;
-    text-align: left;
-    border-bottom: 1px solid #e2e2e2;
-    overflow: auto;
-}
-.chevron {
-    font-family: "Lucida Grande";
-    font-weight: 500;
-}
-.lock-icon {
-  margin-bottom: -2px;
-}
-.login-container {
-    padding: 25px;
-    font-size: 12px;
-    line-height: 120%;
-    text-align: left;
-    border-bottom: 1px solid #e2e2e2;
-}
-.control-label {
-    padding-top: 7px;
-    margin-bottom: 0;
-    text-align: right;
-}
 </style>

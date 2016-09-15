@@ -1,6 +1,10 @@
 <template>
   <main-container>
     <div slot="main-pannel-slot">
+      <note-guide></note-guide>
+    </div>
+    <div slot="right-pannel-slot">
+      <note-guide></note-guide>
     </div>
   </main-container>
 </template>
