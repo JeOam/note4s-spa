@@ -54,8 +54,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .nav-container {
   background-color: #f5f5f5;
+  > div {
+    width: 980px;
+  }
 }
 </style>
