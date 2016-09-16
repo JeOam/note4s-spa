@@ -28,7 +28,8 @@ Vue.http.interceptors.push((request, next) => {
       App.methods.showNotification(
         'Network Errors: Please check your network configuration.',
         'warning',
-        3
+        3,
+        app.$children[0]
       )
       response.status = 200
       response.data = {
@@ -37,7 +38,7 @@ Vue.http.interceptors.push((request, next) => {
       }
     } else if (response.status === 401 || response.data.code === 401) {
       // 未登录或登录过期
-      App.methods.showNotification('Please login first.', 'warning', 3)
+      App.methods.showNotification('Please login first.', 'warning', 3, app.$children[0])
       window.localStorage.removeItem('token')
       if (router.app.$route.name !== 'login') {
         window.localStorage.setItem('lastRouteParams', JSON.stringify(router.app.$route.params))
@@ -47,7 +48,7 @@ Vue.http.interceptors.push((request, next) => {
       }
     } else if (response.status >= 300 || response.data.code !== 200) {
       // API 访问出错
-      App.methods.showNotification(JSON.stringify(response.data), 'error', 5)
+      App.methods.showNotification(JSON.stringify(response.data), 'error', 5, app.$children[0])
       response.status = 200
       response.data = {
         code: 200,
@@ -77,12 +78,15 @@ const afterEach = function (route, redirect, next) {
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
+  scrollBehavior: () => ({ y: 0 }),
   routes,
-  beforeEach,
-  afterEach
+  options: {
+    beforeEach,
+    afterEach
+  }
 })
 
-new Vue({
+const app = new Vue({
   router,
   render: h => h(App)
 }).$mount('#app')

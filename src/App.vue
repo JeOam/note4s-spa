@@ -1,43 +1,36 @@
 <template>
   <div id="app">
+    <notification></notification>
     <navigation></navigation>
     <router-view></router-view>
   </div>
 </template>
 <script>
-import Vue from 'vue'
 import Navigation from 'layout/Navigation'
 import Notification from 'layout/Notification'
 import store from 'our-vuex/store'
 
-const NotificationComponent = Vue.extend(Notification)
-const openNotification = (propsData = {
-  title: '',
-  message: '',
-  type: '',
-  direction: '',
-  duration: 3000,
-  container: '.notifications'
-}) => {
-  return new NotificationComponent({
-    el: document.createElement('div'),
-    propsData
-  })
-}
-
 export default {
   components: {
-    Navigation
+    Navigation,
+    Notification
   },
   store: store,
   methods: {
-    showNotification (message, type, duration) {
-      openNotification({
+    showNotification: function (message, type, duration, app) {
+      if (!app) {
+        app = this
+      }
+      let notification = app.$children[0]
+      notification.addNotification({
         message: message,
         type: type,
-        duration: duration * 1000
+        duration: duration
       })
     }
+  },
+  created: function () {
+    this.$root.showNotification = this.showNotification
   }
 }
 </script>
