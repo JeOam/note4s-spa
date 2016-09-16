@@ -2,6 +2,7 @@ import 'babel-polyfill'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Vuex from 'vuex'
 import VueResource from 'vue-resource'
 import NProgress from 'nprogress'
 import App from './App'
@@ -9,8 +10,9 @@ import routes from './routes'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(Vuex)
 
-Vue.http.options.root = 'http://127.0.0.1:8000'
+Vue.http.options.root = 'http://localhost:8000'
 
 const pendingRequest = {}
 Vue.http.interceptors.push((request, next) => {

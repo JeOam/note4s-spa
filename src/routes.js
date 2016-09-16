@@ -1,7 +1,13 @@
 // import NProgress from 'nprogress'
+const lazyLoading = (path) => {
+  return (resolve) => {
+    require([`./components/pages/${path}.vue`], resolve)
+  }
+}
+
 export default [
-  {path: '/', name: 'index', component: require('./components/pages/index/Index.vue')},
-  {path: '/login', name: 'login', component: require('./components/pages/login/Login.vue')}
+  {path: '/', name: 'index', component: lazyLoading('index/Index')},
+  {path: '/login', name: 'login', component: lazyLoading('login/Login')}
 ]
 
 // function (router) {

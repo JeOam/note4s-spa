@@ -1,22 +1,22 @@
 <template>
-  <note-container>
+  <content-container>
     <div slot="content-slot">
       <main-note></main-note>
       <sub-note></sub-note>
       <create-sub-note></create-sub-note>
     </div>
-  </note-container>
+  </content-container>
 </template>
 
 <script>
-import NoteContainer from '../NoteContainer'
+import ContentContainer from 'layout/ContentContainer'
 import MainNote from './MainNote'
 import SubNote from './SubNote'
 import CreateSubNote from './CreateSubNote'
 
 export default {
   components: {
-    NoteContainer,
+    ContentContainer,
     MainNote,
     SubNote,
     CreateSubNote

@@ -2,7 +2,7 @@
   <nav class="nav has-shadow nav-container">
     <div class="container">
       <div class="nav-left">
-        <a class="nav-item is-tab is-active"><i class="fa fa-home"></i> &nbsp; Home</a>
+        <router-link to="index" class="nav-item is-tab is-active"><i class="fa fa-home"></i> &nbsp; Home</router-link>
         <a class="nav-item is-tab"><i class="fa fa-bolt"></i> &nbsp; API tools</a>
       </div>
 

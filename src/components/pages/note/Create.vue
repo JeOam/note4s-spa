@@ -1,5 +1,5 @@
 <template>
-<note-container>
+  <content-container>
     <div slot="content-slot">
         <div class="create-container">
             <div class="create-sub-container">
@@ -25,15 +25,15 @@
             </div>
         </div>
     </div>
-</note-container>
+  </content-container>
 </template>
 
 <script>
-import NoteContainer from '../NoteContainer'
+import ContentContainer from 'layout/ContentContainer'
 
 export default {
   components: {
-    NoteContainer
+    ContentContainer
   }
 }
 </script>

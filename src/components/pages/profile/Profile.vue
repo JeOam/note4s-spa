@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MainContainer from '../MainContainer'
+import MainContainer from 'layout/MainContainer'
 import Contributions from './Contributions'
 
 export default {
