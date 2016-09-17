@@ -1,3 +1,8 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
 const state = {
   // Set up our initial state
   notebooks: [],
@@ -5,7 +10,6 @@ const state = {
   notebookInfo: []
 }
 
-// Create an object storing various mutations. We will write the mutation
 const mutations = {
   // set up our mutations
   GETNOTEBOOKS (state, notebooks) {
@@ -16,7 +20,7 @@ const mutations = {
   }
 }
 
-export default {
+export default new Vuex.Store({
   state,
   mutations
-}
+})

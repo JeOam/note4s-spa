@@ -5,7 +5,7 @@ const baseGet = (url, data) => {
   return new Promise((resolve, reject) => {
     Vue.http.get(url, {params: data}).then((response) => {
       resolve(response.data.data)
-    })
+    }, () => {})
   })
 }
 const baseGetDetail = (url, id) => {
@@ -13,7 +13,7 @@ const baseGetDetail = (url, id) => {
     let computedUrl = url + id
     Vue.http.get(computedUrl).then((response) => {
       resolve(response.data.data)
-    })
+    }, () => {})
   })
 }
 const baseUpdate = (url, data) => {
@@ -21,14 +21,14 @@ const baseUpdate = (url, data) => {
     var _url = url + data.id
     Vue.http.put(_url, data).then((response) => {
       resolve(response.ok)
-    })
+    }, () => {})
   })
 }
 const baseCreate = (url, data) => {
   return new Promise((resolve, reject) => {
     Vue.http.post(url, data).then((response) => {
       resolve([response.ok, response.data.data])
-    })
+    }, () => {})
   })
 }
 const baseDelete = (url, id) => {
@@ -36,7 +36,7 @@ const baseDelete = (url, id) => {
     let _url = url + id
     Vue.http.delete(_url).then((response) => {
       resolve(response.ok)
-    })
+    }, () => {})
   })
 }
 

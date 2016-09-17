@@ -2,15 +2,14 @@ import 'babel-polyfill'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Vuex from 'vuex'
 import VueResource from 'vue-resource'
 import NProgress from 'nprogress'
 import App from './App'
 import routes from './routes'
+import store from './vuex/store'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
-Vue.use(Vuex)
 
 Vue.http.options.root = 'http://localhost:8000'
 
@@ -44,14 +43,15 @@ Vue.http.interceptors.push((request, next) => {
       window.localStorage.removeItem('token')
       if (router.app.$route.name !== 'login') {
         window.localStorage.setItem('lastRouteParams', JSON.stringify(router.app.$route.params))
-        router.go({name: 'login', query: {next: router.app.$route.name}})
+        router.push({name: 'login', query: {next: router.app.$route.name}})
       } else {
-        router.go({name: 'login', query: {next: router.app.$route.query.next}})
+        router.push({name: 'login', query: {next: router.app.$route.query.next}})
       }
     } else if (response.status >= 300 || response.data.code !== 200) {
       // API 访问出错
-      App.methods.showNotification(JSON.stringify(response.data), 'error', 5, app.$children[0])
+      App.methods.showNotification(response.data.message, 'error', 5, app.$children[0])
       response.status = 200
+      response.ok = false
       response.data = {
         code: 200,
         data: []
@@ -90,5 +90,6 @@ const router = new VueRouter({
 
 const app = new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

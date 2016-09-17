@@ -2,7 +2,8 @@
   <nav class="nav has-shadow nav-container">
     <div class="container">
       <div class="nav-left">
-        <router-link to="index" class="nav-item is-tab is-active"><i class="fa fa-home"></i> &nbsp; Home</router-link>
+        <router-link :to="{name: 'index'}" class="nav-item is-tab is-active">
+          <i class="fa fa-home"></i> &nbsp; Home</router-link>
         <a class="nav-item is-tab"><i class="fa fa-bolt"></i> &nbsp; API tools</a>
       </div>
 
@@ -27,7 +28,7 @@
             Search
           </button>
         </span>
-        <router-link to="login" class="nav-item">Login</router-link>
+        <router-link :to="{name: 'login'}" class="nav-item">Login</router-link>
         <span class="nav-item">
           <a class="button is-primary">
             <span class="icon">

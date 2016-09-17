@@ -86,11 +86,11 @@ module.exports = {
         browsers: ['last 2 versions']
       })
     ]
-  }
-  // plugins: [
-  //   new webpack.ProvidePlugin({
-  //     $: "jquery",
-  //     jQuery: "jquery"
-  //   })
-  // ]
+  },
+  plugins: [
+    // new webpack.ProvidePlugin({
+    //   // $: "jquery",
+    //   // jQuery: "jquery"
+    // })
+  ]
 }
