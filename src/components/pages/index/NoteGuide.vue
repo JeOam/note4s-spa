@@ -32,7 +32,20 @@
 </template>
 
 <script>
+import api from 'api'
+
 export default {
+  data () {
+    return {
+      notebooks: [],
+      notebookInfo: []
+    }
+  },
+  mounted: function () {
+    api.note.getNotebooks().then(data => {
+      this.notebooks = data
+    })
+  }
 }
 </script>
 

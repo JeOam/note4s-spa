@@ -4,7 +4,7 @@
       <note-guide></note-guide>
     </div>
     <div slot="right-pannel-slot">
-      <note-guide></note-guide>
+      <profile></profile>
     </div>
   </main-container>
 </template>
@@ -12,11 +12,13 @@
 <script>
 import MainContainer from 'layout/MainContainer'
 import NoteGuide from './NoteGuide'
+import Profile from './Profile'
 
 export default {
   components: {
     MainContainer,
-    NoteGuide
+    NoteGuide,
+    Profile
   }
 }
 </script>

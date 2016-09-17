@@ -44,7 +44,7 @@ export default {
         password: this.password
       }).then(result => {
         if (result[0]) {
-          window.localStorage.setItem('token', JSON.stringify(result[1].key))
+          window.localStorage.setItem('token', result[1].key)
           // api.user.getProfile().then(data => {
           //   window.localStorage.setItem('userinfo', JSON.stringify(data))
           if (this.$route.query.next && this.$route.query.next !== 'login') {

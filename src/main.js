@@ -18,10 +18,9 @@ Vue.http.interceptors.push((request, next) => {
   NProgress.inc(0.2)
   pendingRequest[request.url] = 1
 
-  let tokenInfo = window.localStorage.getItem('token')
-  if (tokenInfo) {
-    tokenInfo = JSON.parse(tokenInfo)
-    request.headers['Authorization'] = 'Bearer ' + tokenInfo.access_token
+  let token = window.localStorage.getItem('token')
+  if (token && !request.url.startsWith('api/rest-auth')) {
+    request.headers.set('authorization', `Token ${token}`)
   }
   next((response) => {
     if (!response.ok && response.status === 0) {
@@ -67,25 +66,18 @@ Vue.http.interceptors.push((request, next) => {
   })
 })
 
-const beforeEach = function (route, redirect, next) {
-  NProgress.inc(0.2)
-  next()
-}
-
-const afterEach = function (route, redirect, next) {
-  NProgress.done()
-  next()
-}
-
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   scrollBehavior: () => ({ y: 0 }),
-  routes,
-  options: {
-    beforeEach,
-    afterEach
-  }
+  routes
+})
+router.beforeEach((route, redirect, next) => {
+  NProgress.inc(0.2)
+  next()
+})
+router.afterEach((route, redirect, next) => {
+  NProgress.done()
 })
 
 const app = new Vue({
