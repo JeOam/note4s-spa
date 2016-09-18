@@ -3,21 +3,21 @@
     <div slot="content-slot">
         <div class="create-container">
             <div class="create-sub-container">
-                <select class="select-session">
+                <select class="select-common">
                     <option value="volvo">我的 Python 笔记</option>
                     <option value="saab">Saab</option>
                     <option value="mercedes">Mercedes</option>
                     <option value="audi">Audi</option>
                 </select>
                 ->
-                <select class="select-session">
+                <select class="select-common">
                     <option value="volvo">源码解析</option>
                     <option value="saab">Saab</option>
                     <option value="mercedes">Mercedes</option>
                     <option value="audi">Audi</option>
                 </select>
                 ->
-                <span class="create-new-note">新笔记</span>
+                <span class="span-box">新笔记</span>
             </div>
             <div class="create-sub-container">
                 <input class="note-title" placeholder="Note title..." />
@@ -39,13 +39,6 @@ export default {
 </script>
 
 <style scoped>
-.create-container {
-  width: 960px;
-  margin-top: 10px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
 .create-sub-container {
   background-color: white;
   width: 100%;
@@ -60,21 +53,15 @@ export default {
   box-sizing: border-box;
 }
 
-.select-session {
+.select-common {
   background-color: #fff;
   height: 25px;
-  color: #333;
-  text-shadow: 0px 1px 0px #fff;
   text-decoration: none;
-  box-shadow: 0px 1px 0px rgba(66, 66, 77, 0.1);
   margin-right: 6px;
   margin-left: 6px;
 }
-.select-session:first-of-type {
-  margin-left: 0px;
-}
 
-.create-new-note {
+.span-box {
   margin-right: 6px;
   margin-left: 6px;
   border-color: #bfccd1;

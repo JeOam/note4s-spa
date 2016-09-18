@@ -11,8 +11,8 @@ const baseGet = (url, data) => {
 }
 const baseGetDetail = (url, id) => {
   return new Promise((resolve, reject) => {
-    let computedUrl = url + id
-    Vue.http.get(computedUrl).then((response) => {
+    let _url = url + id
+    Vue.http.get(_url).then((response) => {
       resolve(response.data.data)
     }, () => {})
   })

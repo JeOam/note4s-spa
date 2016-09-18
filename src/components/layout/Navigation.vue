@@ -7,14 +7,6 @@
         <a class="nav-item is-tab"><i class="fa fa-bolt"></i> &nbsp; API tools</a>
       </div>
 
-      <div class="nav-center">
-        <a class="nav-item" href="#">
-          <span class="icon">
-            <i class="fa fa-twitter"></i>
-          </span>
-        </a>
-      </div>
-
       <span @click="toggleNav" class="nav-toggle" :class="{'is-active': navMenuOpen}">
         <span></span>
         <span></span>
@@ -27,6 +19,9 @@
           <button class="button">
             Search
           </button>
+        </span>
+        <span class="nav-item">
+          <router-link :to="{name: 'new note'}" class="button">New Note</router-link>
         </span>
         <router-link :to="{name: 'login'}" class="nav-item">Login</router-link>
         <span class="nav-item">

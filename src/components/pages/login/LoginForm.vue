@@ -1,30 +1,36 @@
 <template>
-  <div class="columns">
-    <div class="column is-8 is-offset-2">
-      <h4 class="subtitle">Login</h4>
-      <p class="control has-icon">
-        <input v-model="email" class="input" type="email" placeholder="Email">
-        <i class="fa fa-envelope"></i>
-      </p>
-      <p class="control has-icon">
-        <input v-model="password" class="input" type="password" placeholder="Password">
-        <i class="fa fa-lock"></i>
-      </p>
-      <p class="control">
-        <button @click="clickLogin" class="button is-info">
-          Login
-        </button>
-      </p>
-      <hr>
-      <p class="has-text-centered">
-        <a href="#">Register an Account</a>
-        |
-        <a href="#">Forgot password</a>
-        |
-        <a href="#">Need help?</a>
-      </p>
+  <article class="message">
+    <div class="message-header">
+    Login
+    </div>
+  <div class="message-body">
+    <div class="columns message-spacer">
+      <div class="column is-8 is-offset-2">
+        <p class="control has-icon">
+          <input v-model="email" class="input" type="email" placeholder="Email">
+          <i class="fa fa-envelope"></i>
+        </p>
+        <p class="control has-icon">
+          <input v-model="password" class="input" type="password" placeholder="Password">
+          <i class="fa fa-lock"></i>
+        </p>
+        <p class="control">
+          <button @click="clickLogin" class="button is-info">
+            Login
+          </button>
+        </p>
+        <hr>
+        <p class="has-text-centered">
+          <a href="#">Register an Account</a>
+          |
+          <a href="#">Forgot password</a>
+          |
+          <a href="#">Need help?</a>
+        </p>
+      </div>
     </div>
   </div>
+</article>
 </template>
 
 <script>
@@ -67,5 +73,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+.message-spacer {
+  margin-top: 20px;
+}
 </style>
