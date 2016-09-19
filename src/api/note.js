@@ -8,7 +8,12 @@ const getNoteDetail = (id) => {
   return api.baseGetDetail('api/note/', id)
 }
 
+const createNote = (data) => {
+  return api.baseCreate('', data)
+}
+
 export default {
   getNotebooks,
-  getNoteDetail
+  getNoteDetail,
+  createNote
 }

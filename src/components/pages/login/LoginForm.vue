@@ -4,7 +4,7 @@
     Login
     </div>
   <div class="message-body">
-    <div class="columns message-spacer">
+    <div class="columns top-spacer">
       <div class="column is-8 is-offset-2">
         <p class="control has-icon">
           <input v-model="email" class="input" type="email" placeholder="Email">
@@ -72,9 +72,5 @@ export default {
   }
 }
 </script>
-
 <style lang="scss" scoped>
-.message-spacer {
-  margin-top: 20px;
-}
 </style>

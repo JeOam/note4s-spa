@@ -1,94 +1,95 @@
 <template>
   <content-container>
     <div slot="content-slot">
-      <div class="create-sub-container">
-          <span class="control">
-            <span class="select">
-              <select>
-                <option value="volvo">我的 Python 笔记</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </span>
+      <div class="container">
+        <span class="control">
+          <span class="select">
+            <select v-model="selectedNotebook">
+              <option v-for="notebook in notebooks" :value="notebook">
+                {{ notebook.name }}
+              </option>
+            </select>
           </span>
-          <span class="line-height-34">-></span>
-          <span class="control">
-            <span class="select">
-              <select>
-                <option value="volvo">源码解析</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-              </select>
-            </span>
+        </span>
+        <span class="line-height-34">-></span>
+        <span class="control">
+          <span class="select">
+            <select v-model="selectedSection">
+              <option v-if="selectedNotebook" v-for="section in selectedNotebook.note_sections" :value="section">
+                {{ section.name }}
+              </option>
+            </select>
           </span>
-          ->
-          <a class="button">新笔记</span>
+        </span>
+        <span class="line-height-34">-></span>
+        <span class="button">新笔记</span>
       </div>
-      <div class="create-sub-container">
-          <input class="note-title" placeholder="Note title..." />
-          <textarea class="note-detail" placeholder="Note detail..."></textarea>
+      <div class="container top-spacer">
+        <p class="control">
+          <input v-model="title" class="input" placeholder="Note title...">
+        </p>
+        <p class="control top-spacer">
+          <textarea v-model="content" class="textarea" placeholder="Note detail..."></textarea>
+        </p>
+        <nav class="level">
+          <div class="level-left"></div>
+          <div class="level-right">
+            <p class="level-item">
+              <a @click="submit" class="button is-primary">Save changes</a>
+            </p>
+          </div>
+        </nav>
       </div>
     </div>
   </content-container>
 </template>
-
 <script>
+import api from 'api'
 import ContentContainer from 'layout/ContentContainer'
 
 export default {
   components: {
     ContentContainer
+  },
+  data () {
+    return {
+      selectedNotebook: '',
+      selectedSection: '',
+      notebooks: [],
+      notebookInfo: [],
+      title: '',
+      content: ''
+    }
+  },
+  watch: {
+    selectedNotebook: function (val) {
+      if (this.selectedNotebook.note_sections &&
+          this.selectedNotebook.note_sections.length) {
+        this.selectedSection = this.selectedNotebook.note_sections[0]
+      }
+    }
+  },
+  methods: {
+    submit: function () {
+      api.note.createNote({
+        title: this.title,
+        content: this.content,
+        section_id: this.selectedSection
+      }).then(result => {
+        if (result[0]) {
+        }
+      })
+    }
+  },
+  mounted: function () {
+    api.note.getNotebooks().then(data => {
+      this.notebooks = data.results
+      this.selectedNotebook = this.notebooks.length ? this.notebooks[0] : ''
+      this.selectedSection = this.selectedNotebook.note_sections.length
+                             ? this.selectedNotebook.note_sections[0] : ''
+    })
   }
 }
 </script>
-
-<style scoped>
-.create-sub-container {
-  background-color: white;
-  width: 100%;
-  min-height: 34px;
-  padding: 7px 0px;
-  font-size: 13px;
-  color: #333;
-  vertical-align: middle;
-  border-radius: 3px;
-  outline: none;
-  margin-left: 8px;
-  box-sizing: border-box;
-}
-
-.note-title {
-  background-color: #fafafa;
-  width: 100%;
-  min-height: 34px;
-  padding: 7px 8px;
-  font-size: 13px;
-  color: #333;
-  vertical-align: middle;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  outline: none;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
-  box-sizing: border-box;
-}
-
-.note-detail {
-  background-color: #fafafa;
-  width: 100%;
-  max-width: 100%;
-  height: 400px;
-  max-height: 400px;
-  padding: 7px 8px;
-  font-size: 13px;
-  color: #333;
-  vertical-align: middle;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  outline: none;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,0.075);
-  margin-top: 10px;
-  box-sizing: border-box;
-}
+<style lang="scss" scoped>
 </style>

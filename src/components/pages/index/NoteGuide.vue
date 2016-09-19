@@ -35,6 +35,7 @@ export default {
   data () {
     return {
       selectedNotebook: '',
+      selectedSection: '',
       notebooks: [],
       notebookInfo: []
     }
