@@ -1,29 +1,35 @@
 <template>
   <content-container>
     <div slot="content-slot">
-        <div class="create-container">
-            <div class="create-sub-container">
-                <select class="select-common">
-                    <option value="volvo">我的 Python 笔记</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
-                ->
-                <select class="select-common">
-                    <option value="volvo">源码解析</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                </select>
-                ->
-                <span class="span-box">新笔记</span>
-            </div>
-            <div class="create-sub-container">
-                <input class="note-title" placeholder="Note title..." />
-                <textarea class="note-detail" placeholder="Note detail..."></textarea>
-            </div>
-        </div>
+      <div class="create-sub-container">
+          <span class="control">
+            <span class="select">
+              <select>
+                <option value="volvo">我的 Python 笔记</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </span>
+          </span>
+          <span class="line-height-34">-></span>
+          <span class="control">
+            <span class="select">
+              <select>
+                <option value="volvo">源码解析</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
+            </span>
+          </span>
+          ->
+          <a class="button">新笔记</span>
+      </div>
+      <div class="create-sub-container">
+          <input class="note-title" placeholder="Note title..." />
+          <textarea class="note-detail" placeholder="Note detail..."></textarea>
+      </div>
     </div>
   </content-container>
 </template>
@@ -51,29 +57,6 @@ export default {
   outline: none;
   margin-left: 8px;
   box-sizing: border-box;
-}
-
-.select-common {
-  background-color: #fff;
-  height: 25px;
-  text-decoration: none;
-  margin-right: 6px;
-  margin-left: 6px;
-}
-
-.span-box {
-  margin-right: 6px;
-  margin-left: 6px;
-  border-color: #bfccd1;
-  border: 1px solid rgba(0,0,0,0.1);
-  border-radius: 4px;
-  color: #767676;
-  padding-top: 1px;
-  padding-left: 4px;
-  padding-right: 4px;
-  padding-bottom: 2px;
-  text-align: center;
-  display: inline-block;
 }
 
 .note-title {
