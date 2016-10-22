@@ -11,7 +11,7 @@ import store from './vuex/store'
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
-Vue.http.options.root = 'http://localhost:8000'
+Vue.http.options.root = 'http://localhost:8888'
 
 const pendingRequest = {}
 Vue.http.interceptors.push((request, next) => {
@@ -20,7 +20,7 @@ Vue.http.interceptors.push((request, next) => {
 
   let token = window.localStorage.getItem('token')
   if (token && !request.url.startsWith('api/rest-auth')) {
-    request.headers.set('authorization', `Token ${token}`)
+    request.headers.set('authorization', `${token}`)
   }
   next((response) => {
     if (!response.ok && response.status === 0) {
@@ -48,7 +48,7 @@ Vue.http.interceptors.push((request, next) => {
       }
     } else if (response.status >= 300 || response.data.code !== 200) {
       // API 访问出错
-      App.methods.showNotification(response.data.message, 'error', 5, app.$children[0])
+      App.methods.showNotification(response.data, 'error', 5, app.$children[0])
       response.status = 200
       response.ok = false
       response.data = {

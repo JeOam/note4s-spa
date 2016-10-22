@@ -4,6 +4,10 @@ const getNotebooks = () => {
   return api.baseGet('api/notebook/')
 }
 
+const createNotebook = (name) => {
+  return api.baseCreate('api/notebook/')
+}
+
 const getNoteDetail = (id) => {
   return api.baseGetDetail('api/note/', id)
 }
@@ -14,6 +18,7 @@ const createNote = (data) => {
 
 export default {
   getNotebooks,
+  createNotebook,
   getNoteDetail,
   createNote
 }

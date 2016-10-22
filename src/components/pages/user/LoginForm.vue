@@ -21,11 +21,9 @@
         </p>
         <hr>
         <p class="has-text-centered">
-          <a href="#">Register an Account</a>
+          <router-link :to="{name: 'register'}">Register an Account</router-link>
           |
           <a href="#">Forgot password</a>
-          |
-          <a href="#">Need help?</a>
         </p>
       </div>
     </div>
@@ -50,7 +48,7 @@ export default {
         password: this.password
       }).then(result => {
         if (result[0]) {
-          window.localStorage.setItem('token', result[1].key)
+          window.localStorage.setItem('token', result[1])
           // api.user.getProfile().then(data => {
           //   window.localStorage.setItem('userinfo', JSON.stringify(data))
           if (this.$route.query.next && this.$route.query.next !== 'login') {

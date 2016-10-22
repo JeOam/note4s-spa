@@ -7,7 +7,8 @@ const lazyLoading = (path) => {
 
 export default [
   {path: '/', name: 'index', component: lazyLoading('index/Index')},
-  {path: '/login', name: 'login', component: lazyLoading('login/Login')},
+  {path: '/login', name: 'login', component: lazyLoading('user/Login')},
+  {path: '/register', name: 'register', component: lazyLoading('user/Register')},
   {path: '/note/new', name: 'new note', component: lazyLoading('note/Create')},
   {path: '/note/:noteId', name: 'note detail', component: lazyLoading('note/Detail')}
 ]
