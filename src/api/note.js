@@ -5,7 +5,7 @@ const getNotebooks = () => {
 }
 
 const createNotebook = (name) => {
-  return api.baseCreate('api/notebook/')
+  return api.baseCreate('api/notebook/', {name: name})
 }
 
 const getNoteDetail = (id) => {

@@ -39,6 +39,12 @@ Vue.http.interceptors.push((request, next) => {
     } else if (response.status === 401 || response.data.code === 401) {
       // 未登录或登录过期
       App.methods.showNotification('Please login first.', 'warning', 3, app.$children[0])
+      response.status = 200
+      response.ok = false
+      response.data = {
+        code: 200,
+        data: []
+      }
       window.localStorage.removeItem('token')
       if (router.app.$route.name !== 'login') {
         window.localStorage.setItem('lastRouteParams', JSON.stringify(router.app.$route.params))

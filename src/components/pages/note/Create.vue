@@ -11,7 +11,7 @@
             </select>
           </span>
         </span>
-        <span class="line-height-34">-></span>
+        <span class="line-height-32">-></span>
         <span class="control">
           <span class="select">
             <select v-model="selectedSection">
@@ -21,7 +21,7 @@
             </select>
           </span>
         </span>
-        <span class="line-height-34">-></span>
+        <span class="line-height-32">-></span>
         <span class="button">新笔记</span>
       </div>
       <div class="container top-spacer">

@@ -5,9 +5,18 @@ $fa-font-path: '~font-awesome/fonts/';
 @import './bulma';
 @import './notifications';
 
-.line-height-34 {
+.line-height-32 {
   line-height: 32px;
 }
 .top-spacer {
   margin-top: 20px;
+}
+
+.fa-13 {
+  font-size: 13px;
+  padding-top: 8px;
+}
+
+.clickable {
+  cursor: pointer;
 }

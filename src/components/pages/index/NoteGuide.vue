@@ -7,45 +7,64 @@
             <option v-for="notebook in notebooks" :value="notebook">
               {{ notebook.name }}
             </option>
+            <option>
+              Edit
+            </option>
           </select>
         </span>
         <span v-else class="center-content is-centered">
-          <a @click="toggleModal" class="button">New Notebook</a>
-          <div class="modal" :class="{'is-active': modalActive }">
-            <div @click="toggleModal" class="modal-background"></div>
-            <div class="modal-content">
-              <div class="box">
-                <article class="media">
-                  <div class="media-content">
-                    <div class="content">
-                      <p class="control has-addons has-addons-centered">
-                        <input v-model="newNotebook" class="input" type="text" placeholder="Notebook Name">
-                        <a @click="addNewNotebook" class="button is-primary">
-                          Save
-                        </a>
-                      </p>
-                    </div>
-                  </div>
-                </article>
-              </div>
-            </div>
-            <button @click="toggleModal" class="modal-close"></button>
-          </div>
+          <a class="button">New Notebook</a>
         </span>
       </p>
     </div>
-    <div v-if="selectedNotebook" class="message-body">
-      <div v-for="section in selectedNotebook.note_sections">
+    <div v-if="selectedNotebook.id" class="message-body">
+      <div v-for="section in selectedNotebook.children">
         <div>
           {{ section.name }}
         </div>
-        <div v-for="note in section.notes">
+        <div v-for="note in section.children">
           <li>
-            <router-link :to="{name: 'note detail', params: {noteId: note.uuid}}">
-              {{ note.title }}
+            <router-link :to="{name: 'note detail', params: {noteId: note.note_id}}">
+              {{ note.name }}
             </router-link>
           </li>
         </div>
+      </div>
+    </div>
+    <div v-if="!selectedNotebook.id" class="message-body">
+      <div v-for="notebook in notebooks">
+        <div>
+          Notebook:<span class="notebook-name">{{ notebook.name }}</span>
+          <i class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
+        </div>
+        <div class="section-container">
+          <li v-for="section in notebook.children">
+            {{ section.name }}
+          </li>
+          <li>
+            <div class="control is-grouped">
+              <p class="control">
+                <input class="input" type="text" placeholder="New Section">
+              </p>
+              <p class="control">
+                <a @click="addNewSection" class="button is-default">
+                  Create
+                </a>
+              </p>
+            </div>
+          </li>
+        </div>
+      </div>
+      <br>
+      <div class="control is-grouped">
+        <p class="control">
+          <input v-model="newNotebook" class="input" type="text" placeholder="New Notebook">
+        </p>
+        <p class="control">
+          <a @click="addNewNotebook" class="button is-default">
+            Create
+          </a>
+        </p>
       </div>
     </div>
   </article>
@@ -66,11 +85,7 @@ export default {
     }
   },
   methods: {
-    toggleModal: function () {
-      this.modalActive = !this.modalActive
-    },
     addNewNotebook: function () {
-      this.modalActive = false
       api.note.createNotebook(this.newNotebook).then(result => {
         if (result[0]) {
           api.note.getNotebooks().then(data => {
@@ -79,6 +94,8 @@ export default {
           })
         }
       })
+    },
+    addNewSection: function () {
     }
   },
   mounted: function () {
@@ -99,6 +116,27 @@ export default {
   > select {
     background-color: transparent;
     color: white;
+  }
+}
+.notebook-name {
+  font-size: 18px;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.section-container {
+  height: 24px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  div {
+    display: inline-flex;
+  }
+  input {
+    height: 24px;
+  }
+  a {
+    height: 24px;
   }
 }
 </style>
