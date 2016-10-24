@@ -44,10 +44,10 @@
           <li>
             <div class="control is-grouped">
               <p class="control">
-                <input class="input" type="text" placeholder="New Section">
+                <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
               </p>
               <p class="control">
-                <a @click="addNewSection" class="button is-default">
+                <a @click="addNewSection(notebook.id)" class="button is-default">
                   Create
                 </a>
               </p>
@@ -77,32 +77,52 @@ export default {
   data () {
     return {
       selectedNotebook: '',
-      selectedSection: '',
-      modalActive: false,
       newNotebook: '',
-      notebooks: [],
-      notebookInfo: []
+      newSections: '',
+      notebooks: []
     }
   },
   methods: {
     addNewNotebook: function () {
-      api.note.createNotebook(this.newNotebook).then(result => {
+      let params = {
+        name: this.newNotebook
+      }
+      api.note.createNotebook(params).then(result => {
         if (result[0]) {
-          api.note.getNotebooks().then(data => {
-            this.notebooks = data
-            this.selectedNotebook = this.notebooks.length ? this.notebooks[0] : ''
-          })
+          this.getNotebooks()
         }
       })
     },
-    addNewSection: function () {
+    addNewSection: function (id) {
+      let params = {
+        parent_id: id,
+        name: this.newSections[id]
+      }
+      api.note.createNotebook(params).then(result => {
+        if (result[0]) {
+          this.getNotebooks()
+        }
+      })
+    },
+    getNotebooks: function () {
+      api.note.getNotebooks().then(data => {
+        this.notebooks = data
+        this.newSections = {}
+        for (let notebook of this.notebooks) {
+          this.newSections[notebook.id] = ''
+          if (notebook.name === '') {
+            this.selectedNotebook = notebook
+          }
+        }
+        if (this.selectedNotebook === '' &&
+            this.notebooks.length) {
+          this.selectedNotebook = this.notebooks[0]
+        }
+      })
     }
   },
   mounted: function () {
-    api.note.getNotebooks().then(data => {
-      this.notebooks = data
-      this.selectedNotebook = this.notebooks.length ? this.notebooks[0] : ''
-    })
+    this.getNotebooks()
   }
 }
 </script>
