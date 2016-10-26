@@ -35,11 +35,12 @@
       <div v-for="notebook in notebooks">
         <div>
           Notebook:<span class="notebook-name">{{ notebook.name }}</span>
-          <i class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
+          <i @click="deleteNotebook(notebook)" class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
         </div>
         <div class="section-container">
           <li v-for="section in notebook.children">
             {{ section.name }}
+            <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
           </li>
           <li>
             <div class="control is-grouped">
@@ -104,6 +105,18 @@ export default {
         }
       })
     },
+    deleteNotebook: function (notebook) {
+      if (notebook.children.length) {
+        this.$root.showNotification('Cannot delete not empty notebook', 'error', 2)
+        return
+      }
+      api.note.deleteNotebook(notebook.id).then(result => {
+        if (result) {
+          this.$root.showNotification('Delete Success', 'success', 2)
+          this.getNotebooks()
+        }
+      })
+    },
     getNotebooks: function () {
       api.note.getNotebooks().then(data => {
         this.notebooks = data
@@ -145,7 +158,6 @@ export default {
   padding-right: 10px;
 }
 .section-container {
-  height: 24px;
   margin-left: 10px;
   margin-top: 5px;
   margin-bottom: 20px;
