@@ -21,7 +21,7 @@
       <main-note :note="note"></main-note>
 
       <div class="subnote-container">
-        <sub-note :subnote="subnote" v-for="subnote in note.sub_notes"></sub-note>
+        <sub-note :subnote="subnote" v-for="subnote in note.subnotes"></sub-note>
       </div>
 
       <article class="media">
@@ -32,10 +32,10 @@
         </figure>
         <div class="media-content">
           <p class="control">
-            <textarea class="textarea" placeholder="Append a note..."></textarea>
+            <textarea v-model="content" class="textarea" placeholder="Append a note..."></textarea>
           </p>
           <p class="control">
-            <button class="button">Append</button>
+            <button @click="submit" class="button">Append</button>
           </p>
         </div>
       </article>
@@ -57,7 +57,22 @@ export default {
   },
   data () {
     return {
-      note: {}
+      note: {},
+      content: ''
+    }
+  },
+  methods: {
+    submit: function () {
+      if (!this.content.length) return
+      api.note.createSubNote({
+        parent_id: this.note.id,
+        content: this.content
+      }).then(result => {
+        if (result[0]) {
+          this.content = ''
+          this.note.subnotes.push(result[1])
+        }
+      })
     }
   },
   mounted: function () {

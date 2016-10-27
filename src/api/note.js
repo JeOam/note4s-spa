@@ -20,10 +20,15 @@ const createNote = (data) => {
   return api.baseCreate('api/note/', data)
 }
 
+const createSubNote = (data) => {
+  return api.baseCreate('api/subnote/', data)
+}
+
 export default {
   getNotebooks,
   createNotebook,
   deleteNotebook,
   getNoteDetail,
-  createNote
+  createNote,
+  createSubNote
 }
