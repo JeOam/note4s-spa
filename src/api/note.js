@@ -17,7 +17,7 @@ const getNoteDetail = (id) => {
 }
 
 const createNote = (data) => {
-  return api.baseCreate('', data)
+  return api.baseCreate('api/note/', data)
 }
 
 export default {

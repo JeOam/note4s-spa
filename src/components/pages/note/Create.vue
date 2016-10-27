@@ -15,7 +15,7 @@
         <span class="control">
           <span class="select">
             <select v-model="selectedSection">
-              <option v-if="selectedNotebook" v-for="section in selectedNotebook.note_sections" :value="section">
+              <option v-if="selectedNotebook" v-for="section in selectedNotebook.children" :value="section">
                 {{ section.name }}
               </option>
             </select>
@@ -56,16 +56,15 @@ export default {
       selectedNotebook: '',
       selectedSection: '',
       notebooks: [],
-      notebookInfo: [],
       title: '',
       content: ''
     }
   },
   watch: {
-    selectedNotebook: function (val) {
-      if (this.selectedNotebook.note_sections &&
-          this.selectedNotebook.note_sections.length) {
-        this.selectedSection = this.selectedNotebook.note_sections[0]
+    selectedNotebook: function () {
+      if (this.selectedNotebook &&
+          this.selectedNotebook.children.length) {
+        this.selectedSection = this.selectedNotebook.children[0]
       }
     }
   },
@@ -74,19 +73,22 @@ export default {
       api.note.createNote({
         title: this.title,
         content: this.content,
-        section_id: this.selectedSection
+        notebook_id: this.selectedSection.id
       }).then(result => {
         if (result[0]) {
+          this.$root.showNotification('Create Success', 'success', 2)
+          this.$router.push({name: 'note detail', params: {noteId: result[1].id}})
         }
       })
     }
   },
   mounted: function () {
     api.note.getNotebooks().then(data => {
-      this.notebooks = data.results
-      this.selectedNotebook = this.notebooks.length ? this.notebooks[0] : ''
-      this.selectedSection = this.selectedNotebook.note_sections.length
-                             ? this.selectedNotebook.note_sections[0] : ''
+      this.notebooks = data
+      if (this.selectedNotebook === '' &&
+          this.notebooks.length) {
+        this.selectedNotebook = this.notebooks[0]
+      }
     })
   }
 }
