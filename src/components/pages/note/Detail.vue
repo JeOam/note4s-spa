@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import VueMarkdown from 'layout/VueMarkdown'
 import ContentContainer from 'layout/ContentContainer'
 import MainNote from './MainNote'
 import SubNote from './SubNote'
@@ -69,7 +68,6 @@ import api from 'api'
 
 export default {
   components: {
-    VueMarkdown,
     ContentContainer,
     MainNote,
     SubNote

@@ -14,6 +14,11 @@ export default {
   components: {
     MainContainer,
     LoginForm
+  },
+  mounted: function () {
+    this.$root.userinfo = ''
+    window.localStorage.removeItem('token')
+    window.localStorage.removeItem('userinfo')
   }
 }
 </script>

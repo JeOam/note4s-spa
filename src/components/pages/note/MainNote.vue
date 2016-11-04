@@ -4,7 +4,7 @@
       头像、作者、发表时间、Revisions、版权声明
     </div>
     <div class="message-body">
-      {{ note.content }}
+      <vue-markdown :source="note.content"></vue-markdown>
     </div>
   </article>
 </template>

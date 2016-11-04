@@ -4,7 +4,7 @@
       <div class="nav-left">
         <router-link :to="{name: 'index'}" class="nav-item is-tab is-active">
           <i class="fa fa-home"></i> &nbsp; Home</router-link>
-        <a class="nav-item is-tab"><i class="fa fa-bolt"></i> &nbsp; API tools</a>
+        <!-- <a class="nav-item is-tab"><i class="fa fa-bolt"></i> &nbsp; API tools</a> -->
       </div>
 
       <span @click="toggleNav" class="nav-toggle" :class="{'is-active': navMenuOpen}">
@@ -23,8 +23,8 @@
         <span class="nav-item">
           <router-link :to="{name: 'new note'}" class="button">New Note</router-link>
         </span>
-        <router-link :to="{name: 'login'}" class="nav-item">Login</router-link>
-        <span class="nav-item">
+        <router-link v-if="!$root.userinfo" :to="{name: 'login'}" class="nav-item">Login</router-link>
+        <span v-if="!$root.userinfo"  class="nav-item">
           <a class="button is-primary">
             <span class="icon">
               <i class="fa fa-github"></i>

@@ -13,7 +13,7 @@ const checkUsername = (name) => {
 }
 
 const getProfile = () => {
-  return api.baseGet('api/profile')
+  return api.baseGet('api/profile/')
 }
 
 export default {

@@ -19,7 +19,7 @@
       </nav>
     </div>
     <div class="message-body">
-      {{ subnote.content }}
+      <vue-markdown :source="subnote.content"></vue-markdown>
     </div>
   </article>
 </template>

@@ -8,8 +8,11 @@ import App from './App'
 import routes from './routes'
 import store from './vuex/store'
 
+import VueMarkdown from 'layout/VueMarkdown'
+
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.component('vue-markdown', VueMarkdown)
 
 Vue.http.options.root = 'http://localhost:8888'
 
