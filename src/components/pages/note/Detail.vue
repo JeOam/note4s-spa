@@ -31,12 +31,29 @@
           </p>
         </figure>
         <div class="media-content">
-          <p class="control">
-            <textarea v-model="content" class="textarea" placeholder="Append a note..."></textarea>
-          </p>
-          <p class="control">
-            <button @click="submit" class="button">Append</button>
-          </p>
+          <article class="message">
+            <div class="message-body">
+              <div class="tabs is-boxed">
+                <ul>
+                  <li @click="focusWrite"
+                      :class="{'is-active': writeActive}">
+                    <a><span>Write</span></a>
+                  </li>
+                  <li @click="focusPreview"
+                      :class="{'is-active': !writeActive}">
+                    <a><span>Preview</span></a>
+                  </li>
+                </ul>
+              </div>
+              <p class="control">
+                <textarea v-if="writeActive" v-model="content" class="textarea" placeholder="Append a note..."></textarea>
+                <vue-markdown v-if="!writeActive" :source="content"></vue-markdown>
+              </p>
+              <p class="control">
+                <button @click="submit" class="button">Append</button>
+              </p>
+            </div>
+          </article>
         </div>
       </article>
     </div>
@@ -44,6 +61,7 @@
 </template>
 
 <script>
+import VueMarkdown from 'layout/VueMarkdown'
 import ContentContainer from 'layout/ContentContainer'
 import MainNote from './MainNote'
 import SubNote from './SubNote'
@@ -51,6 +69,7 @@ import api from 'api'
 
 export default {
   components: {
+    VueMarkdown,
     ContentContainer,
     MainNote,
     SubNote
@@ -58,10 +77,17 @@ export default {
   data () {
     return {
       note: {},
-      content: ''
+      content: '',
+      writeActive: true
     }
   },
   methods: {
+    focusWrite: function () {
+      this.writeActive = true
+    },
+    focusPreview: function () {
+      this.writeActive = false
+    },
     submit: function () {
       if (!this.content.length) return
       api.note.createSubNote({
