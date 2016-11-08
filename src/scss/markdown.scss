@@ -1,5 +1,4 @@
 .markdown-body {
-  padding: 45px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-bottom-right-radius: 3px;
@@ -21,5 +20,20 @@
   }
   code {
     color: #333;
+  }
+  .hljs-built_in {
+    color: #795da3;
+  }
+  .hljs-number {
+    color: #0086b3;
+  }
+  .hljs-title {
+    color: #63a35c;
+  }
+  .hljs-attribute {
+    color: #795da3;
+  }
+  .hljs-value {
+    color: #183691;
   }
 }

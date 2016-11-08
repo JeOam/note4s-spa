@@ -12,6 +12,7 @@ import abbreviation from 'markdown-it-abbr'
 import insert from 'markdown-it-ins'
 import mark from 'markdown-it-mark'
 import toc from 'markdown-it-toc-and-anchor'
+import highlight from 'markdown-it-highlightjs'
 
 export default {
   props: {
@@ -113,7 +114,7 @@ export default {
   methods: {
     reload: function () {
       let md = new MarkdownIt().use(subscript).use(superscript).use(footnote
-      ).use(deflist).use(abbreviation).use(insert).use(mark)
+      ).use(deflist).use(abbreviation).use(insert).use(mark).use(highlight)
       if (this.emoji) {
         md.use(emoji)
       }

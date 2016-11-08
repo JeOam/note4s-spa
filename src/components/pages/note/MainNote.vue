@@ -3,7 +3,7 @@
     <div class="message-header note-header">
       头像、作者、发表时间、Revisions、版权声明
     </div>
-    <div class="message-body markdown-body">
+    <div class="message-body markdown-body main-note">
       <vue-markdown :source="note.content"></vue-markdown>
     </div>
   </article>
@@ -20,4 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.main-note {
+  padding: 45px;
+}
 </style>

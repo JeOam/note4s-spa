@@ -45,7 +45,7 @@
                   </li>
                 </ul>
               </div>
-              <p class="control">
+              <p class="control" :class="{'markdown-body': !writeActive}">
                 <textarea v-if="writeActive" v-model="content" class="textarea" placeholder="Append a note..."></textarea>
                 <vue-markdown v-if="!writeActive" :source="content"></vue-markdown>
               </p>

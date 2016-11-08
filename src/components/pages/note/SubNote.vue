@@ -1,6 +1,6 @@
 <template>
   <article class="message">
-    <div class="message-header">
+    <div class="message-header note-header">
       <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
@@ -18,7 +18,7 @@
         </div>
       </nav>
     </div>
-    <div class="message-body">
+    <div class="message-body markdown-body">
       <vue-markdown :source="subnote.content"></vue-markdown>
     </div>
   </article>
