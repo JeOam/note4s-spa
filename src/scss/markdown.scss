@@ -1,0 +1,25 @@
+.markdown-body {
+  padding: 45px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+
+  ul, ol {
+    padding-left: 2em;
+    list-style: inherit;
+  }
+  ul ul, ol ul {
+    list-style-type: circle;
+  }
+  ol ol ul, ol ul ul, ul ol ul, ul ul ul {
+    list-style-type: square;
+  }
+  ol ul, ul ol, ul ul, ol ol {
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+  }
+  code {
+    color: #333;
+  }
+}

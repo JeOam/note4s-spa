@@ -57,7 +57,7 @@ export default {
     },
     tableClass: {
       type: String,
-      default: 'table'
+      default: ''
     },
     toc: {
       type: Boolean,

@@ -4,6 +4,8 @@ $fa-font-path: '~font-awesome/fonts/';
 @import './nprogress';
 @import './bulma';
 @import './notifications';
+@import './github-markdown';
+@import './markdown';
 
 .line-height-32 {
   line-height: 32px;
@@ -25,4 +27,11 @@ $fa-font-path: '~font-awesome/fonts/';
 
 .clickable {
   cursor: pointer;
+}
+
+.note-header {
+  color: #333;
+  padding: 5px 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
 }
