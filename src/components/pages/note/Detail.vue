@@ -73,8 +73,9 @@ export default {
     }
   },
   methods: {
-    editNote: function (note) {
+    editNote: function (note, height) {
       note._editing = true
+      note._height = height
     },
     cancelNote: function (note) {
       note._editing = false

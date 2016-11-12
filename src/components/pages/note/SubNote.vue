@@ -20,12 +20,13 @@
         </div>
       </nav>
     </div>
-    <div class="message-body markdown-body">
+    <div class="message-body markdown-body" :id="'note-' + subnote.id">
       <vue-markdown :source="subnote.content"></vue-markdown>
     </div>
   </article>
 </template>
 <script>
+import $ from 'jquery'
 export default {
   props: {
     subnote: {
@@ -35,7 +36,7 @@ export default {
   },
   methods: {
     clickEdit: function () {
-      this.$emit('edit', this.subnote)
+      this.$emit('edit', this.subnote, $(`#note-${this.subnote.id}`).height())
     },
     clickDelete: function () {
       this.$emit('delete', this.subnote)

@@ -18,7 +18,8 @@
                   :value="value"
                   @input="updateValue($event.target.value)"
                   class="textarea input-contrast"
-                  placeholder="">
+                  placeholder=""
+                  :style="{height: note._height ? note._height + 'px' : ''}">
         </textarea>
         <vue-markdown v-if="!writing" :source="value || 'Nothing to preview'"></vue-markdown>
       </p>
