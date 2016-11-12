@@ -24,11 +24,21 @@ const createSubNote = (data) => {
   return api.baseCreate('api/subnote/', data)
 }
 
+const updateNote = (data) => {
+  return api.baseUpdate('api/note', data)
+}
+
+const deleteNote = (id) => {
+  return api.baseDelete('api/note', id)
+}
+
 export default {
   getNotebooks,
   createNotebook,
   deleteNotebook,
   getNoteDetail,
   createNote,
-  createSubNote
+  createSubNote,
+  deleteNote,
+  updateNote
 }

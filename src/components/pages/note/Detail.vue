@@ -21,7 +21,21 @@
       <main-note :note="note"></main-note>
 
       <div class="subnote-container">
-        <sub-note :subnote="subnote" v-for="subnote in note.subnotes"></sub-note>
+        <template v-for="subnote in note.subnotes">
+          <template v-if="subnote._editing">
+            <edit-note v-model="subnote.content"
+                       :note="subnote"
+                       @update="updateNote"
+                       @cancel="cancelNote">
+            </edit-note>
+          </template>
+          <template v-else>
+            <sub-note :subnote="subnote"
+                      @edit="editNote"
+                      @delete="deleteNote">
+            </sub-note>
+          </template>
+        </template>
       </div>
 
       <article class="media">
@@ -31,29 +45,7 @@
           </p>
         </figure>
         <div class="media-content">
-          <article class="message">
-            <div class="message-body">
-              <div class="tabs is-boxed">
-                <ul>
-                  <li @click="focusWrite"
-                      :class="{'is-active': writeActive}">
-                    <a><span>Write</span></a>
-                  </li>
-                  <li @click="focusPreview"
-                      :class="{'is-active': !writeActive}">
-                    <a><span>Preview</span></a>
-                  </li>
-                </ul>
-              </div>
-              <p class="control" :class="{'markdown-body': !writeActive}">
-                <textarea v-if="writeActive" v-model="content" class="textarea" placeholder="Append a note..."></textarea>
-                <vue-markdown v-if="!writeActive" :source="content"></vue-markdown>
-              </p>
-              <p class="control">
-                <button @click="submit" class="button">Append</button>
-              </p>
-            </div>
-          </article>
+          <edit-note v-model="content" @submit="submit"></edit-note>
         </div>
       </article>
     </div>
@@ -64,27 +56,49 @@
 import ContentContainer from 'layout/ContentContainer'
 import MainNote from './MainNote'
 import SubNote from './SubNote'
+import EditNote from './EditNote'
 import api from 'api'
 
 export default {
   components: {
     ContentContainer,
     MainNote,
-    SubNote
+    SubNote,
+    EditNote
   },
   data () {
     return {
       note: {},
-      content: '',
-      writeActive: true
+      content: ''
     }
   },
   methods: {
-    focusWrite: function () {
-      this.writeActive = true
+    editNote: function (note) {
+      note._editing = true
     },
-    focusPreview: function () {
-      this.writeActive = false
+    cancelNote: function (note) {
+      note._editing = false
+      note.content = note._content
+    },
+    deleteNote: function (note) {
+      api.note.deleteNote(note.id).then(result => {
+        if (result) {
+          let index = this.note.subnotes.indexOf(note)
+          this.note.subnotes.splice(index, 1)
+        }
+      })
+    },
+    updateNote: function (note) {
+      api.note.updateNote({
+        id: note.id,
+        title: note.title,
+        content: note.content
+      }).then(result => {
+        if (result) {
+          note._editing = false
+          note._content = note.content
+        }
+      })
     },
     submit: function () {
       if (!this.content.length) return
@@ -94,6 +108,7 @@ export default {
       }).then(result => {
         if (result[0]) {
           this.content = ''
+          result[1]._editing = false
           this.note.subnotes.push(result[1])
         }
       })
@@ -101,6 +116,12 @@ export default {
   },
   mounted: function () {
     api.note.getNoteDetail(this.$route.params.noteId).then(data => {
+      if (data.subnotes) {
+        for (let note of data.subnotes) {
+          note._editing = false
+          note._content = note.content
+        }
+      }
       this.note = data
     })
   }

@@ -14,8 +14,8 @@
         </div>
         <div class="level-right">
           <div class="level-item action-icon">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            <i class="fa fa-trash-o" aria-hidden="true"></i>
+            <i @click="clickEdit" class="fa fa-pencil-square-o pointer-cursor" aria-hidden="true"></i>
+            <i @click="clickDelete" class="fa fa-trash-o pointer-cursor" aria-hidden="true"></i>
           </div>
         </div>
       </nav>
@@ -31,6 +31,14 @@ export default {
     subnote: {
       type: Object,
       require: true
+    }
+  },
+  methods: {
+    clickEdit: function () {
+      this.$emit('edit', this.subnote)
+    },
+    clickDelete: function () {
+      this.$emit('delete', this.subnote)
     }
   }
 }
