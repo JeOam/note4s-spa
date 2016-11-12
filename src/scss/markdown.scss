@@ -21,6 +21,9 @@
   code {
     color: #333;
   }
+  *:last-child {
+    margin-bottom: 0 !important;
+  }
   .hljs-built_in {
     color: #795da3;
   }
