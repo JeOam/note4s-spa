@@ -82,12 +82,20 @@ export default {
       note.content = note._content
     },
     deleteNote: function (note) {
-      api.note.deleteNote(note.id).then(result => {
-        if (result) {
-          let index = this.note.subnotes.indexOf(note)
-          this.note.subnotes.splice(index, 1)
+      this.$root.showModalMessage(
+        'Are you sure?',
+        '',
+        (comfirm) => {
+          if (comfirm) {
+            api.note.deleteNote(note.id).then(result => {
+              if (result) {
+                let index = this.note.subnotes.indexOf(note)
+                this.note.subnotes.splice(index, 1)
+              }
+            })
+          }
         }
-      })
+      )
     },
     updateNote: function (note) {
       api.note.updateNote({
