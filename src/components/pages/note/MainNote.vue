@@ -1,7 +1,21 @@
 <template>
   <article class="message">
     <div class="message-header note-header">
-      头像、作者、发表时间、Revisions、版权声明
+      <span v-if="note.notebook" class="button is-small">
+        {{ note.notebook.name }}
+      </span>
+      <span v-if="note.notebook && note.section"> -> </span>
+      <span v-if="note.section" class="button is-small">
+        {{ note.section.name }}
+      </span>
+      <span class="is-small">
+        <template v-if="note.created && note.updated && note.created.substring(0, 19) !== note.updated.substring(0, 19)">
+          {{ note.created | timeago}} ~ {{ note.updated | timeago }}
+        </template>
+        <template v-else>
+          {{ note.created | timeago }}
+        </template>
+      </span>
     </div>
     <div class="message-body markdown-body main-note">
       <vue-markdown :source="note.content"></vue-markdown>

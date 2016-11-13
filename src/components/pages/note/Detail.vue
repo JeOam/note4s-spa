@@ -11,9 +11,9 @@
         </div>
         <div class="level-right">
           <p class="level-item">
-            <a class="button">Edit</a>
-            <a class="button">Delete</a>
-            <a class="button">Star</a>
+            <a class="button action-item">Edit</a>
+            <a @click="deleteNote(note)" class="button action-item">Delete</a>
+            <a class="button action-item">Star</a>
           </p>
         </div>
       </nav>
@@ -89,8 +89,14 @@ export default {
           if (comfirm) {
             api.note.deleteNote(note.id).then(result => {
               if (result) {
-                let index = this.note.subnotes.indexOf(note)
-                this.note.subnotes.splice(index, 1)
+                if (note.notebook) {
+                  this.$router.replace({name: 'index'})
+                } else {
+                  let index = this.note.subnotes.indexOf(note)
+                  if (index !== -1) {
+                    this.note.subnotes.splice(index, 1)
+                  }
+                }
               }
             })
           }
@@ -140,5 +146,9 @@ export default {
 .subnote-container {
   margin-left: 58px;
   margin-bottom: 20px;
+}
+.action-item {
+  font-size: 12px;
+  height: inherit;
 }
 </style>
