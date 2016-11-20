@@ -2,7 +2,7 @@
   <content-container>
     <div slot="content-slot">
       <div class="container">
-        <span class="control">
+        <span v-if="notebooks && notebooks.length" class="control">
           <span class="select">
             <select v-model="selectedNotebook">
               <option v-for="notebook in notebooks" :value="notebook">
@@ -11,25 +11,27 @@
             </select>
           </span>
         </span>
-        <span class="line-height-32">-></span>
-        <span class="control">
-          <span class="select">
-            <select v-model="selectedSection">
-              <option v-if="selectedNotebook" v-for="section in selectedNotebook.children" :value="section">
-                {{ section.name }}
-              </option>
-            </select>
+        <template v-if="selectedNotebook && selectedNotebook.children">
+          <span class="line-height-32">-></span>
+          <span class="control">
+            <span class="select">
+              <select v-model="selectedSection">
+                <option v-for="section in selectedNotebook.children" :value="section">
+                  {{ section.name }}
+                </option>
+              </select>
+            </span>
           </span>
-        </span>
+        </template>
         <span class="line-height-32">-></span>
         <span class="button">新笔记</span>
       </div>
       <div class="container top-spacer">
         <p class="control">
-          <input v-model="title" class="input" placeholder="Note title...">
+          <input v-model="data.title" class="input" placeholder="Note title...">
         </p>
         <p class="control top-spacer">
-          <textarea v-model="content" class="textarea" placeholder="Note detail..."></textarea>
+          <textarea v-model="data.content" class="textarea" placeholder="Note detail..."></textarea>
         </p>
         <nav class="level">
           <div class="level-left"></div>
@@ -53,17 +55,18 @@ export default {
   },
   data () {
     return {
+      notebooks: [],
       selectedNotebook: '',
       selectedSection: '',
-      notebooks: [],
-      title: '',
-      content: ''
+      data: {}
     }
   },
   watch: {
-    selectedNotebook: function () {
+    'selectedNotebook': function () {
       if (this.selectedNotebook &&
-          this.selectedNotebook.children.length) {
+          this.selectedNotebook.children &&
+          this.selectedNotebook.children.length &&
+          this.selectedSection.parent_id !== this.selectedNotebook.id) {
         this.selectedSection = this.selectedNotebook.children[0]
       }
     }
@@ -71,9 +74,10 @@ export default {
   methods: {
     submit: function () {
       api.note.createNote({
-        title: this.title,
-        content: this.content,
-        notebook_id: this.selectedSection.id
+        title: this.data.title,
+        content: this.data.content,
+        section_id: this.selectedSection.id,
+        notebook_id: this.selectedNotebook.id
       }).then(result => {
         if (result[0]) {
           this.$root.showNotification('Create Success', 'success', 2)
@@ -85,11 +89,27 @@ export default {
   mounted: function () {
     api.note.getNotebooks().then(data => {
       this.notebooks = data
-      if (this.selectedNotebook === '' &&
-          this.notebooks.length) {
-        this.selectedNotebook = this.notebooks[0]
+      if (!this.$route.params.noteId) {
+        if (!this.selectedNotebook && this.notebooks.length) {
+          this.selectedNotebook = this.notebooks[0]
+        }
+        if (!this.selectedSection &&
+            this.selectedNotebook &&
+            this.selectedNotebook.children &&
+            this.selectedNotebook.children.length) {
+          this.selectedSection = this.selectedNotebook.children[0]
+        }
       }
     })
+    if (this.$route.params.noteId) {
+      api.note.getNoteDetail(this.$route.params.noteId).then(data => {
+        this.selectedNotebook = data.notebook
+        this.selectedSection = data.section
+        delete data.notebook
+        delete data.section
+        this.data = data
+      })
+    }
   }
 }
 </script>

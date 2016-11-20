@@ -9,7 +9,7 @@ const createNotebook = (params) => {
 }
 
 const deleteNotebook = (id) => {
-  return api.baseDelete('api/notebook/', id)
+  return api.baseDelete('api/notebook', id)
 }
 
 const getNoteDetail = (id) => {

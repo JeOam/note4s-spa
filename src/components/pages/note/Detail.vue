@@ -11,7 +11,7 @@
         </div>
         <div class="level-right">
           <p class="level-item">
-            <a class="button action-item">Edit</a>
+            <a @click="editMainNote" class="button action-item">Edit</a>
             <a @click="deleteNote(note)" class="button action-item">Delete</a>
             <a class="button action-item">Star</a>
           </p>
@@ -73,6 +73,9 @@ export default {
     }
   },
   methods: {
+    editMainNote: function () {
+      this.$router.push({name: 'edit note', params: {noteId: this.note.id}})
+    },
     editNote: function (note, height) {
       note._editing = true
       note._height = height
