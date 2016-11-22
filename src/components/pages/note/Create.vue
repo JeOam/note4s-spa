@@ -4,8 +4,10 @@
       <div class="container">
         <span v-if="notebooks && notebooks.length" class="control">
           <span class="select">
-            <select v-model="selectedNotebook">
-              <option v-for="notebook in notebooks" :value="notebook">
+            <select @input="updateSelectedNotebook">
+              <option v-for="(notebook, index) in notebooks"
+                      :value="notebook"
+                      :selected="selectedNotebook.id === notebook.id">
                 {{ notebook.name }}
               </option>
             </select>
@@ -24,7 +26,7 @@
           </span>
         </template>
         <span class="line-height-32">-></span>
-        <span class="button">新笔记</span>
+        <span class="button">{{ $route.params.noteId ? 'Edit' : 'New' }}</span>
       </div>
       <div class="container top-spacer">
         <p class="control">
@@ -72,18 +74,37 @@ export default {
     }
   },
   methods: {
+    updateSelectedNotebook: function (e) {
+      if (this.notebooks.length) {
+        this.selectedNotebook = this.notebooks[e.target.selectedIndex]
+      }
+    },
     submit: function () {
-      api.note.createNote({
-        title: this.data.title,
-        content: this.data.content,
-        section_id: this.selectedSection.id,
-        notebook_id: this.selectedNotebook.id
-      }).then(result => {
-        if (result[0]) {
-          this.$root.showNotification('Create Success', 'success', 2)
-          this.$router.push({name: 'note detail', params: {noteId: result[1].id}})
-        }
-      })
+      if (this.$route.params.noteId) {
+        api.note.updateNote({
+          id: this.$route.params.noteId,
+          title: this.data.title,
+          content: this.data.content,
+          section_id: this.selectedSection.id,
+          notebook_id: this.selectedNotebook.id
+        }).then(result => {
+          if (result) {
+            this.$router.replace({name: 'note detail', params: {noteId: this.$route.params.noteId}})
+          }
+        })
+      } else {
+        api.note.createNote({
+          title: this.data.title,
+          content: this.data.content,
+          section_id: this.selectedSection.id,
+          notebook_id: this.selectedNotebook.id
+        }).then(result => {
+          if (result[0]) {
+            this.$root.showNotification('Create Success', 'success', 2)
+            this.$router.push({name: 'note detail', params: {noteId: result[1].id}})
+          }
+        })
+      }
     }
   },
   mounted: function () {
