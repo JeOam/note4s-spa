@@ -11,7 +11,8 @@ export default [
   {path: '/register', name: 'register', component: lazyLoading('user/Register')},
   {path: '/note/new', name: 'new note', component: lazyLoading('note/Create')},
   {path: '/note/:noteId', name: 'note detail', component: lazyLoading('note/Detail')},
-  {path: '/note/edit/:noteId', name: 'edit note', component: lazyLoading('note/Create')}
+  {path: '/note/edit/:noteId', name: 'edit note', component: lazyLoading('note/Create')},
+  {path: '/tool/profiler/json', name: 'json size profiler', component: lazyLoading('profiler/JSONSize')}
 ]
 
 // function (router) {
