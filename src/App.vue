@@ -55,6 +55,10 @@ export default {
   created: function () {
     this.$root.showNotification = this.showNotification
     this.$root.showModalMessage = this.showModalMessage
+    let userInfoStr = window.localStorage.getItem('userinfo')
+    if (userInfoStr) {
+      this.$root.userinfo = JSON.parse(userInfoStr)
+    }
   }
 }
 </script>

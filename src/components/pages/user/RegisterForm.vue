@@ -56,7 +56,7 @@ export default {
         this.usernameTip = "Only use letters, numbers and '_'"
       } else if (this.username.length) {
         api.user.checkUsername(this.username).then(result => {
-          if (result) {
+          if (result[1]) {
             this.usernameTip = ''
           } else {
             this.usernameTip = 'Username is unavailable'
@@ -75,8 +75,8 @@ export default {
         password: this.password
       }).then(result => {
         if (result[0]) {
-          this.$root.showNotification('Register success')
-          this.$router.go({name: 'login'})
+          this.$root.showNotification('Register success', 'success', 2)
+          this.$router.replace({name: 'login'})
         }
       })
     }

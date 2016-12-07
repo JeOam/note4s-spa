@@ -11,9 +11,11 @@
         </div>
         <div class="level-right">
           <p class="level-item">
-            <a @click="editMainNote" class="button action-item">Edit</a>
-            <a @click="deleteNote(note)" class="button action-item">Delete</a>
-            <a class="button action-item">Star</a>
+            <a v-if="isCanEdit" @click="editMainNote" class="button action-item">Edit</a>
+            <a v-if="isCanEdit" @click="deleteNote(note)" class="button action-item">Delete</a>
+            <a @click="watchNote" class="button action-item">{{ note.is_watch ? 'Watched' : 'Watch' }} {{ note.watch_count }}</a>
+            <a @click="starNote" class="button action-item">{{ note.is_star ? 'Stared' : 'Star' }} {{ note.star_count }}</a>
+            <a class="button action-item">Comment {{ note.comment_count }}</a>
           </p>
         </div>
       </nav>
@@ -38,7 +40,7 @@
         </template>
       </div>
 
-      <article class="media">
+      <article v-if="isCanEdit" class="media">
         <figure class="media-left">
           <p class="image is-48x48">
             <img src="http://placehold.it/128x128">
@@ -51,7 +53,6 @@
     </div>
   </content-container>
 </template>
-
 <script>
 import ContentContainer from 'layout/ContentContainer'
 import MainNote from './MainNote'
@@ -70,6 +71,11 @@ export default {
     return {
       note: {},
       content: ''
+    }
+  },
+  computed: {
+    isCanEdit: function () {
+      return this.$root.userinfo && this.$root.userinfo.id === this.note.user_id
     }
   },
   methods: {
@@ -117,6 +123,40 @@ export default {
           note._content = note.content
         }
       })
+    },
+    watchNote: function () {
+      if (this.note.is_watch) {
+        api.note.cancelWatchNote(this.note.id).then(result => {
+          if (result) {
+            this.note.is_watch = false
+            this.note.watch_count = this.note.watch_count - 1
+          }
+        })
+      } else {
+        api.note.watchNote(this.note.id).then(result => {
+          if (result[0]) {
+            this.note.is_watch = true
+            this.note.watch_count = result[1]
+          }
+        })
+      }
+    },
+    starNote: function () {
+      if (this.note.is_star) {
+        api.note.cancelStarNote(this.note.id).then(result => {
+          if (result) {
+            this.note.is_star = false
+            this.note.star_count = this.note.star_count - 1
+          }
+        })
+      } else {
+        api.note.starNote(this.note.id).then(result => {
+          if (result[0]) {
+            this.note.is_star = true
+            this.note.star_count = result[1]
+          }
+        })
+      }
     },
     submit: function () {
       if (!this.content.length) return
