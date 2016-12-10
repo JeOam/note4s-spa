@@ -25,3 +25,7 @@ span.is-small {
   padding-left: 6px;
   padding-right: 6px;
 }
+
+.media + .media {
+  border-top: 0;
+}

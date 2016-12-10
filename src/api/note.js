@@ -48,6 +48,22 @@ const cancelStarNote = (id) => {
   return api.baseDelete('api/note/star', id)
 }
 
+const getNoteComment = (id) => {
+  return api.baseGetDetail('api/note/comment/', id)
+}
+
+const createComment = (id, data) => {
+  return api.baseCreate(`api/note/comment/${id}`, data)
+}
+
+const starComment = (id) => {
+  return api.baseCreate(`api/note/comment/star/${id}`)
+}
+
+const cancelStarComment = (id) => {
+  return api.baseDelete('api/note/comment/star', id)
+}
+
 export default {
   getNotebooks,
   createNotebook,
@@ -60,5 +76,9 @@ export default {
   watchNote,
   cancelWatchNote,
   starNote,
-  cancelStarNote
+  cancelStarNote,
+  getNoteComment,
+  createComment,
+  starComment,
+  cancelStarComment
 }

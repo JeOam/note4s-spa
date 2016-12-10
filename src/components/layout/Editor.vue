@@ -19,7 +19,7 @@
                   @input="updateValue($event.target.value)"
                   class="textarea input-contrast"
                   placeholder=""
-                  :style="{height: note._height ? note._height + 'px' : ''}">
+                  :style="{height: data._height ? data._height + 'px' : ''}">
         </textarea>
         <vue-markdown v-if="!writing" :source="value || 'Nothing to preview'"></vue-markdown>
       </p>
@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="level-right">
-            <template v-if="note && note.id">
+            <template v-if="data && data.id">
               <div class="level-item">
                 <button @click="update" class="button btn-sumit is-pulled-right">Update</button>
                 <button @click="cancel" class="button btn-sumit is-pulled-right">Cancel</button>
@@ -38,7 +38,7 @@
             </template>
             <template v-else>
               <div class="level-item">
-                <button @click="submit" class="button btn-sumit is-pulled-right">Append</button>
+                <button @click="submit" class="button btn-sumit is-pulled-right">{{ submitDesc }}</button>
               </div>
             </template>
           </div>
@@ -54,11 +54,15 @@ export default {
       type: String,
       require: true
     },
-    note: {
+    data: {
       type: Object,
       default: function () {
         return {}
       }
+    },
+    submitDesc: {
+      type: String,
+      default: 'Append'
     }
   },
   data () {
@@ -77,13 +81,13 @@ export default {
       this.writing = false
     },
     submit: function () {
-      this.$emit('submit', this.note)
+      this.$emit('submit', this.data)
     },
     cancel: function () {
-      this.$emit('cancel', this.note)
+      this.$emit('cancel', this.data)
     },
     update: function () {
-      this.$emit('update', this.note)
+      this.$emit('update', this.data)
     }
   }
 }

@@ -15,7 +15,9 @@
             <a v-if="isCanEdit" @click="deleteNote(note)" class="button action-item">Delete</a>
             <a @click="watchNote" class="button action-item">{{ note.is_watch ? 'Watched' : 'Watch' }} {{ note.watch_count }}</a>
             <a @click="starNote" class="button action-item">{{ note.is_star ? 'Stared' : 'Star' }} {{ note.star_count }}</a>
-            <a class="button action-item">Comment {{ note.comment_count }}</a>
+            <router-link v-if="note.id" :to="{name: 'note comment', params: {noteId: note.id}}">
+              <span class="button action-item">Comment {{ note.comment_count }}</span>
+            </router-link>
           </p>
         </div>
       </nav>
@@ -25,14 +27,15 @@
       <div class="subnote-container">
         <template v-for="subnote in note.subnotes">
           <template v-if="subnote._editing">
-            <edit-note v-model="subnote.content"
-                       :note="subnote"
-                       @update="updateNote"
-                       @cancel="cancelNote">
-            </edit-note>
+            <editor v-model="subnote.content"
+                    :data="subnote"
+                    @update="updateNote"
+                    @cancel="cancelNote">
+            </editor>
           </template>
           <template v-else>
             <sub-note :subnote="subnote"
+                      :is-can-edit="isCanEdit"
                       @edit="editNote"
                       @delete="deleteNote">
             </sub-note>
@@ -47,7 +50,7 @@
           </p>
         </figure>
         <div class="media-content">
-          <edit-note v-model="content" @submit="submit"></edit-note>
+          <editor v-model="content" @submit="submit"></editor>
         </div>
       </article>
     </div>
@@ -55,17 +58,17 @@
 </template>
 <script>
 import ContentContainer from 'layout/ContentContainer'
+import Editor from 'layout/Editor'
 import MainNote from './MainNote'
 import SubNote from './SubNote'
-import EditNote from './EditNote'
 import api from 'api'
 
 export default {
   components: {
     ContentContainer,
+    Editor,
     MainNote,
-    SubNote,
-    EditNote
+    SubNote
   },
   data () {
     return {
@@ -187,7 +190,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .subnote-container {
-  margin-left: 58px;
   margin-bottom: 20px;
 }
 .action-item {

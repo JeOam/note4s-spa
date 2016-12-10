@@ -7,52 +7,45 @@
     </figure>
     <div class="media-content">
       <article class="message">
-        <div class="message-header note-header">
+        <div class="message-header note-header subnote-header">
           <nav class="level is-mobile">
             <div class="level-left">
               <div class="level-item">
                 <span>
-                   {{ subnote.updated | timeago}}
+                   {{ comment.updated | timeago}}
                 </span>
-                <span v-if="subnote.created.substring(0, 19) !== subnote.updated.substring(0, 19)">
+                <span v-if="comment.created.substring(0, 19) !== comment.updated.substring(0, 19)">
                    • edited
                  </span>
               </div>
             </div>
-            <div v-if="isCanEdit" class="level-right">
+            <div class="level-right">
               <div class="level-item action-icon">
-                <i @click="clickEdit" class="fa fa-pencil-square-o pointer-cursor" aria-hidden="true"></i>
-                <i @click="clickDelete" class="fa fa-trash-o pointer-cursor" aria-hidden="true"></i>
+                <i @click="clickStar" class="fa fa-heart pointer-cursor" aria-hidden="true"></i>
+              </div>
+              <div class="level-item action-icon">
+                #{{ comment.index }}
               </div>
             </div>
           </nav>
         </div>
-        <div class="message-body markdown-body" :id="'note-' + subnote.id">
-          <vue-markdown :source="subnote.content"></vue-markdown>
+        <div class="message-body markdown-body" :id="'comment-' + comment.id">
+          <vue-markdown :source="comment.content"></vue-markdown>
         </div>
       </article>
     </div>
   </article>
 </template>
 <script>
-import $ from 'jquery'
 export default {
   props: {
-    subnote: {
+    comment: {
       type: Object,
       require: true
-    },
-    isCanEdit: {
-      type: Boolean,
-      default: false
     }
   },
   methods: {
-    clickEdit: function () {
-      this.$emit('edit', this.subnote, $(`#note-${this.subnote.id}`).height())
-    },
-    clickDelete: function () {
-      this.$emit('delete', this.subnote)
+    clickStar: function () {
     }
   }
 }
@@ -66,4 +59,13 @@ export default {
     margin-left: 10px;
   }
 }
+.message-figure {
+  align-items: flex-start;
+  display: flex;
+  text-align: left;
+  .message-left {
+    margin-right: 10px;
+  }
+}
+
 </style>
