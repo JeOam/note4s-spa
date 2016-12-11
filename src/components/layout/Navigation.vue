@@ -5,9 +5,6 @@
         <router-link :to="{name: 'index'}" class="nav-item is-tab is-active">
           <i class="fa fa-home"></i> &nbsp; Home
         </router-link>
-        <router-link :to="{name: 'json size profiler'}" class="nav-item is-tab">
-          <i class="fa fa-home"></i> &nbsp; API tools
-        </router-link>
       </div>
 
       <span @click="toggleNav" class="nav-toggle" :class="{'is-active': navMenuOpen}">

@@ -12,16 +12,18 @@
             <div class="level-left">
               <div class="level-item">
                 <span>
-                   {{ comment.updated | timeago}}
+                   {{ comment.created | timeago}}
                 </span>
-                <span v-if="comment.created.substring(0, 19) !== comment.updated.substring(0, 19)">
-                   • edited
-                 </span>
               </div>
             </div>
             <div class="level-right">
               <div class="level-item action-icon">
-                <i @click="clickStar" class="fa fa-heart pointer-cursor" aria-hidden="true"></i>
+                <i @click="clickStar"
+                   class="fa fa-heart pointer-cursor"
+                   :class="{'fa-red': comment.is_star}"
+                   aria-hidden="true">
+                </i>
+                {{ comment.star_count > 0 ? comment.star_count : '' }}
               </div>
               <div class="level-item action-icon">
                 #{{ comment.index }}
@@ -37,6 +39,8 @@
   </article>
 </template>
 <script>
+import api from 'api'
+
 export default {
   props: {
     comment: {
@@ -46,6 +50,21 @@ export default {
   },
   methods: {
     clickStar: function () {
+      if (this.comment.is_star) {
+        api.note.cancelStarComment(this.comment.id).then(result => {
+          if (result) {
+            this.comment.star_count -= 1
+            this.comment.is_star = false
+          }
+        })
+      } else {
+        api.note.starComment(this.comment.id).then(result => {
+          if (result[0]) {
+            this.comment.star_count = result[1]
+            this.comment.is_star = true
+          }
+        })
+      }
     }
   }
 }
