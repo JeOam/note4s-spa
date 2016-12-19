@@ -9,10 +9,12 @@ import routes from './routes'
 import store from './vuex/store'
 
 import VueMarkdown from 'layout/VueMarkdown'
+import clickoutside from './directives/clickoutside'
 import { timeago } from './filters'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.directive('clickoutside', clickoutside)
 Vue.component('vue-markdown', VueMarkdown)
 Vue.filter('timeago', timeago)
 
