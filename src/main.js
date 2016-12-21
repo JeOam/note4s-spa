@@ -91,6 +91,7 @@ router.beforeEach((route, redirect, next) => {
 })
 router.afterEach((route, redirect, next) => {
   NProgress.done()
+  app.$emit('router-after')
 })
 
 const app = new Vue({

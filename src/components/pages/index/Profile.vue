@@ -1,7 +1,7 @@
 <template>
   <div class="card is-fullwidth">
-    <header class="card-header">
-    </header>
+    <!-- <header class="card-header">
+    </header> -->
     <div class="card-content">
       <a class="card-avatar">
         <img src="../../../assets/avatar.png" class="card-avatar-img">
@@ -17,7 +17,7 @@
       <div class="card-stats">
         <ul class="card-stats-list">
           <li class="card-stats-item">
-            <a href="#" title="9.840 Tweet">
+            <a href="#">
               <span class="card-stats-key">Notes</span>
               <span class="card-stats-val">1</span>
             </a>
@@ -40,24 +40,15 @@
   </div>
 </template>
 <style lang="scss" scoped>
-.card-header {
-    background-image: url("http://placehold.it/600x200");
-    background-position: 0 50%;
-    background-size: 100% auto;
-    border-bottom: 1px solid #e1e8ed;
-    border-radius: 4px 4px 0 0;
-    height: 95px;
-    width: 100%;
-}
 .card-content {
-    padding: 0px;
+  padding: 8px;
 }
 .card-avatar {
   background-color: #fff;
   border-radius: 6px;
   display: inline-block !important;
   float: left;
-  margin: -30px 5px 0 8px;
+  margin: 0px 5px 0 8px;
   max-width: 100%;
   padding: 1px;
   vertical-align: bottom;
@@ -71,53 +62,53 @@
   width: 72px;
 }
 .card-user {
-    margin: 5px 0 0;
+  margin: 31px 0 0;
 }
 .card-user-name{
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 21px;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 21px;
 }
 .card-user-name a{
-    color: inherit !important;
+  color: inherit !important;
 }
 .card-stats {
-    margin-left: 11px;
-    padding: 10px 0;
+  margin-left: 11px;
+  padding: 10px 0;
 }
 .card-stats-list {
-    box-sizing: border-box;
-    display: table;
-    margin: 0;
-    min-width: 100%;
-    padding: 0;
-    table-layout: auto;
+  box-sizing: border-box;
+  display: table;
+  margin: 0;
+  min-width: 100%;
+  padding: 0;
+  table-layout: auto;
 }
 ul.card-stats-list {
-    list-style: outside none none;
-    margin: 0;
-    padding: 0;
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
 }
 .card-stats-item {
-    display: table-cell;
-    padding: 0;
-    vertical-align: top;
-}
-.card-stats-item a:hover {
+  display: table-cell;
+  padding: 0;
+  vertical-align: top;
+  a:hover {
     text-decoration: none;
+  }
 }
 .card-stats-val {
-    display: block;
-    font-size: 18px;
-    font-weight: 500;
-    transition: color 0.15s ease-in-out 0s;
+  display: block;
+  font-size: 18px;
+  font-weight: 500;
+  transition: color 0.15s ease-in-out 0s;
 }
 .card-stats-key {
-    color: #8899a6;
-    font-size: 10px;
-    letter-spacing: 0.02em;
-    overflow: hidden;
-    text-transform: uppercase;
-    transition: color 0.15s ease-in-out 0s;
+  color: #8899a6;
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  text-transform: uppercase;
+  transition: color 0.15s ease-in-out 0s;
 }
 </style>

@@ -26,7 +26,11 @@
         <span
           class="nav-item"
           @click.stop="toggleNotifs">
-          Notifications {{ notifsInfo.unread_count }}
+          Notifications
+          <span v-if="notifsInfo.unread_count > 0"
+                class="notif-count">
+            {{ notifsInfo.unread_count }}
+          </span>
         </span>
         <div
           class="is-hidden-mobile dropdown-container"
@@ -51,8 +55,22 @@
           </div>
           <div class="notification-container">
             <template v-for="notification in notifsInfo[notifsActive]">
-              <div v-if="notification.action === 'star' && notification.target_type === 'note'">
-                {{ notification.sender_name }} Star {{ notification.target_type }}
+              <div v-if="notification.action === 'star' && notification.target_type === 'note'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'user profile', params: {username: notification.sender_id}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Star Your {{ notification.target_type }}
+                <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </div>
+              <div v-if="notification.action === 'watch' && notification.target_type === 'note'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'user profile', params: {username: notification.sender_id}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Watch Your {{ notification.target_type }}
                 <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
                   {{ notification.target_desc }}
                 </router-link>
@@ -108,10 +126,9 @@ export default {
     api.user.getNotifications().then(data => {
       this.notifsInfo = data
     })
-  },
-  beforeRouteEnter (to, from, next) {
-    console.log('test')
-    this.notifsOpen = false
+    this.$root.$on('router-after', () => {
+      this.notifsOpen = false
+    })
   }
 }
 </script>
@@ -122,6 +139,19 @@ export default {
   > div {
     width: 980px;
   }
+}
+.notif-count {
+  top: 10px;
+  right: -4px;
+  position: absolute;
+  background: #cb4b16;
+  color: #fff;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 0 5px;
+  height: 16px;
+  border-radius: 16px;
 }
 .dropdown-container {
   width: 317px;
@@ -136,9 +166,18 @@ export default {
     margin-bottom: 0px;
   }
   .notification-container {
-    padding-top: 5px;
     background-color: white;
     height: 336px;
+    overflow-y: scroll;
+    > div {
+      text-align: left;
+      padding: 7px 11px;
+      border-bottom: 1px solid #eee;
+    }
+    .unread {
+      background: #eff6fa;
+      border-bottom: 1px solid #d1e0e8;
+    }
   }
 }
 .dropdown-container::before, .dropdown-container::after {
