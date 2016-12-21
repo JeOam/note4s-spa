@@ -16,9 +16,14 @@ const getProfile = () => {
   return api.baseGet('api/profile/')
 }
 
+const getNotifications = () => {
+  return api.baseGet('api/user/notification/')
+}
+
 export default {
   login,
   register,
   getProfile,
-  checkUsername
+  checkUsername,
+  getNotifications
 }

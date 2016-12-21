@@ -26,7 +26,7 @@
         <span
           class="nav-item"
           @click.stop="toggleNotifs">
-          Notifications
+          Notifications {{ notifsInfo.unread_count }}
         </span>
         <div
           class="is-hidden-mobile dropdown-container"
@@ -35,10 +35,29 @@
           v-clickoutside="closeNotifs">
           <div class="tabs is-fullwidth">
             <ul>
-              <li class="is-active"><a><i class="fa fa-list" aria-hidden="true"></i></a></li>
-              <li><a><i class="fa fa-users" aria-hidden="true"></i></a></li>
-              <li><a><i class="fa fa-heart" aria-hidden="true"></i></a></li>
+              <li :class="{'is-active': notifsActive === 'generals'}"
+                  @click="toggleNotifsActive('generals')">
+                <a><i class="fa fa-list" aria-hidden="true"></i></a>
+              </li>
+              <li :class="{'is-active': notifsActive === 'follows'}"
+                  @click="toggleNotifsActive('follows')">
+                <a><i class="fa fa-users" aria-hidden="true"></i></a>
+              </li>
+              <li :class="{'is-active': notifsActive === 'stars'}"
+                  @click="toggleNotifsActive('stars')">
+                <a><i class="fa fa-heart" aria-hidden="true"></i></a>
+              </li>
             </ul>
+          </div>
+          <div class="notification-container">
+            <template v-for="notification in notifsInfo[notifsActive]">
+              <div v-if="notification.action === 'star' && notification.target_type === 'note'">
+                {{ notification.sender_name }} Star {{ notification.target_type }}
+                <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </div>
+            </template>
           </div>
         </div>
         <router-link v-if="!$root.userinfo" :to="{name: 'login'}" class="nav-item">Login</router-link>
@@ -55,11 +74,18 @@
   </nav>
 </template>
 <script>
+import api from 'api'
 export default {
   data () {
     return {
       navMenuOpen: false,
-      notifsOpen: false
+      notifsOpen: false,
+      notifsActive: 'generals',
+      notifsInfo: {
+        generals: [],
+        follows: [],
+        stars: []
+      }
     }
   },
   methods: {
@@ -69,11 +95,23 @@ export default {
     toggleNotifs: function () {
       this.notifsOpen = !this.notifsOpen
     },
+    toggleNotifsActive: function (data) {
+      this.notifsActive = data
+    },
     closeNotifs: function () {
       if (this.notifsOpen) {
         this.notifsOpen = false
       }
     }
+  },
+  mounted: function () {
+    api.user.getNotifications().then(data => {
+      this.notifsInfo = data
+    })
+  },
+  beforeRouteEnter (to, from, next) {
+    console.log('test')
+    this.notifsOpen = false
   }
 }
 </script>
@@ -94,6 +132,14 @@ export default {
   background-color: #f6f6f6;
   border: 1px solid #ccc;
   box-shadow: 0 1px 3px rgba(200,200,200,0.7);
+  .tabs:not(:last-child) {
+    margin-bottom: 0px;
+  }
+  .notification-container {
+    padding-top: 5px;
+    background-color: white;
+    height: 336px;
+  }
 }
 .dropdown-container::before, .dropdown-container::after {
   content: '';
