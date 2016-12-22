@@ -57,7 +57,7 @@
             <template v-for="notification in notifsInfo[notifsActive]">
               <div v-if="notification.action === 'star' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'user profile', params: {username: notification.sender_id}}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_id}}">
                   {{ notification.sender_name }}
                 </router-link>
                 Star Your {{ notification.target_type }}
@@ -67,7 +67,7 @@
               </div>
               <div v-if="notification.action === 'watch' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'user profile', params: {username: notification.sender_id}}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_id}}">
                   {{ notification.sender_name }}
                 </router-link>
                 Watch Your {{ notification.target_type }}
