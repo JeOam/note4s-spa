@@ -75,7 +75,8 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
-    ]
+    ],
+    noParse: [/moment/]
   },
   eslint: {
     formatter: require('eslint-friendly-formatter')

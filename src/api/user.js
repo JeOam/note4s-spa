@@ -20,10 +20,14 @@ const getNotifications = () => {
   return api.baseGet('api/user/notification/')
 }
 
+const getContributions = (params) => {
+  return api.baseGet('api/user/contribution/', params)
+}
 export default {
   login,
   register,
   getProfile,
   checkUsername,
-  getNotifications
+  getNotifications,
+  getContributions
 }
