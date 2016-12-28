@@ -67,7 +67,16 @@ export default {
   },
   data () {
     return {
-      writing: true
+      writing: true,
+      reExp: new RegExp('@[.^S]$')
+    }
+  },
+  watch: {
+    'value': function () {
+      console.log(this.value)
+      if (this.reExp.test(this.value)) {
+        console.log('true')
+      }
     }
   },
   methods: {

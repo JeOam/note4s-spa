@@ -23,6 +23,7 @@ const getNotifications = () => {
 const getContributions = (params) => {
   return api.baseGet('api/user/contribution/', params)
 }
+
 export default {
   login,
   register,

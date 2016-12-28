@@ -24,6 +24,7 @@
           <router-link :to="{name: 'new note'}" class="button">New Note</router-link>
         </span>
         <span
+          v-if="$root.userinfo"
           class="nav-item"
           @click.stop="toggleNotifs">
           Notifications
@@ -33,6 +34,7 @@
           </span>
         </span>
         <div
+          v-if="$root.userinfo"
           class="is-hidden-mobile dropdown-container"
           :class="{'is-hidden': !notifsOpen,
                    'animate_out': notifsOpen}"
@@ -80,7 +82,7 @@
         </div>
         <router-link v-if="!$root.userinfo" :to="{name: 'login'}" class="nav-item">Login</router-link>
         <span v-if="!$root.userinfo"  class="nav-item">
-          <a class="button is-primary">
+          <a @click="getAuthUrl" class="button is-primary">
             <span class="icon">
               <i class="fa fa-github"></i>
             </span>
@@ -120,12 +122,21 @@ export default {
       if (this.notifsOpen) {
         this.notifsOpen = false
       }
+    },
+    getAuthUrl: function () {
+      let id = '6bc8273bcb63a84de3ba'
+      let callback = 'http://note4s.com/auth/github/'
+      let state = this.$route.query.next || this.$route.name
+      window.localStorage.setItem('lastRouteParams', JSON.stringify(this.$route.params))
+      window.location = `https://github.com/login/oauth/authorize?client_id=${id}&redirect_uri=${callback}&state=${state}`
     }
   },
   mounted: function () {
-    api.user.getNotifications().then(data => {
-      this.notifsInfo = data
-    })
+    if (this.$root.userinfo) {
+      api.user.getNotifications().then(data => {
+        this.notifsInfo = data
+      })
+    }
     this.$root.$on('router-after', () => {
       this.notifsOpen = false
     })

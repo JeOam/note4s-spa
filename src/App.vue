@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <navigation></navigation>
     <router-view></router-view>
     <notification ref="notification"></notification>
     <modal ref="modal"
@@ -10,14 +9,12 @@
   </div>
 </template>
 <script>
-import Navigation from 'layout/Navigation'
 import Notification from 'layout/Notification'
 import Modal from 'layout/Modal'
 import store from 'our-vuex/store'
 
 export default {
   components: {
-    Navigation,
     Notification,
     Modal
   },
