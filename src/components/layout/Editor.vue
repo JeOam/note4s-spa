@@ -1,6 +1,6 @@
 <template>
   <article class="message">
-    <div class="message-body write-container">
+    <div v-clickoutside="closeMention" class="message-body write-container">
       <div class="tabs is-boxed">
         <ul>
           <li @click="focusWrite"
@@ -17,18 +17,25 @@
         <textarea v-if="writing"
                   :value="value"
                   @input="updateValue($event.target.value, $event)"
-                  @blur="closeMention"
                   class="textarea input-contrast"
                   placeholder=""
                   :style="{height: data._height ? data._height + 'px' : ''}">
         </textarea>
-        <div v-if="writing && top > -1 && left > -1"
-             ref="mentionUsers"
-             class="mention-users"
-             :style="{'left': left + 'px', 'top': top + 'px'}">
-        </div>
         <vue-markdown v-if="!writing" :source="value || 'Nothing to preview'"></vue-markdown>
       </p>
+      <div v-if="writing && top > -1 && left > -1 && users.length"
+           class="mention-users">
+        <div :style="{'left': left + 'px', 'top': top + 'px'}">
+          <ul>
+            <li v-for="(user, index) in users"
+                :class="{'active': focusIndex === index}"
+                @click.stop="selectUser(user)">
+              {{ user.username }}
+              <small v-if="user.nickname">{{ user.nickname }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
       <p class="control">
         <nav class="level is-mobile">
           <div class="level-left">
@@ -55,6 +62,7 @@
 </template>
 <script>
 import $ from 'jquery'
+import api from 'api'
 
 export default {
   props: {
@@ -78,14 +86,39 @@ export default {
       writing: true,
       target: null,
       top: -1,
-      left: -1
+      left: -1,
+      position: null,
+      selectionStart: 0,
+      users: [],
+      focusIndex: 0,
+      detect: true
     }
   },
   watch: {
     'value': function () {
+      console.log('value change')
+      if (!this.detect) {
+        this.detect = true
+        return
+      }
       if (this.target && /@[\S]*$/.test(this.value.substring(0, this.target.selectionStart))) {
-        this.top = $(this.target).caret('offset').top - 60
-        this.left = $(this.target).caret('offset').left - 20
+        if (this.value.substring(this.target.selectionStart - 1, this.target.selectionStart) === '@') {
+          this.position = $(this.target).caret('position')
+          this.top = -1
+          this.left = -1
+          this.selectionStart = this.target.selectionStart
+        }
+        if (this.top === -1 && this.left === -1 && this.position) {
+          this.top = this.position.top + this.position.height
+          this.left = this.position.left
+        }
+        if (this.writing && this.top > -1 && this.left > -1) {
+          api.user.getUserList({
+            name: this.target.value.substring(this.selectionStart, this.target.selectionEnd)
+          }).then(result => {
+            this.users = result
+          })
+        }
       } else {
         this.top = -1
         this.left = -1
@@ -94,8 +127,22 @@ export default {
   },
   methods: {
     closeMention: function () {
+      console.log('closeMention')
       this.top = -1
       this.left = -1
+    },
+    selectUser: function (user) {
+      console.log('selectUser')
+      this.detect = false
+      let value = `${
+        this.target.value.substring(0, this.selectionStart)
+      }${
+        user.username
+      } ${
+        this.target.value.substring(this.target.selectionEnd)
+      }`
+      this.$emit('input', value)
+      this.closeMention()
     },
     updateValue: function (value, e) {
       this.target = e.target
@@ -123,6 +170,7 @@ export default {
 .write-container {
   background-color: #fff;
   padding: 0;
+  position: relative;
   .tabs {
     background-color: #f7f7f7;
     li {
@@ -160,9 +208,29 @@ export default {
   border: 0;
 }
 .mention-users {
-  background: red;
-  width: 100px;
-  height: 100px;
+  display: block;
+  top: 49px;
+  left: 8px;
   position: absolute;
+  z-index: 100;
+  > div {
+    position: absolute;
+    min-width: 180px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    li {
+      display: block;
+      padding: 5px 10px;
+      font-weight: bold;
+      border-bottom: 1px solid #ddd;
+    }
+    li.active {
+      color: #fff;
+      text-decoration: none;
+      background: #4078c0;
+    }
+  }
 }
 </style>

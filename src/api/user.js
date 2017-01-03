@@ -24,11 +24,16 @@ const getContributions = (params) => {
   return api.baseGet('api/user/contribution/', params)
 }
 
+const getUserList = (params) => {
+  return api.baseGet('api/user/mention/', params)
+}
+
 export default {
   login,
   register,
   getProfile,
   checkUsername,
   getNotifications,
-  getContributions
+  getContributions,
+  getUserList
 }
