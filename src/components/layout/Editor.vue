@@ -16,11 +16,17 @@
       <p class="control text-container" :class="{'markdown-body': !writing}">
         <textarea v-if="writing"
                   :value="value"
-                  @input="updateValue($event.target.value)"
+                  @input="updateValue($event.target.value, $event)"
+                  @blur="closeMention"
                   class="textarea input-contrast"
                   placeholder=""
                   :style="{height: data._height ? data._height + 'px' : ''}">
         </textarea>
+        <div v-if="writing && top > -1 && left > -1"
+             ref="mentionUsers"
+             class="mention-users"
+             :style="{'left': left + 'px', 'top': top + 'px'}">
+        </div>
         <vue-markdown v-if="!writing" :source="value || 'Nothing to preview'"></vue-markdown>
       </p>
       <p class="control">
@@ -48,6 +54,8 @@
   </article>
 </template>
 <script>
+import $ from 'jquery'
+
 export default {
   props: {
     value: {
@@ -68,19 +76,29 @@ export default {
   data () {
     return {
       writing: true,
-      reExp: new RegExp('@[.^S]$')
+      target: null,
+      top: -1,
+      left: -1
     }
   },
   watch: {
     'value': function () {
-      console.log(this.value)
-      if (this.reExp.test(this.value)) {
-        console.log('true')
+      if (this.target && /@[\S]*$/.test(this.value.substring(0, this.target.selectionStart))) {
+        this.top = $(this.target).caret('offset').top - 60
+        this.left = $(this.target).caret('offset').left - 20
+      } else {
+        this.top = -1
+        this.left = -1
       }
     }
   },
   methods: {
-    updateValue: function (value) {
+    closeMention: function () {
+      this.top = -1
+      this.left = -1
+    },
+    updateValue: function (value, e) {
+      this.target = e.target
       this.$emit('input', value)
     },
     focusWrite: function () {
@@ -140,5 +158,11 @@ export default {
 .markdown-body {
   min-height: 120px;
   border: 0;
+}
+.mention-users {
+  background: red;
+  width: 100px;
+  height: 100px;
+  position: absolute;
 }
 </style>

@@ -1,4 +1,5 @@
 import 'babel-polyfill'
+import 'src/vendors/jquery.caret'
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
