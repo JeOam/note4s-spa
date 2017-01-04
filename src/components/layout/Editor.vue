@@ -17,11 +17,12 @@
         <textarea v-if="writing"
                   :value="value"
                   @input="updateValue($event.target.value, $event)"
+                  @keydown="onkeydown"
                   class="textarea input-contrast"
                   placeholder=""
                   :style="{height: data._height ? data._height + 'px' : ''}">
         </textarea>
-        <vue-markdown v-if="!writing" :source="value || 'Nothing to preview'"></vue-markdown>
+        <vue-markdown v-if="!writing" :source="previewValue || 'Nothing to preview'"></vue-markdown>
       </p>
       <div v-if="writing && top > -1 && left > -1 && users.length"
            class="mention-users">
@@ -91,12 +92,31 @@ export default {
       selectionStart: 0,
       users: [],
       focusIndex: 0,
-      detect: true
+      detect: true,
+      mentionSet: new Set(),
+      mentionedSet: new Set()
+    }
+  },
+  computed: {
+    previewValue: function () {
+      if (this.mentionSet.size) {
+        let newValue = this.value
+        this.mentionedSet = new Set()
+        for (let username of this.mentionSet) {
+          let re = new RegExp(`@${username}\\b`, 'g')
+          if (newValue.match(re)) {
+            this.mentionedSet.add(username)
+          }
+          newValue = newValue.replace(re, `[@${username}](/user/${username}/)`)
+        }
+        return newValue
+      } else {
+        return this.value
+      }
     }
   },
   watch: {
     'value': function () {
-      console.log('value change')
       if (!this.detect) {
         this.detect = true
         return
@@ -104,19 +124,19 @@ export default {
       if (this.target && /@[\S]*$/.test(this.value.substring(0, this.target.selectionStart))) {
         if (this.value.substring(this.target.selectionStart - 1, this.target.selectionStart) === '@') {
           this.position = $(this.target).caret('position')
-          this.top = -1
-          this.left = -1
-          this.selectionStart = this.target.selectionStart
-        }
-        if (this.top === -1 && this.left === -1 && this.position) {
           this.top = this.position.top + this.position.height
           this.left = this.position.left
+          this.selectionStart = this.target.selectionStart
         }
         if (this.writing && this.top > -1 && this.left > -1) {
           api.user.getUserList({
             name: this.target.value.substring(this.selectionStart, this.target.selectionEnd)
           }).then(result => {
+            this.focusIndex = 0
             this.users = result
+            for (let user of result) {
+              this.mentionSet.add(user.username)
+            }
           })
         }
       } else {
@@ -127,12 +147,10 @@ export default {
   },
   methods: {
     closeMention: function () {
-      console.log('closeMention')
       this.top = -1
       this.left = -1
     },
     selectUser: function (user) {
-      console.log('selectUser')
       this.detect = false
       let value = `${
         this.target.value.substring(0, this.selectionStart)
@@ -153,15 +171,38 @@ export default {
     },
     focusPreview: function () {
       this.writing = false
+      this.closeMention()
     },
     submit: function () {
-      this.$emit('submit', this.data)
+      this.$emit('submit', this.data, this.previewValue, this.mentionedSet)
     },
     cancel: function () {
       this.$emit('cancel', this.data)
     },
     update: function () {
-      this.$emit('update', this.data)
+      this.$emit('update', this.data, this.previewValue)
+    },
+    onkeydown: function (e) {
+      if (this.writing && this.top > -1 && this.left > -1 && this.users.length) {
+        switch (e.keyCode) {
+          case 38: // up
+            if (this.focusIndex > 0) {
+              this.focusIndex -= 1
+            }
+            e.preventDefault()
+            break
+          case 40: // down
+            if (this.focusIndex < this.users.length - 1) {
+              this.focusIndex += 1
+            }
+            e.preventDefault()
+            break
+          case 13: // enter
+            this.selectUser(this.users[this.focusIndex])
+            e.preventDefault()
+            break
+        }
+      }
     }
   }
 }

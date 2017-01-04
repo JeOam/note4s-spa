@@ -51,11 +51,15 @@ export default {
     }
   },
   methods: {
-    submit: function () {
+    submit: function (data, previewValue, mentionedSet) {
       if (!this.content.length) return
-      api.note.createComment(this.note.id, {content: this.content}).then(result => {
+      api.note.createComment(this.note.id, {
+        content: previewValue,
+        mention: Array.from(mentionedSet)
+      }).then(result => {
         if (result[0]) {
           this.comments.push(result[1])
+          this.content = ''
         }
       })
     }

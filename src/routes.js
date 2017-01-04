@@ -13,11 +13,10 @@ export default [
      {path: 'register', name: 'register', component: lazyLoading('user/Register')},
      {
        path: '/user/:username',
-       name: 'user profile',
        component: lazyLoading('profile/Index'),
        children: [
          {
-           path: 'overview',
+           path: '',
            name: 'profile overview',
            component: lazyLoading('profile/Contribution')
          }
