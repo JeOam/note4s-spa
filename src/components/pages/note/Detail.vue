@@ -115,11 +115,11 @@ export default {
         }
       )
     },
-    updateNote: function (note, previewValue) {
+    updateNote: function (note) {
       api.note.updateNote({
         id: note.id,
         title: note.title,
-        content: previewValue
+        content: note.content
       }).then(result => {
         if (result) {
           note._editing = false
@@ -161,12 +161,11 @@ export default {
         })
       }
     },
-    submit: function (data, previewValue, mentionedSet) {
+    submit: function () {
       if (!this.content.length) return
       api.note.createSubNote({
         parent_id: this.note.id,
-        content: previewValue,
-        mention: Array.from(mentionedSet)
+        content: this.content
       }).then(result => {
         if (result[0]) {
           this.content = ''

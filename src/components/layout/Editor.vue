@@ -80,6 +80,10 @@ export default {
     submitDesc: {
       type: String,
       default: 'Append'
+    },
+    mentionable: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -99,7 +103,7 @@ export default {
   },
   computed: {
     previewValue: function () {
-      if (this.mentionSet.size) {
+      if (this.mentionable && this.mentionSet.size) {
         let newValue = this.value
         this.mentionedSet = new Set()
         for (let username of this.mentionSet) {
@@ -117,6 +121,9 @@ export default {
   },
   watch: {
     'value': function () {
+      if (!this.mentionable) {
+        return
+      }
       if (!this.detect) {
         this.detect = true
         return
@@ -183,7 +190,7 @@ export default {
       this.$emit('update', this.data, this.previewValue)
     },
     onkeydown: function (e) {
-      if (this.writing && this.top > -1 && this.left > -1 && this.users.length) {
+      if (this.mentionable && this.writing && this.top > -1 && this.left > -1 && this.users.length) {
         switch (e.keyCode) {
           case 38: // up
             if (this.focusIndex > 0) {

@@ -24,7 +24,12 @@
             </p>
           </figure>
           <div class="media-content">
-            <editor v-model="content" submit-desc="Comment" @submit="submit"></editor>
+            <editor
+              v-model="content"
+              submit-desc="Comment"
+              @submit="submit"
+              :mentionable="true">
+            </editor>
           </div>
         </article>
       </div>
