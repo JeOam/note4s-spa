@@ -2,7 +2,7 @@
   <article class="media">
     <figure class="media-left">
       <p class="image is-48x48">
-        <img src="http://placehold.it/128x128">
+        <img :src="comment.avatar || 'http://placehold.it/128x128'">
       </p>
     </figure>
     <div class="media-content">
@@ -12,7 +12,11 @@
             <div class="level-left">
               <div class="level-item">
                 <span>
-                   {{ comment.created | timeago}}
+                  <router-link :to="{name: 'profile overview', params: {username: comment.username}}">
+                    {{ comment.username }}
+                  </router-link>
+                  commented
+                  {{ comment.created | timeago}}
                 </span>
               </div>
             </div>

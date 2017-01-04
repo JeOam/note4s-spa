@@ -60,7 +60,7 @@ export default {
       if (!this.content.length) return
       api.note.createComment(this.note.id, {
         content: previewValue,
-        mention: Array.from(mentionedSet)
+        mentions: Array.from(mentionedSet)
       }).then(result => {
         if (result[0]) {
           this.comments.push(result[1])
