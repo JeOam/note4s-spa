@@ -22,7 +22,7 @@
         </div>
       </nav>
 
-      <main-note :note="note"></main-note>
+      <main-note v-if="note.content" :note="note"></main-note>
 
       <div class="subnote-container">
         <template v-for="subnote in note.subnotes">

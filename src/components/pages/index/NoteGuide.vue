@@ -18,52 +18,48 @@
       </p>
     </div>
     <div v-if="selectedNotebook.id" class="message-body">
-      <div v-for="section in selectedNotebook.children">
+      <div v-for="(section, index) in selectedNotebook.children" class="section-item">
         <div>
-          {{ section.name }}
+          {{ index + 1 }}. {{ section.name }}
         </div>
-        <div v-for="note in section.children">
-          <li>
-            <router-link :to="{name: 'note detail', params: {noteId: note.note_id}}">
-              {{ note.name }}
-            </router-link>
-          </li>
-        </div>
+        <li v-for="note in section.children" class="note-item">
+          <router-link :to="{name: 'note detail', params: {noteId: note.note_id}}">
+            {{ note.name }}
+          </router-link>
+        </li>
       </div>
     </div>
     <div v-if="!selectedNotebook.id" class="message-body">
-      <div v-for="notebook in notebooks">
+      <div v-for="notebook in notebooks" class="section-item">
         <div>
-          Notebook:<span class="notebook-name">{{ notebook.name }}</span>
+          <span>{{ notebook.name }}</span>
           <i @click="deleteNotebook(notebook)" class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
         </div>
-        <div class="section-container">
-          <li v-for="section in notebook.children">
-            {{ section.name }}
-            <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
-          </li>
-          <li>
-            <div class="control is-grouped">
-              <p class="control">
-                <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
-              </p>
-              <p class="control">
-                <a @click="addNewSection(notebook.id)" class="button is-default">
-                  Create
-                </a>
-              </p>
-            </div>
-          </li>
-        </div>
+        <li v-for="section in notebook.children" class="note-item edit-section-item">
+          Section: {{ section.name }}
+          <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
+        </li>
+        <li class="note-item edit-section-item">
+          <div class="control is-grouped">
+            <p class="control">
+              <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
+            </p>
+            <p class="control">
+              <a @click="addNewSection(notebook.id)" class="button is-default">
+                New
+              </a>
+            </p>
+          </div>
+        </li>
+        <br>
       </div>
-      <br>
       <div class="control is-grouped">
         <p class="control">
           <input v-model="newNotebook" class="input" type="text" placeholder="New Notebook">
         </p>
         <p class="control">
           <a @click="addNewNotebook" class="button is-default">
-            Create
+            New
           </a>
         </p>
       </div>
@@ -106,8 +102,8 @@ export default {
       })
     },
     deleteNotebook: function (notebook) {
-      if (notebook.children.length) {
-        this.$root.showNotification('Cannot delete not empty notebook', 'error', 2)
+      if (notebook.type === 'notebook' && notebook.children.length) {
+        this.$root.showNotification('Cannot Delete Nonempty Notebook', 'error', 2)
         return
       }
       api.note.deleteNotebook(notebook.id).then(result => {
@@ -169,6 +165,31 @@ export default {
   }
   a {
     height: 24px;
+  }
+}
+.section-item {
+  margin-bottom: 12px;
+  .note-item {
+    padding-left: 16px;
+    a {
+      margin-left: -8px;
+    }
+  }
+  .note-item:first-of-type {
+    margin-top: 6px;
+  }
+  .edit-section-item {
+    list-style-type: decimal;
+    .control.is-grouped {
+      margin-top: 5px;
+      display: inline-flex;
+      input {
+        height: 24px;
+      }
+      a {
+        height: 24px;
+      }
+    }
   }
 }
 </style>
