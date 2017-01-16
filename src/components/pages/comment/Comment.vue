@@ -1,5 +1,5 @@
 <template>
-  <article class="media">
+  <article :id="comment.id" class="media">
     <figure class="media-left">
       <p class="image is-48x48">
         <img :src="comment.avatar || 'http://placehold.it/128x128'">
@@ -90,5 +90,4 @@ export default {
     margin-right: 10px;
   }
 }
-
 </style>

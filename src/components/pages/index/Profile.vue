@@ -6,12 +6,16 @@
       <a class="card-avatar">
         <img src="../../../assets/avatar.png" class="card-avatar-img">
       </a>
-      <div class="card-user">
+      <div v-if="userinfo.username" class="card-user">
         <div class="card-user-name">
-          <a href="#">JeOam</a>
+          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
+            {{ userinfo.nickname }}
+          </router-link>
         </div>
         <span>
-          <a href="#">@<span>JeOam</span></a>
+          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
+            @<span>{{ userinfo.username }}</span>
+          </router-link>
         </span>
       </div>
       <div class="card-stats">
@@ -39,6 +43,21 @@
     </div>
   </div>
 </template>
+<script>
+import api from 'api'
+export default {
+  data () {
+    return {
+      userinfo: {}
+    }
+  },
+  mounted: function () {
+    api.user.getProfile().then(result => {
+      this.userinfo = result
+    })
+  }
+}
+</script>
 <style lang="scss" scoped>
 .card-content {
   padding: 8px;

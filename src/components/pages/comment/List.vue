@@ -56,6 +56,13 @@ export default {
     }
   },
   methods: {
+    lazyScroll: function () {
+      if (this.$route.hash) {
+        setTimeout(() => {
+          document.getElementById(this.$route.hash.substring(1)).scrollIntoView()
+        }, 1000)
+      }
+    },
     submit: function (data, previewValue, mentionedSet) {
       if (!this.content.length) return
       api.note.createComment(this.note.id, {
@@ -73,6 +80,7 @@ export default {
     api.note.getNoteComment(this.$route.params.noteId).then(data => {
       this.note = data.note
       this.comments = data.comments
+      this.lazyScroll()
     })
   }
 }

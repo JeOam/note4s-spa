@@ -57,9 +57,10 @@
           </div>
           <div class="notification-container">
             <template v-for="notification in notifsInfo[notifsActive]">
+              <!-- star note -->
               <div v-if="notification.action === 'star' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'profile overview', params: {username: notification.sender_id}}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
                   {{ notification.sender_name }}
                 </router-link>
                 Star Your {{ notification.target_type }}
@@ -67,15 +68,37 @@
                   {{ notification.target_desc }}
                 </router-link>
               </div>
+              <!-- watch note -->
               <div v-if="notification.action === 'watch' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'profile overview', params: {username: notification.sender_id}}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
                   {{ notification.sender_name }}
                 </router-link>
                 Watch Your {{ notification.target_type }}
                 <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
                   {{ notification.target_desc }}
                 </router-link>
+              </div>
+              <!-- comment note -->
+              <div v-if="notification.action === 'comment' && notification.target_type === 'note'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Comment Your {{ notification.target_type }}
+                <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </div>
+              <!-- at comment -->
+              <div v-if="notification.action === 'at' && notification.target_type === 'comment'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                @ You in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
+                  {{ notification.target_desc }}
+                </router-link>'s comment
               </div>
             </template>
           </div>
