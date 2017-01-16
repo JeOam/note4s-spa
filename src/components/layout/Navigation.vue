@@ -100,6 +100,16 @@
                   {{ notification.target_desc }}
                 </router-link>'s comment
               </div>
+              <!-- star comment -->
+              <div v-if="notification.action === 'star' && notification.target_type === 'comment'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Star Your comment in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
+                  {{ notification.target_desc }}
+                </router-link>'s comment
+              </div>
             </template>
           </div>
         </div>
