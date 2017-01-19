@@ -12,8 +12,8 @@ const checkUsername = (name) => {
   return api.baseCreate('auth/checkusername/', {username: name})
 }
 
-const getProfile = () => {
-  return api.baseGet('api/profile/')
+const getProfile = (params) => {
+  return api.baseGet('api/profile/', params)
 }
 
 const getNotifications = () => {
@@ -28,6 +28,14 @@ const getUserList = (params) => {
   return api.baseGet('api/user/mention/', params)
 }
 
+const followUser = (name) => {
+  return api.baseCreate('api/user/follow/', {username: name})
+}
+
+const unfollowUser = (name) => {
+  return api.baseCreate('api/user/unfollow/', {username: name})
+}
+
 export default {
   login,
   register,
@@ -35,5 +43,7 @@ export default {
   checkUsername,
   getNotifications,
   getContributions,
-  getUserList
+  getUserList,
+  followUser,
+  unfollowUser
 }

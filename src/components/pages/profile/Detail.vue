@@ -3,20 +3,63 @@
     <div class="tabs">
       <ul>
         <li class="tab-item is-active"><a>Overview</a></li>
-        <li class="tab-item"><a>Notebooks</a></li>
+        <li class="tab-item">
+          <a>
+            Notebooks
+            <span v-if="userinfo.notebook_count" class="counter">{{ userinfo.notebook_count }}</span>
+          </a>
+        </li>
         <li class="tab-item">
           <a>
             Stars
-            <span class="counter">9</span>
+            <span v-if="userinfo.star_count" class="counter">{{ userinfo.star_count }}</span>
           </a>
         </li>
-        <li class="tab-item"><a>Followers</a></li>
-        <li class="tab-item"><a>Following</a></li>
+        <li class="tab-item">
+          <a>
+            Followers
+            <span v-if="userinfo.follower_count" class="counter">{{ userinfo.follower_count }}</span>
+          </a>
+        </li>
+        <li class="tab-item">
+          <a>
+            Following
+            <span v-if="userinfo.following_count" class="counter">{{ userinfo.following_count }}</span>
+          </a>
+        </li>
       </ul>
     </div>
     <router-view></router-view>
   </div>
 </template>
+<script>
+import api from 'api'
+
+export default {
+  data () {
+    return {
+      userinfo: {}
+    }
+  },
+  watch: {
+    '$route' (to, from) {
+      this.fetchData()
+    }
+  },
+  methods: {
+    fetchData: function () {
+      api.user.getProfile({
+        username: this.$route.params.username
+      }).then(data => {
+        this.userinfo = data
+      })
+    }
+  },
+  mounted: function () {
+    this.fetchData()
+  }
+}
+</script>
 <style lang="scss" scoped>
 .tab-item {
   padding-right: 20px;
