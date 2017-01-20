@@ -9,6 +9,7 @@ export default [
    component: lazyLoading('Index'),
    children: [
      {path: '', name: 'index', component: lazyLoading('index/Index')},
+     {path: ':notebookId', name: 'notebook', component: lazyLoading('index/Index')},
      {path: 'login', name: 'login', component: lazyLoading('user/Login')},
      {path: 'register', name: 'register', component: lazyLoading('user/Register')},
      {
@@ -19,6 +20,11 @@ export default [
            path: '',
            name: 'profile overview',
            component: lazyLoading('profile/Contribution')
+         },
+         {
+           path: 'notebook',
+           name: 'profile notebook',
+           component: lazyLoading('profile/Notebook')
          }
        ]
      },

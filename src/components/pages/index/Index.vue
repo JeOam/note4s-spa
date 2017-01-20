@@ -4,7 +4,7 @@
       <note-guide></note-guide>
     </div>
     <div slot="side-pannel-slot">
-      <profile></profile>
+      <profile ref="profile"></profile>
     </div>
   </main-container>
 </template>

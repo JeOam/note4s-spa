@@ -13,7 +13,12 @@
           </select>
         </span>
         <span v-else class="center-content is-centered">
-          <a class="button">New Notebook</a>
+          <template v-if="$route.name === 'notebook'">
+            {{ selectedNotebook.name }}
+          </template>
+          <template v-else>
+            <a class="button">New Notebook</a>
+          </template>
         </span>
       </p>
     </div>
@@ -79,6 +84,11 @@ export default {
       notebooks: []
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.fetchData()
+    }
+  },
   methods: {
     addNewNotebook: function () {
       let params = {
@@ -128,10 +138,21 @@ export default {
           this.selectedNotebook = this.notebooks[0]
         }
       })
+    },
+    fetchData: function () {
+      this.selectedNotebook = ''
+      if (this.$route.name === 'index') {
+        this.getNotebooks()
+      } else {
+        api.note.notebookDetail(this.$route.params.notebookId).then(data => {
+          this.selectedNotebook = data
+          this.$parent.$parent.$refs.profile.userinfo = data.user
+        })
+      }
     }
   },
   mounted: function () {
-    this.getNotebooks()
+    this.fetchData()
   }
 }
 </script>

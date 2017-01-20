@@ -1,7 +1,5 @@
 <template>
   <div class="card is-fullwidth">
-    <!-- <header class="card-header">
-    </header> -->
     <div class="card-content">
       <a class="card-avatar">
         <img src="../../../assets/avatar.png" class="card-avatar-img">
@@ -51,10 +49,22 @@ export default {
       userinfo: {}
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.fetchData()
+    }
+  },
+  methods: {
+    fetchData: function () {
+      if (this.$route.name === 'index') {
+        api.user.getProfile().then(result => {
+          this.userinfo = result
+        })
+      }
+    }
+  },
   mounted: function () {
-    api.user.getProfile().then(result => {
-      this.userinfo = result
-    })
+    this.fetchData()
   }
 }
 </script>

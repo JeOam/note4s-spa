@@ -2,12 +2,16 @@
   <div>
     <div class="tabs">
       <ul>
-        <li class="tab-item is-active"><a>Overview</a></li>
-        <li class="tab-item">
-          <a>
+        <li class="tab-item" :class="{'is-active': $route.name === 'profile overview'}">
+          <router-link :to="{name: 'profile overview', params: {username: $route.params.username}}">
+            Overview
+          </router-link>
+        </li>
+        <li class="tab-item" :class="{'is-active': $route.name === 'profile notebook'}">
+          <router-link :to="{name: 'profile notebook', params: {username: $route.params.username}}">
             Notebooks
             <span v-if="userinfo.notebook_count" class="counter">{{ userinfo.notebook_count }}</span>
-          </a>
+          </router-link>
         </li>
         <li class="tab-item">
           <a>

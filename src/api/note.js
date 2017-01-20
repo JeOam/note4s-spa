@@ -1,11 +1,15 @@
 import api from './index.js'
 
-const getNotebooks = () => {
-  return api.baseGet('api/notebook/')
+const getNotebooks = (params) => {
+  return api.baseGet('api/notebook/', params)
 }
 
 const createNotebook = (params) => {
   return api.baseCreate('api/notebook/', params)
+}
+
+const notebookDetail = (notebookId) => {
+  return api.baseGetDetail('api/notebook/', notebookId)
 }
 
 const deleteNotebook = (id) => {
@@ -68,6 +72,7 @@ export default {
   getNotebooks,
   createNotebook,
   deleteNotebook,
+  notebookDetail,
   getNoteDetail,
   createNote,
   createSubNote,
