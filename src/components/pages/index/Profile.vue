@@ -19,22 +19,28 @@
       <div class="card-stats">
         <ul class="card-stats-list">
           <li class="card-stats-item">
-            <a href="#">
+            <router-link :to="{name: 'index'}">
+              <span class="card-stats-key">Notebooks</span>
+              <span class="card-stats-val">{{ userinfo.notebook_count }}</span>
+            </router-link>
+          </li>
+          <li class="card-stats-item">
+            <router-link :to="{name: 'index'}">
               <span class="card-stats-key">Notes</span>
-              <span class="card-stats-val">1</span>
-            </a>
+              <span class="card-stats-val">{{ userinfo.note_count }}</span>
+            </router-link>
           </li>
           <li class="card-stats-item">
-            <a href="#/following" title="885 Following">
+            <router-link :to="{name: 'index'}">
               <span class="card-stats-key">Following</span>
-              <span class="card-stats-val">0</span>
-            </a>
+              <span class="card-stats-val">{{ userinfo.following_count }}</span>
+            </router-link>
           </li>
           <li class="card-stats-item">
-            <a href="#">
+            <router-link :to="{name: 'index'}">
               <span class="card-stats-key">Followers</span>
-              <span class="card-stats-val">0</span>
-            </a>
+              <span class="card-stats-val">{{ userinfo.follower_count }}</span>
+            </router-link>
           </li>
         </ul>
       </div>
