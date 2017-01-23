@@ -36,6 +36,18 @@ const unfollowUser = (name) => {
   return api.baseCreate('api/user/unfollow/', {username: name})
 }
 
+const getFollowers = (params) => {
+  return api.baseGet('api/user/follower/', params)
+}
+
+const getFollowing = (params) => {
+  return api.baseGet('api/user/following/', params)
+}
+
+const getStars = (params) => {
+  return api.baseGet('api/user/star/', params)
+}
+
 export default {
   login,
   register,
@@ -45,5 +57,8 @@ export default {
   getContributions,
   getUserList,
   followUser,
-  unfollowUser
+  unfollowUser,
+  getFollowers,
+  getFollowing,
+  getStars
 }

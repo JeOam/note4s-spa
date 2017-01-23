@@ -22,41 +22,52 @@
         </span>
       </p>
     </div>
-    <div v-if="selectedNotebook.id" class="message-body">
-      <div v-for="(section, index) in selectedNotebook.children" class="section-item">
-        <div>
-          {{ index + 1 }}. {{ section.name }}
+    <div v-if="selectedNotebook.name" class="message-body">
+      <template v-if="selectedNotebook.id">
+        <div v-for="(section, index) in selectedNotebook.children" class="section-item">
+          <div>
+            {{ index + 1 }}. {{ section.name }}
+          </div>
+          <li v-for="note in section.children" class="note-item">
+            <router-link :to="{name: 'note detail', params: {noteId: note.note_id}}">
+              {{ note.name }}
+            </router-link>
+          </li>
         </div>
-        <li v-for="note in section.children" class="note-item">
-          <router-link :to="{name: 'note detail', params: {noteId: note.note_id}}">
-            {{ note.name }}
+      </template>
+      <template v-else>
+        <li v-for="note in selectedNotebook.children" class="note-item">
+          <router-link :to="{name: 'note detail', params: {noteId: note.id}}">
+            {{ note.title }}
           </router-link>
         </li>
-      </div>
+      </template>
     </div>
-    <div v-if="!selectedNotebook.id" class="message-body">
+    <div v-if="!selectedNotebook.name" class="message-body">
       <div v-for="notebook in notebooks" class="section-item">
-        <div>
-          <span>{{ notebook.name }}</span>
-          <i @click="deleteNotebook(notebook)" class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
-        </div>
-        <li v-for="section in notebook.children" class="note-item edit-section-item">
-          Section: {{ section.name }}
-          <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
-        </li>
-        <li class="note-item edit-section-item">
-          <div class="control is-grouped">
-            <p class="control">
-              <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
-            </p>
-            <p class="control">
-              <a @click="addNewSection(notebook.id)" class="button is-default">
-                New
-              </a>
-            </p>
+        <template v-if="notebook.id">
+          <div>
+            <span>{{ notebook.name }}</span>
+            <i @click="deleteNotebook(notebook)" class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
           </div>
-        </li>
-        <br>
+          <li v-for="section in notebook.children" class="note-item edit-section-item">
+            Section: {{ section.name }}
+            <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
+          </li>
+          <li class="note-item edit-section-item">
+            <div class="control is-grouped">
+              <p class="control">
+                <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
+              </p>
+              <p class="control">
+                <a @click="addNewSection(notebook.id)" class="button is-default">
+                  New
+                </a>
+              </p>
+            </div>
+          </li>
+          <br>
+        </template>
       </div>
       <div class="control is-grouped">
         <p class="control">
@@ -114,6 +125,10 @@ export default {
     deleteNotebook: function (notebook) {
       if (notebook.type === 'notebook' && notebook.children.length) {
         this.$root.showNotification('Cannot Delete Nonempty Notebook', 'error', 2)
+        return
+      }
+      if (notebook.type === 'section' && notebook.children.length) {
+        this.$root.showNotification('Cannot Delete Nonempty Section', 'error', 2)
         return
       }
       api.note.deleteNotebook(notebook.id).then(result => {

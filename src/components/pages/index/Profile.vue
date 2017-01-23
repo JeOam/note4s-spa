@@ -19,15 +19,12 @@
       <div class="card-stats">
         <ul class="card-stats-list">
           <li class="card-stats-item">
-            <router-link :to="{name: 'index'}">
+            <router-link :to="{name: 'profile notebook', params: {username: userinfo.username}}">
               <span class="card-stats-key">Notebooks</span>
-              <span class="card-stats-val">{{ userinfo.notebook_count }}</span>
-            </router-link>
-          </li>
-          <li class="card-stats-item">
-            <router-link :to="{name: 'index'}">
-              <span class="card-stats-key">Notes</span>
-              <span class="card-stats-val">{{ userinfo.note_count }}</span>
+              <span class="card-stats-val"
+                    :title="userinfo.notebook_count + ' Notebook(s) and ' + userinfo.note_count + ' Note(s)'">
+                {{ userinfo.notebook_count }} - {{ userinfo.note_count }}
+              </span>
             </router-link>
           </li>
           <li class="card-stats-item">

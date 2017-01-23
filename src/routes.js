@@ -22,9 +22,24 @@ export default [
            component: lazyLoading('profile/Contribution')
          },
          {
-           path: 'notebook',
+           path: 'notebooks',
            name: 'profile notebook',
            component: lazyLoading('profile/Notebook')
+         },
+         {
+           path: 'stars',
+           name: 'profile star',
+           component: lazyLoading('profile/Star')
+         },
+         {
+           path: 'followers',
+           name: 'profile follower',
+           component: lazyLoading('profile/Follow')
+         },
+         {
+           path: 'following',
+           name: 'profile following',
+           component: lazyLoading('profile/Follow')
          }
        ]
      },

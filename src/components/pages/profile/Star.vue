@@ -1,8 +1,8 @@
 <template>
   <div>
-    <li v-for="notebook in notebooks">
-      <router-link :to="{name: 'notebook', params: {notebookId: notebook.id}}">
-        {{ notebook.name }} (Watch - {{ notebook.watch_count}})
+    <li v-for="note in notes">
+      <router-link :to="{name: 'note detail', params: {noteId: note.id}}">
+        {{ note.title }}
       </router-link>
     </li>
   </div>
@@ -13,14 +13,14 @@ import api from 'api'
 export default {
   data () {
     return {
-      notebooks: []
+      notes: []
     }
   },
   mounted: function () {
-    api.note.getNotebooks({
+    api.user.getStars({
       username: this.$route.params.username
     }).then(data => {
-      this.notebooks = data
+      this.notes = data
     })
   }
 }

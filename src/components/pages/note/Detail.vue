@@ -5,7 +5,22 @@
         <div class="level-left">
           <div class="level-item">
             <p>
-               {{ note.title }}
+              <template v-if="!note.content">
+                <span v-if="note.notebook" class="button is-small">
+                  {{ note.notebook.name }}
+                </span>
+                <span v-if="note.notebook && note.section"> -> </span>
+                <span v-if="note.section" class="button is-small">
+                  {{ note.section.name }}
+                </span>
+                <span v-if="note.section"> -> </span>
+                <span class="button is-small">
+                  {{ note.title }}
+                </span>
+              </template>
+              <template v-else>
+                {{ note.title }}
+              </template>
             </p>
           </div>
         </div>

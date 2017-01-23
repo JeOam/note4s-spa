@@ -13,23 +13,23 @@
             <span v-if="userinfo.notebook_count" class="counter">{{ userinfo.notebook_count }}</span>
           </router-link>
         </li>
-        <li class="tab-item">
-          <a>
+        <li class="tab-item" :class="{'is-active': $route.name === 'profile star'}">
+          <router-link :to="{name: 'profile star', params: {username: $route.params.username}}">
             Stars
             <span v-if="userinfo.star_count" class="counter">{{ userinfo.star_count }}</span>
-          </a>
+          </router-link>
         </li>
-        <li class="tab-item">
-          <a>
+        <li class="tab-item" :class="{'is-active': $route.name === 'profile follower'}">
+          <router-link :to="{name: 'profile follower', params: {username: $route.params.username}}">
             Followers
             <span v-if="userinfo.follower_count" class="counter">{{ userinfo.follower_count }}</span>
-          </a>
+          </router-link>
         </li>
-        <li class="tab-item">
-          <a>
+        <li class="tab-item" :class="{'is-active': $route.name === 'profile following'}">
+          <router-link :to="{name: 'profile following', params: {username: $route.params.username}}">
             Following
             <span v-if="userinfo.following_count" class="counter">{{ userinfo.following_count }}</span>
-          </a>
+          </router-link>
         </li>
       </ul>
     </div>

@@ -124,8 +124,8 @@ export default {
     })
     if (this.$route.params.noteId) {
       api.note.getNoteDetail(this.$route.params.noteId).then(data => {
-        this.selectedNotebook = data.notebook
-        this.selectedSection = data.section
+        this.selectedNotebook = data.notebook || ''
+        this.selectedSection = data.section || ''
         delete data.notebook
         delete data.section
         this.data = data
