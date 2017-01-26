@@ -18,7 +18,7 @@
       </div>
       <div class="card-stats">
         <ul class="card-stats-list">
-          <li class="card-stats-item">
+          <li v-if="userinfo.username" class="card-stats-item">
             <router-link :to="{name: 'profile notebook', params: {username: userinfo.username}}">
               <span class="card-stats-key">Notebooks</span>
               <span class="card-stats-val"

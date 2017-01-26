@@ -110,6 +110,14 @@
                   {{ notification.target_desc }}
                 </router-link>'s comment
               </div>
+              <!-- follow you -->
+              <div v-if="notification.action === 'watch' && notification.target_type === 'user'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Followed You
+              </div>
             </template>
           </div>
         </div>
