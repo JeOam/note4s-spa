@@ -97,6 +97,13 @@ export default {
     }
   },
   methods: {
+    lazyScroll: function () {
+      if (this.$route.hash) {
+        setTimeout(() => {
+          document.getElementById(this.$route.hash.substring(1)).scrollIntoView()
+        }, 1000)
+      }
+    },
     editMainNote: function () {
       this.$router.push({name: 'edit note', params: {noteId: this.note.id}})
     },
@@ -199,6 +206,7 @@ export default {
         }
       }
       this.note = data
+      this.lazyScroll()
     })
   }
 }

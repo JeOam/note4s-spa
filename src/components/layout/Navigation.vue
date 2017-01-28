@@ -118,6 +118,30 @@
                 </router-link>
                 Followed You
               </div>
+              <!-- new note -->
+              <div v-if="notification.action === 'new note' && notification.target_type === 'note'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Create a new note
+                <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </div>
+              <!-- new subnote -->
+              <div v-if="notification.action === 'new subnote' && notification.target_type === 'note'"
+                   :class="{'unread': !notification.is_read}">
+                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
+                  {{ notification.sender_name }}
+                </router-link>
+                Append a subnote to
+                <router-link :to="{name: 'note detail',
+                                   params: {noteId: notification.target_id},
+                                   hash: '#' + notification.anchor}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </div>
             </template>
           </div>
         </div>
