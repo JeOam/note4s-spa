@@ -2,8 +2,11 @@
   <nav class="nav has-shadow nav-container">
     <div class="container">
       <div class="nav-left">
-        <router-link :to="{name: 'index'}" class="nav-item is-tab is-active">
+        <router-link :to="{name: 'index'}" class="nav-item is-tab" :class="{'is-active': $route.name === 'index'}">
           <i class="fa fa-home"></i> &nbsp; Home
+        </router-link>
+        <router-link :to="{name: 'activity'}" class="nav-item is-tab" :class="{'is-active': $route.name === 'activity'}">
+          <i class="fa fa-cube"></i> &nbsp; Activity
         </router-link>
       </div>
 
@@ -117,30 +120,6 @@
                   {{ notification.sender_name }}
                 </router-link>
                 Followed You
-              </div>
-              <!-- new note -->
-              <div v-if="notification.action === 'new note' && notification.target_type === 'note'"
-                   :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
-                  {{ notification.sender_name }}
-                </router-link>
-                Create a new note
-                <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
-                  {{ notification.target_desc }}
-                </router-link>
-              </div>
-              <!-- new subnote -->
-              <div v-if="notification.action === 'new subnote' && notification.target_type === 'note'"
-                   :class="{'unread': !notification.is_read}">
-                <router-link :to="{name: 'profile overview', params: {username: notification.sender_name}}">
-                  {{ notification.sender_name }}
-                </router-link>
-                Append a subnote to
-                <router-link :to="{name: 'note detail',
-                                   params: {noteId: notification.target_id},
-                                   hash: '#' + notification.anchor}">
-                  {{ notification.target_desc }}
-                </router-link>
               </div>
             </template>
           </div>

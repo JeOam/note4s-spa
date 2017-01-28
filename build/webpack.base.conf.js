@@ -23,7 +23,8 @@ module.exports = {
       'api': path.resolve(__dirname, '../src/api'),
       'filters': path.resolve(__dirname, '../src/filters'),
       'our-vuex': path.resolve(__dirname, '../src/vuex'),
-      'layout': path.resolve(__dirname, '../src/components/layout')
+      'layout': path.resolve(__dirname, '../src/components/layout'),
+      'pages': path.resolve(__dirname, '../src/components/pages')
     }
   },
   resolveLoader: {

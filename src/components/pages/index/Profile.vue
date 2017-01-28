@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     fetchData: function () {
-      if (this.$route.name === 'index') {
+      if (this.$route.name !== 'notebook') {
         api.user.getProfile().then(result => {
           this.userinfo = result
         })
