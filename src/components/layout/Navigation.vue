@@ -152,6 +152,11 @@ export default {
       }
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.fetchData()
+    }
+  },
   methods: {
     toggleNav: function (e) {
       this.navMenuOpen = !this.navMenuOpen
@@ -173,14 +178,17 @@ export default {
       let state = this.$route.query.next || this.$route.name
       window.localStorage.setItem('lastRouteParams', JSON.stringify(this.$route.params))
       window.location = `https://github.com/login/oauth/authorize?client_id=${id}&redirect_uri=${callback}&state=${state}`
+    },
+    fetchData: function () {
+      if (this.$root.userinfo) {
+        api.user.getNotifications().then(data => {
+          this.notifsInfo = data
+        })
+      }
     }
   },
   mounted: function () {
-    if (this.$root.userinfo) {
-      api.user.getNotifications().then(data => {
-        this.notifsInfo = data
-      })
-    }
+    this.fetchData()
     this.$root.$on('router-after', () => {
       this.notifsOpen = false
     })

@@ -48,6 +48,10 @@ const getStars = (params) => {
   return api.baseGet('api/user/star/', params)
 }
 
+const getActivities = (params) => {
+  return api.baseGet('api/user/activity/', params)
+}
+
 export default {
   login,
   register,
@@ -60,5 +64,6 @@ export default {
   unfollowUser,
   getFollowers,
   getFollowing,
-  getStars
+  getStars,
+  getActivities
 }

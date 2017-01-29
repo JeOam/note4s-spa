@@ -39,6 +39,7 @@
 <script>
 import MainContainer from 'layout/MainContainer'
 import Profile from 'pages/index/Profile'
+import api from 'api'
 
 export default {
   components: {
@@ -49,6 +50,11 @@ export default {
     return {
       activities: []
     }
+  },
+  mounted: function () {
+    api.user.getActivities().then(data => {
+      this.activities = data
+    })
   }
 }
 </script>
