@@ -19,6 +19,12 @@ export default {
   methods: {
     addNotification: function (notification) {
       // notification: { type: '', message: '', duration: 0 }
+      if (this.notifications.length) {
+        let last = this.notifications[this.notifications.length - 1].message
+        if (notification.message === last) {
+          return
+        }
+      }
       if (notification.duration && notification.duration > 0) {
         notification.timer = setTimeout(
           () => this.removeNotification(notification),

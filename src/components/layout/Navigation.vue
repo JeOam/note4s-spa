@@ -6,7 +6,7 @@
           <i class="fa fa-home"></i> &nbsp; Home
         </router-link>
         <router-link :to="{name: 'activity'}" class="nav-item is-tab" :class="{'is-active': $route.name === 'activity'}">
-          <i class="fa fa-cube"></i> &nbsp; Activity
+          <i class="fa fa-rss"></i> &nbsp; Activity
         </router-link>
       </div>
 
