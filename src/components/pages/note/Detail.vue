@@ -6,6 +6,10 @@
           <div class="level-item">
             <p>
               <template v-if="!note.content">
+                <span class="button is-small">
+                  {{ note.title }}
+                </span>
+                &nbsp;&nbsp;&nbsp;
                 <span v-if="note.notebook" class="button is-small">
                   {{ note.notebook.name }}
                 </span>
@@ -13,9 +17,19 @@
                 <span v-if="note.section" class="button is-small">
                   {{ note.section.name }}
                 </span>
-                <span v-if="note.section"> -> </span>
-                <span class="button is-small">
-                  {{ note.title }}
+                <span class="button image-button is-small">
+                  <p class="image is-32x32">
+                    <img src="http://placehold.it/128x128">
+                  </p>
+                </span>
+                <span class="is-small">
+                  {{ note.user ? note.user.username : '' }} •
+                  <template v-if="note.created && note.updated && note.created.substring(0, 19) !== note.updated.substring(0, 19)">
+                    {{ note.created | timeago}} ~ {{ note.updated | timeago }}
+                  </template>
+                  <template v-else>
+                    {{ note.created | timeago }}
+                  </template>
                 </span>
               </template>
               <template v-else>
@@ -214,6 +228,9 @@ export default {
 <style lang="scss" scoped>
 .subnote-container {
   margin-bottom: 20px;
+  margin-top: -21px;
+  padding-top: 1px;
+  border-left: 1px solid #ddd;
 }
 .action-item {
   font-size: 12px;

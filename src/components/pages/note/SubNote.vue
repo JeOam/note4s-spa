@@ -1,7 +1,7 @@
 <template>
   <article :id="subnote.id" class="media">
     <figure class="media-left">
-      <p class="image is-48x48">
+      <p class="image is-32x32">
         <img src="http://placehold.it/128x128">
       </p>
     </figure>
@@ -12,7 +12,8 @@
             <div class="level-left">
               <div class="level-item">
                 <span>
-                   {{ subnote.updated | timeago}}
+                  {{ subnote.user ? subnote.user.username : '' }} •
+                  {{ subnote.updated | timeago}}
                 </span>
                 <span v-if="subnote.created.substring(0, 19) !== subnote.updated.substring(0, 19)">
                    • edited
@@ -27,7 +28,7 @@
             </div>
           </nav>
         </div>
-        <div class="message-body markdown-body" :id="'note-' + subnote.id">
+        <div class="message-body markdown-body subnote-content" :id="'note-' + subnote.id">
           <vue-markdown :source="subnote.content"></vue-markdown>
         </div>
       </article>
@@ -64,6 +65,27 @@ export default {
     padding-top: 2px;
     font-size: 16px;
     margin-left: 10px;
+  }
+}
+.media {
+  position: relative;
+  margin-top: 20px;
+  padding-top: 0;
+  .media-left {
+    padding-left: 10px;
+  }
+  .media-left::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 0;
+    width: 52px;
+    height: 1px;
+    background: #ddd;
+    overflow: hidden;
+  }
+  .subnote-content {
+    font-size: 14px;
   }
 }
 </style>

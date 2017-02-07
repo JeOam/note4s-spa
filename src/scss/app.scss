@@ -52,3 +52,10 @@ $fa-font-path: '~font-awesome/fonts/';
 .full-width {
   width: 100%;
 }
+
+.image-button {
+  border: 0;
+  background-color: inherit;
+  padding-right: 0px !important;
+  margin-right: -3px;
+}
