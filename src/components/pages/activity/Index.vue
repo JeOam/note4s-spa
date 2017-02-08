@@ -8,22 +8,49 @@
           </router-link>
           <!-- new note -->
           <template v-if="activity.action === 'new note' && activity.target_type === 'note'">
-            Create a new note
+            create a new note
             <router-link :to="{name: 'note detail', params: {noteId: activity.target_id}}">
               {{ activity.target_desc }}
             </router-link>
-            Under Notebook
+            under notebook
             <router-link :to="{name: 'notebook', params: {notebookId: activity.target_owner_id}}">
               {{ activity.target_owner_desc }}
             </router-link>
           </template>
           <!-- new subnote -->
           <template v-if="activity.action === 'new subnote' && activity.target_type === 'note'">
-            Append a subnote to
+            append a subnote to
             <router-link :to="{name: 'note detail',
                                params: {noteId: activity.target_id},
                                hash: '#' + activity.anchor}">
               {{ activity.target_desc }}
+            </router-link>
+          </template>
+          <!-- new notebook -->
+          <template v-if="activity.action === 'new notebook' && activity.target_type === 'notebook'">
+            create a new notebook
+            <router-link :to="{name: 'notebook',
+                               params: {notebookId: activity.target_id}}">
+              {{ activity.target_desc }}
+            </router-link>
+          </template>
+          <!-- follow user -->
+          <template v-if="activity.action === 'watch' && activity.target_type === 'user'">
+            follow user
+            <router-link :to="{name: 'profile overview',
+                               params: {username: activity.target_desc}}">
+              {{ activity.target_desc }}
+            </router-link>
+          </template>
+          <!-- star note -->
+          <template v-if="activity.action === 'star' && activity.target_type === 'note'">
+            star note
+            <router-link :to="{name: 'note detail', params: {noteId: activity.target_id}}">
+              {{ activity.target_desc }}
+            </router-link>
+            under notebook
+            <router-link :to="{name: 'notebook', params: {notebookId: activity.target_owner_id}}">
+              {{ activity.target_owner_desc }}
             </router-link>
           </template>
           <span class="time">{{ activity.created | timeago }}</span>
