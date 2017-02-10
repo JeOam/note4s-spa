@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import user from './user'
 import note from './note'
+import organization from './organization'
 
 const baseGet = (url, data) => {
   return new Promise((resolve, reject) => {
@@ -46,5 +47,6 @@ export default {
   baseCreate,
   baseDelete,
   user,
-  note
+  note,
+  organization
 }
