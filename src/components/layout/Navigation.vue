@@ -28,7 +28,7 @@
         </span>
         <span
           v-if="$root.userinfo"
-          class="nav-item"
+          class="nav-item notif-container"
           @click.stop="toggleNotifs">
           Notifications
           <span v-if="notifsInfo.unread_count > 0"
@@ -110,6 +110,15 @@
             </div>
           </div>
         </div>
+        <span v-if="$root.userinfo" class="nav-item">
+          <router-link :to="{name: 'profile overview', params: {username: $root.userinfo.username}}">
+            <span class="image-button is-small">
+              <p class="image is-32x32">
+                <img src="http://placehold.it/128x128">
+              </p>
+            </span>
+          </router-link>
+        </span>
         <router-link v-if="!$root.userinfo" :to="{name: 'login'}" class="nav-item">Login</router-link>
         <span v-if="!$root.userinfo"  class="nav-item">
           <a @click="getAuthUrl" class="button is-primary">
@@ -189,6 +198,24 @@ export default {
     width: 980px;
   }
 }
+.notif-container {
+  position: relative;
+}
+.image-button {
+  border-radius: 2px;
+  font-size: 11px;
+  height: 24px;
+  line-height: 16px;
+  padding-left: 6px;
+  user-select: none;
+  align-items: center;
+  display: inline-flex;
+  position: relative;
+  vertical-align:middle;
+  justify-content: center;
+  text-align: center;
+  padding-top: 7px;
+}
 .notif-count {
   top: 10px;
   right: -4px;
@@ -238,7 +265,7 @@ export default {
   border-right: 7.5px solid transparent;
   border-bottom: 7px solid #bbb;
   margin-top: -7px;
-  margin-left: 258px;
+  margin-left: 213px;
   position: absolute;
   top: 0;
 }
