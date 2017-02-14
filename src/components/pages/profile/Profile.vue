@@ -2,7 +2,7 @@
   <div class="card is-fullwidth">
     <div class="card-content">
       <a class="card-avatar">
-        <img src="../../../assets/avatar.png">
+        <img :src="$root.imgPH">
       </a>
       <div v-if="userinfo.username" class="card-user">
         <div class="card-user-name">
@@ -18,10 +18,21 @@
       </div>
     </div>
     <button v-if="$root.userinfo.username !== $route.params.username"
-            class="button card-follow"
+            class="button card-container card-follow"
             @click="clickFollow">
       {{ userinfo.followed ? 'Unfollow' : 'Follow' }}
     </button>
+    <hr class="card-container">
+    <div class="card-container card-organization">
+      Organizations
+      <ul>
+        <p v-for="organization in userinfo.organizations" class="image is-32x32">
+          <router-link :to="{name: 'organization overview', params:{name: organization.name}}">
+            <img :src="organization.avatar || $root.imgPH" :title="organization.name">
+          </router-link>
+        </p>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -103,14 +114,25 @@ export default {
     }
   }
 }
-
-.card-follow {
-  margin: auto;
-  height: 32px;
+.card-container {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: auto;
   max-width: 230px;
   width: 100%;
+}
+.card-follow {
+  height: 32px;
   display: block;
   border: 1px solid #d5d5d5;
   border-radius: 3px;
+}
+.card-organization {
+  font-weight: bold;
+  p {
+    display: inline-flex;
+    margin: 2px;
+  }
 }
 </style>

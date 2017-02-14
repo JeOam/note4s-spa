@@ -52,6 +52,7 @@ export default {
   created: function () {
     this.$root.showNotification = this.showNotification
     this.$root.showModalMessage = this.showModalMessage
+    this.$root.imgPH = 'http://placehold.it/128x128'
     let userInfoStr = window.localStorage.getItem('userinfo')
     if (userInfoStr) {
       this.$root.userinfo = JSON.parse(userInfoStr)

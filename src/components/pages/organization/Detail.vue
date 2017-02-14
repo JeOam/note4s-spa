@@ -2,33 +2,15 @@
   <div>
     <div class="tabs">
       <ul>
-        <li class="tab-item" :class="{'is-active': $route.name === 'profile overview'}">
-          <router-link :to="{name: 'profile overview', params: {username: $route.params.username}}">
-            Overview
-          </router-link>
-        </li>
-        <li class="tab-item" :class="{'is-active': $route.name === 'profile notebook'}">
-          <router-link :to="{name: 'profile notebook', params: {username: $route.params.username}}">
+        <li class="tab-item" :class="{'is-active': $route.name === 'organization notebook'}">
+          <router-link :to="{name: 'organization notebook', params: {name: $route.params.name}}">
             Notebooks
+          </router-link>
+        </li>
+        <li class="tab-item" :class="{'is-active': $route.name === 'organization people'}">
+          <router-link :to="{name: 'organization people', params: {name: $route.params.name}}">
+            People
             <span v-if="userinfo.notebook_count" class="counter">{{ userinfo.notebook_count }}</span>
-          </router-link>
-        </li>
-        <li class="tab-item" :class="{'is-active': $route.name === 'profile star'}">
-          <router-link :to="{name: 'profile star', params: {username: $route.params.username}}">
-            Stars
-            <span v-if="userinfo.star_count" class="counter">{{ userinfo.star_count }}</span>
-          </router-link>
-        </li>
-        <li class="tab-item" :class="{'is-active': $route.name === 'profile follower'}">
-          <router-link :to="{name: 'profile follower', params: {username: $route.params.username}}">
-            Followers
-            <span v-if="userinfo.follower_count" class="counter">{{ userinfo.follower_count }}</span>
-          </router-link>
-        </li>
-        <li class="tab-item" :class="{'is-active': $route.name === 'profile following'}">
-          <router-link :to="{name: 'profile following', params: {username: $route.params.username}}">
-            Following
-            <span v-if="userinfo.following_count" class="counter">{{ userinfo.following_count }}</span>
           </router-link>
         </li>
       </ul>

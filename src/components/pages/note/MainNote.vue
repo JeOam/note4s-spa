@@ -10,7 +10,7 @@
       </span>
       <span class="button image-button is-small">
         <p class="image is-32x32">
-          <img src="http://placehold.it/128x128">
+          <img :src="$root.imgPH">
         </p>
       </span>
       <span class="is-small">

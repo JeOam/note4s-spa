@@ -2,7 +2,7 @@
   <article :id="subnote.id" class="media">
     <figure class="media-left">
       <p class="image is-32x32">
-        <img src="http://placehold.it/128x128">
+        <img :src="$root.imgPH">
       </p>
     </figure>
     <div class="media-content">

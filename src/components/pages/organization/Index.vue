@@ -1,22 +1,20 @@
 <template>
-  <main-container :is-right="false">
-    <div slot="side-pannel-slot">
+  <content-container>
+    <div slot="content-slot">
       <profile></profile>
-    </div>
-    <div slot="main-pannel-slot">
       <detail></detail>
     </div>
-  </main-container>
+  </content-container>
 </template>
 
 <script>
-import MainContainer from 'layout/MainContainer'
+import ContentContainer from 'layout/ContentContainer'
 import Profile from './Profile'
 import Detail from './Detail'
 
 export default {
   components: {
-    MainContainer,
+    ContentContainer,
     Profile,
     Detail
   }

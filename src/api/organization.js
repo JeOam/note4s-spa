@@ -8,7 +8,12 @@ const createOrganization = (params) => {
   return api.baseCreate('api/organization/', params)
 }
 
+const getOrganizationProfile = (name) => {
+  return api.baseGet('api/organization/', {name: name})
+}
+
 export default {
   checkOrgName,
-  createOrganization
+  createOrganization,
+  getOrganizationProfile
 }

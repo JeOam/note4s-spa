@@ -1,27 +1,24 @@
 <template>
   <div class="card is-fullwidth">
     <div class="card-content">
-      <a class="card-avatar">
-        <img src="../../../assets/avatar.png">
-      </a>
-      <div v-if="userinfo.username" class="card-user">
-        <div class="card-user-name">
-          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
-            {{ userinfo.nickname }}
-          </router-link>
+      <div class="media">
+        <div class="media-left">
+          <figure class="image" style="height: 100px; width: 100px;">
+            <img :src="$root.imgPH" alt="Image">
+          </figure>
         </div>
-        <span>
-          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
-            @<span>{{ userinfo.username }}</span>
-          </router-link>
-        </span>
+        <div v-if="organizationInfo.name" class="media-content">
+          <p class="title is-4">
+            <router-link :to="{name: 'organization notebook', params: {name: organizationInfo.name}}">
+              {{ organizationInfo.name }}
+            </router-link>
+          </p>
+          <p class="subtitle is-6">
+            <span>{{ organizationInfo.desc }}</span>
+          </p>
+        </div>
       </div>
     </div>
-    <button v-if="$root.userinfo.username !== $route.params.username"
-            class="button card-follow"
-            @click="clickFollow">
-      {{ userinfo.followed ? 'Unfollow' : 'Follow' }}
-    </button>
   </div>
 </template>
 <script>
@@ -30,7 +27,7 @@ import api from 'api'
 export default {
   data () {
     return {
-      userinfo: {}
+      organizationInfo: {}
     }
   },
   watch: {
@@ -40,26 +37,9 @@ export default {
   },
   methods: {
     fetchData: function () {
-      api.user.getProfile({
-        username: this.$route.params.username
-      }).then(data => {
-        this.userinfo = data
+      api.organization.getOrganizationProfile(this.$route.params.name).then(data => {
+        this.organizationInfo = data
       })
-    },
-    clickFollow: function () {
-      if (this.userinfo.followed) {
-        api.user.unfollowUser(this.$route.params.username).then(result => {
-          if (result) {
-            this.userinfo.followed = false
-          }
-        })
-      } else {
-        api.user.followUser(this.$route.params.username).then(result => {
-          if (result) {
-            this.userinfo.followed = true
-          }
-        })
-      }
     }
   },
   mounted: function () {

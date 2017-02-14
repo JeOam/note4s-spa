@@ -48,7 +48,21 @@ export default [
      {path: '/note/:noteId', name: 'note detail', component: lazyLoading('note/Detail')},
      {path: '/note/edit/:noteId', name: 'edit note', component: lazyLoading('note/Create')},
      {path: '/note/:noteId/comment', name: 'note comment', component: lazyLoading('comment/List')},
-     {path: '/organization/new', name: 'new organization', component: lazyLoading('organization/New')}
+     {path: '/organizations/new', name: 'new organization', component: lazyLoading('organization/New')},
+     {path: '/organization/:name',
+      component: lazyLoading('organization/Index'),
+      children: [
+        {
+          path: '',
+          name: 'organization notebook',
+          component: lazyLoading('organization/Notebook')
+        },
+        {
+          path: 'people',
+          name: 'organization people',
+          component: lazyLoading('organization/People')
+        }
+      ]}
    ]
   },
   {path: '/redirect', name: 'redirect', component: lazyLoading('user/Redirect')}

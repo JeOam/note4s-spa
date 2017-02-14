@@ -114,7 +114,7 @@
           <router-link :to="{name: 'profile overview', params: {username: $root.userinfo.username}}">
             <span class="image-button is-small">
               <p class="image is-32x32">
-                <img src="http://placehold.it/128x128">
+                <img :src="$root.imgPH">
               </p>
             </span>
           </router-link>
