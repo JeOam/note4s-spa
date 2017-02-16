@@ -22,7 +22,7 @@
         </span>
       </p>
     </div>
-    <div v-if="selectedNotebook.name" class="message-body">
+    <div v-if="selectedNotebook.id" class="message-body">
       <template v-if="selectedNotebook.id">
         <div v-for="(section, index) in selectedNotebook.children" class="section-item">
           <div>
@@ -43,7 +43,7 @@
         </li>
       </template>
     </div>
-    <div v-if="!selectedNotebook.name" class="message-body">
+    <div v-if="!selectedNotebook.id" class="message-body">
       <div v-for="notebook in notebooks" class="section-item">
         <template v-if="notebook.id">
           <div>
@@ -70,12 +70,27 @@
         </template>
       </div>
       <div class="control is-grouped">
+        <p v-if="organizations.length" class="control has-addons">
+          <span class="addon-label">
+            Organization:
+          </span>
+          <span class="select is-centered control-select">
+            <select v-model="selectedOrganization">
+              <option :value="''">
+                None
+              </option>
+              <option v-for="organization in organizations" :value="organization">
+                {{ organization.name }}
+              </option>
+            </select>
+          </span>
+        </p>
         <p class="control">
-          <input v-model="newNotebook" class="input" type="text" placeholder="New Notebook">
+          <input v-model="newNotebook" class="input" type="text" placeholder="New Notebook Name">
         </p>
         <p class="control">
           <a @click="addNewNotebook" class="button is-default">
-            New
+            Create
           </a>
         </p>
       </div>
@@ -92,7 +107,9 @@ export default {
       selectedNotebook: '',
       newNotebook: '',
       newSections: '',
-      notebooks: []
+      notebooks: [],
+      selectedOrganization: '',
+      organizations: []
     }
   },
   watch: {
@@ -105,9 +122,16 @@ export default {
       let params = {
         name: this.newNotebook
       }
+      if (this.selectedOrganization) {
+        params.organization_id = this.selectedOrganization.id
+      }
       api.note.createNotebook(params).then(result => {
         if (result[0]) {
-          this.getNotebooks()
+          if (result[1].owner_type === 'organization') {
+            this.$router.push({name: 'notebook', params: {notebookId: result[1].id}})
+          } else {
+            this.getNotebooks()
+          }
         }
       })
     },
@@ -154,14 +178,21 @@ export default {
         }
       })
     },
+    getOrganizations: function () {
+      api.organization.getOrganizations().then(data => {
+        this.organizations = data
+      })
+    },
     fetchData: function () {
       this.selectedNotebook = ''
       if (this.$route.name === 'index') {
         this.getNotebooks()
+        this.getOrganizations()
       } else {
         api.note.notebookDetail(this.$route.params.notebookId).then(data => {
           this.selectedNotebook = data
-          this.$parent.$parent.$refs.profile.userinfo = data.user
+          this.$parent.$parent.$refs.profile.ownerInfo = data.owner
+          this.$parent.$parent.$refs.profile.ownerInfo.owner_type = data.owner_type
         })
       }
     }
@@ -226,6 +257,11 @@ export default {
         height: 24px;
       }
     }
+  }
+}
+.control-select {
+  select {
+    color: grey !important;
   }
 }
 </style>

@@ -17,8 +17,8 @@ export default {
     }
   },
   mounted: function () {
-    api.note.getNotebooks({
-      username: this.$route.params.username
+    api.organization.getNotebooks({
+      name: this.$route.params.name
     }).then(data => {
       this.notebooks = data
     })

@@ -4,39 +4,64 @@
       <a class="card-avatar">
         <img :src="$root.imgPH" class="card-avatar-img">
       </a>
-      <div v-if="userinfo.username" class="card-user">
+      <div v-if="ownerInfo.username" class="card-user">
         <div class="card-user-name">
-          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
-            {{ userinfo.nickname }}
+          <router-link :to="{name: 'profile overview', params: {username: ownerInfo.username}}">
+            {{ ownerInfo.nickname }}
           </router-link>
         </div>
         <span>
-          <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
-            @<span>{{ userinfo.username }}</span>
+          <router-link :to="{name: 'profile overview', params: {username: ownerInfo.username}}">
+            @<span>{{ ownerInfo.username }}</span>
           </router-link>
+        </span>
+      </div>
+      <div v-if="ownerInfo.name" class="card-user">
+        <div class="card-user-name">
+          <router-link :to="{name: 'organization notebook', params: {name: ownerInfo.name}}">
+            {{ ownerInfo.name }}
+          </router-link>
+        </div>
+        <span>
+          <span>{{ ownerInfo.desc }}</span>
         </span>
       </div>
       <div class="card-stats">
         <ul class="card-stats-list">
-          <li v-if="userinfo.username" class="card-stats-item">
-            <router-link :to="{name: 'profile notebook', params: {username: userinfo.username}}">
+          <li v-if="ownerInfo.username" class="card-stats-item">
+            <router-link :to="{name: 'profile notebook', params: {username: ownerInfo.username}}">
               <span class="card-stats-key">Notebooks</span>
               <span class="card-stats-val"
-                    :title="userinfo.notebook_count + ' Notebook(s) and ' + userinfo.note_count + ' Note(s)'">
-                {{ userinfo.notebook_count }} - {{ userinfo.note_count }}
+                    :title="ownerInfo.notebook_count + ' Notebook(s) and ' + ownerInfo.note_count + ' Note(s)'">
+                {{ ownerInfo.notebook_count }} - {{ ownerInfo.note_count }}
               </span>
             </router-link>
           </li>
-          <li class="card-stats-item">
-            <router-link :to="{name: 'index'}">
-              <span class="card-stats-key">Following</span>
-              <span class="card-stats-val">{{ userinfo.following_count }}</span>
+          <li v-if="ownerInfo.name" class="card-stats-item">
+            <router-link :to="{name: 'organization notebook', params: {name: ownerInfo.name}}">
+              <span class="card-stats-key">Notebooks</span>
+              <span class="card-stats-val"
+                    :title="ownerInfo.notebook_count + ' Notebook(s) and ' + ownerInfo.note_count + ' Note(s)'">
+                {{ ownerInfo.notebook_count }} - {{ ownerInfo.note_count }}
+              </span>
             </router-link>
           </li>
-          <li class="card-stats-item">
+          <li v-if="ownerInfo.username" class="card-stats-item">
+            <router-link :to="{name: 'index'}">
+              <span class="card-stats-key">Following</span>
+              <span class="card-stats-val">{{ ownerInfo.following_count }}</span>
+            </router-link>
+          </li>
+          <li v-if="ownerInfo.username" class="card-stats-item">
             <router-link :to="{name: 'index'}">
               <span class="card-stats-key">Followers</span>
-              <span class="card-stats-val">{{ userinfo.follower_count }}</span>
+              <span class="card-stats-val">{{ ownerInfo.follower_count }}</span>
+            </router-link>
+          </li>
+          <li v-if="ownerInfo.name" class="card-stats-item">
+            <router-link :to="{name: 'index'}">
+              <span class="card-stats-key">Watches</span>
+              <span class="card-stats-val">{{ ownerInfo.watch_count }}</span>
             </router-link>
           </li>
         </ul>
@@ -49,7 +74,7 @@ import api from 'api'
 export default {
   data () {
     return {
-      userinfo: {}
+      ownerInfo: {}
     }
   },
   watch: {
@@ -61,7 +86,7 @@ export default {
     fetchData: function () {
       if (this.$route.name !== 'notebook') {
         api.user.getProfile().then(result => {
-          this.userinfo = result
+          this.ownerInfo = result
         })
       }
     }

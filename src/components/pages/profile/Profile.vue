@@ -24,10 +24,14 @@
     </button>
     <hr class="card-container">
     <div class="card-container card-organization">
-      Organizations
+      Organizations -
+      <router-link v-if="$root.userinfo.username === $route.params.username"
+                   :to="{name: 'new organization'}">
+        Create
+      </router-link>
       <ul>
         <p v-for="organization in userinfo.organizations" class="image is-32x32">
-          <router-link :to="{name: 'organization overview', params:{name: organization.name}}">
+          <router-link :to="{name: 'organization notebook', params:{name: organization.name}}">
             <img :src="organization.avatar || $root.imgPH" :title="organization.name">
           </router-link>
         </p>

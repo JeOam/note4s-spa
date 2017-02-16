@@ -53,6 +53,11 @@ $fa-font-path: '~font-awesome/fonts/';
   width: 100%;
 }
 
+.addon-label {
+  line-height: 30px;
+  padding-right: 5px;
+}
+
 .image-button {
   border: 0;
   background-color: inherit;
