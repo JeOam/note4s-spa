@@ -60,7 +60,7 @@
           </li>
           <li v-if="ownerInfo.name" class="card-stats-item">
             <router-link :to="{name: 'index'}">
-              <span class="card-stats-key">Watches</span>
+              <span class="card-stats-key">All Watches</span>
               <span class="card-stats-val">{{ ownerInfo.watch_count }}</span>
             </router-link>
           </li>

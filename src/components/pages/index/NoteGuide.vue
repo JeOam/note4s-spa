@@ -2,24 +2,44 @@
   <article class="message">
     <div class="message-header">
       <p class="control">
-        <span v-if="notebooks.length" class="select center-content is-centered">
-          <select v-model="selectedNotebook">
-            <option v-for="notebook in notebooks" :value="notebook">
-              {{ notebook.name }}
-            </option>
-            <option>
-              Edit
-            </option>
-          </select>
-        </span>
-        <span v-else class="center-content is-centered">
+        <template v-if="notebooks.length">
+          <span class="select center-content is-centered">
+            <select v-model="selectedNotebook">
+              <option v-for="notebook in notebooks" :value="notebook">
+                {{ notebook.name }}
+              </option>
+              <option>
+                Edit
+              </option>
+            </select>
+          </span>
+        </template>
+        <template v-else>
           <template v-if="$route.name === 'notebook'">
-            {{ selectedNotebook.name }}
+            <nav class="level">
+              <div class="level-left">
+                <div class="level-item">
+                  <p>
+                    {{ selectedNotebook.name }}
+                  </p>
+                </div>
+              </div>
+              <div class="level-right">
+                <p class="level-item">
+                  <a @click="watchNotebook"
+                     class="button is-small is-primary is-inverted is-outlined">
+                     {{ selectedNotebook.is_watch ? 'Watched' : 'Watch' }} - {{ selectedNotebook.watch_count }}
+                   </a>
+                </p>
+              </div>
+            </nav>
           </template>
           <template v-else>
-            <a class="button">New Notebook</a>
+            <span class="center-content is-centered">
+              <a class="button">New Notebook</a>
+            </span>
           </template>
-        </span>
+        </template>
       </p>
     </div>
     <div v-if="selectedNotebook.id" class="message-body">
@@ -182,6 +202,25 @@ export default {
       api.organization.getOrganizations().then(data => {
         this.organizations = data
       })
+    },
+    watchNotebook: function () {
+      if (this.selectedNotebook) {
+        if (this.selectedNotebook.is_watch) {
+          api.note.cancelWatchNotebook(this.$route.params.notebookId).then(result => {
+            if (result) {
+              this.selectedNotebook.is_watch = false
+              this.selectedNotebook.watch_count -= 1
+            }
+          })
+        } else {
+          api.note.watchNotebook(this.$route.params.notebookId).then(result => {
+            if (result[0]) {
+              this.selectedNotebook.is_watch = true
+              this.selectedNotebook.watch_count = result[1]
+            }
+          })
+        }
+      }
     },
     fetchData: function () {
       this.selectedNotebook = ''

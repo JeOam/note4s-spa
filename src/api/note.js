@@ -68,6 +68,13 @@ const cancelStarComment = (id) => {
   return api.baseDelete('api/note/comment/star', id)
 }
 
+const watchNotebook = (id) => {
+  return api.baseCreate(`api/notebook/watch/${id}`)
+}
+
+const cancelWatchNotebook = (id) => {
+  return api.baseDelete('api/notebook/watch', id)
+}
 export default {
   getNotebooks,
   createNotebook,
@@ -85,5 +92,7 @@ export default {
   getNoteComment,
   createComment,
   starComment,
-  cancelStarComment
+  cancelStarComment,
+  watchNotebook,
+  cancelWatchNotebook
 }
