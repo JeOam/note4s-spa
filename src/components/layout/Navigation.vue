@@ -67,7 +67,7 @@
               <!-- star note -->
               <template v-if="notification.action === 'star' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                Star Your {{ notification.target_type }}
+                star your {{ notification.target_type }}
                 <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
                   {{ notification.target_desc }}
                 </router-link>
@@ -75,7 +75,7 @@
               <!-- watch note -->
               <template v-if="notification.action === 'watch' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                Watch Your {{ notification.target_type }}
+                watch your {{ notification.target_type }}
                 <router-link :to="{name: 'note detail', params: {noteId: notification.target_id}}">
                   {{ notification.target_desc }}
                 </router-link>
@@ -83,7 +83,7 @@
               <!-- comment note -->
               <template v-if="notification.action === 'comment' && notification.target_type === 'note'"
                    :class="{'unread': !notification.is_read}">
-                Comment Your {{ notification.target_type }}
+                comment your {{ notification.target_type }}
                 <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
                   {{ notification.target_desc }}
                 </router-link>
@@ -91,21 +91,29 @@
               <!-- at comment -->
               <template v-if="notification.action === 'at' && notification.target_type === 'comment'"
                    :class="{'unread': !notification.is_read}">
-                @ You in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
+                @ you in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
                   {{ notification.target_desc }}
                 </router-link>'s comment
               </template>
               <!-- star comment -->
               <template v-if="notification.action === 'star' && notification.target_type === 'comment'"
                    :class="{'unread': !notification.is_read}">
-                Star Your comment in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
+                star your comment in <router-link :to="{name: 'note comment', params: {noteId: notification.target_id}, hash: '#' + notification.anchor}">
                   {{ notification.target_desc }}
                 </router-link>'s comment
               </template>
               <!-- follow you -->
               <template v-if="notification.action === 'watch' && notification.target_type === 'user'"
                    :class="{'unread': !notification.is_read}">
-                Followed You
+                followed you
+              </template>
+              <!-- watch your notebook -->
+              <template v-if="notification.action === 'watch' && notification.target_type === 'notebook'"
+                   :class="{'unread': !notification.is_read}">
+                watch your notebook
+                <router-link :to="{name: 'notebook', params: {notebookId: notification.target_id}}">
+                  {{ notification.target_desc }}
+                </router-link>
               </template>
             </div>
           </div>

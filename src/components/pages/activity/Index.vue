@@ -53,6 +53,13 @@
               {{ activity.target_owner_desc }}
             </router-link>
           </template>
+          <!-- watch notebook -->
+          <template v-if="activity.action === 'watch' && activity.target_type === 'notebook'">
+            watch notebook
+            <router-link :to="{name: 'notebook', params: {notebookId: activity.target_id}}">
+              {{ activity.target_desc }}
+            </router-link>
+          </template>
           <span class="time">{{ activity.created | timeago }}</span>
         </div>
       </article>

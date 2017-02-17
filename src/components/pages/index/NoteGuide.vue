@@ -134,6 +134,12 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      this.selectedNotebook = ''
+      this.newNotebook = ''
+      this.newSections = ''
+      this.notebooks = []
+      this.selectedOrganization = ''
+      this.organizations = []
       this.fetchData()
     }
   },

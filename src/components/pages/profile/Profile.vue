@@ -17,7 +17,7 @@
         </span>
       </div>
     </div>
-    <button v-if="$root.userinfo.username !== $route.params.username"
+    <button v-if="$root.userinfo && $root.userinfo.username !== $route.params.username"
             class="button card-container card-follow"
             @click="clickFollow">
       {{ userinfo.followed ? 'Unfollow' : 'Follow' }}
@@ -25,7 +25,7 @@
     <hr class="card-container">
     <div class="card-container card-organization">
       Organizations -
-      <router-link v-if="$root.userinfo.username === $route.params.username"
+      <router-link v-if="$root.userinfo && $root.userinfo.username === $route.params.username"
                    :to="{name: 'new organization'}">
         Create
       </router-link>

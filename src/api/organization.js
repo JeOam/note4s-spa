@@ -20,10 +20,15 @@ const getNotebooks = (params) => {
   return api.baseGet('api/organization/notebook/', params)
 }
 
+const getPeople = (params) => {
+  return api.baseGet('api/organization/people/', params)
+}
+
 export default {
   checkOrgName,
   createOrganization,
   getOrganizationProfile,
   getOrganizations,
-  getNotebooks
+  getNotebooks,
+  getPeople
 }
