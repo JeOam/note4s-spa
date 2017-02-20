@@ -64,31 +64,48 @@
       </template>
     </div>
     <div v-if="!selectedNotebook.id" class="message-body">
-      <div v-for="notebook in notebooks" class="section-item">
-        <template v-if="notebook.id">
-          <div>
-            <span>{{ notebook.name }}</span>
-            <i @click="deleteNotebook(notebook)" class="fa fa-trash-o fa-13 clickable" aria-hidden="true"></i>
-          </div>
-          <li v-for="section in notebook.children" class="note-item edit-section-item">
-            Section: {{ section.name }}
+      <div class="columns">
+        <div class="column is-one-third">
+          <aside class="menu">
+            <p class="menu-label">
+              Notebooks
+            </p>
+            <ul class="menu-list">
+              <template v-for="notebook in notebooks">
+                <li>
+                  <a :class="{'is-active': selectedEditNotebook && notebook.id === selectedEditNotebook.id}"
+                     @click="selectEditNotebook(notebook)">
+                    {{ notebook.name }}
+                  </a>
+                </li>
+              </template>
+            </ul>
+          </aside>
+        </div>
+        <div v-if="selectedEditNotebook" class="column edit-container">
+          Sections:
+          <hr>
+          <li v-for="section in selectedEditNotebook.children" class="note-item edit-section-item">
+            {{ section.name }}
             <i @click="deleteNotebook(section)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
           </li>
-          <li class="note-item edit-section-item">
-            <div class="control is-grouped">
-              <p class="control">
-                <input v-model="newSections[notebook.id]" class="input" type="text" placeholder="New Section">
-              </p>
-              <p class="control">
-                <a @click="addNewSection(notebook.id)" class="button is-default">
-                  New
-                </a>
-              </p>
-            </div>
-          </li>
-          <br>
-        </template>
+          <div class="control is-grouped">
+            <p class="control">
+              <input v-model="newSections[selectedEditNotebook.id]" class="input" type="text" placeholder="New Section">
+            </p>
+            <p class="control">
+              <a @click="addNewSection(selectedEditNotebook.id)" class="button is-default">
+                New
+              </a>
+            </p>
+          </div>
+          <hr>
+          <span v-if="$root.userinfo && (selectedEditNotebook.owner_id === $root.userinfo.id || selectedEditNotebook.owner_role === 'owner')">
+            Delete this notebook? <i @click="deleteNotebook(selectedEditNotebook)" class="fa fa-trash-o fa-12 clickable" aria-hidden="true"></i>
+          </span>
+        </div>
       </div>
+      <hr>
       <div class="control is-grouped">
         <p v-if="organizations.length" class="control has-addons">
           <span class="addon-label">
@@ -129,7 +146,8 @@ export default {
       newSections: '',
       notebooks: [],
       selectedOrganization: '',
-      organizations: []
+      organizations: [],
+      selectedEditNotebook: ''
     }
   },
   watch: {
@@ -141,6 +159,13 @@ export default {
       this.selectedOrganization = ''
       this.organizations = []
       this.fetchData()
+    },
+    'selectedNotebook': function () {
+      if ((!this.selectedNotebook || !this.selectedNotebook.id) &&
+           this.notebooks.length &&
+           !this.selectedEditNotebook) {
+        this.selectedEditNotebook = this.notebooks[0]
+      }
     }
   },
   methods: {
@@ -197,6 +222,9 @@ export default {
           if (notebook.name === '') {
             this.selectedNotebook = notebook
           }
+          if (this.selectedEditNotebook && this.selectedEditNotebook.id === notebook.id) {
+            this.selectedEditNotebook = notebook
+          }
         }
         if (this.selectedNotebook === '' &&
             this.notebooks.length) {
@@ -227,6 +255,9 @@ export default {
           })
         }
       }
+    },
+    selectEditNotebook: function (notebook) {
+      this.selectedEditNotebook = notebook
     },
     fetchData: function () {
       this.selectedNotebook = ''
@@ -307,6 +338,17 @@ export default {
 .control-select {
   select {
     color: grey !important;
+  }
+}
+.edit-container {
+  background-color: lightyellow;
+  margin-top: 5px;
+  margin-right: 2px;
+  hr {
+    margin: 20px 0;
+  }
+  hr:first-of-type {
+    margin: 10px 0;
   }
 }
 </style>
