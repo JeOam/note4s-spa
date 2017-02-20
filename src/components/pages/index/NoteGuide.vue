@@ -321,17 +321,17 @@ export default {
   .note-item:first-of-type {
     margin-top: 6px;
   }
-  .edit-section-item {
-    list-style-type: decimal;
-    .control.is-grouped {
-      margin-top: 5px;
-      display: inline-flex;
-      input {
-        height: 24px;
-      }
-      a {
-        height: 24px;
-      }
+}
+.edit-section-item {
+  list-style-type: decimal;
+  .control.is-grouped {
+    margin-top: 5px;
+    display: inline-flex;
+    input {
+      height: 24px;
+    }
+    a {
+      height: 24px;
     }
   }
 }
