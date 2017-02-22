@@ -49,8 +49,9 @@ export default [
      {path: '/note/edit/:noteId', name: 'edit note', component: lazyLoading('note/Create')},
      {path: '/note/:noteId/comment', name: 'note comment', component: lazyLoading('comment/List')},
      {path: '/organizations/new', name: 'new organization', component: lazyLoading('organization/New')},
+     {path: '/organizations/invite/:name', name: 'organization invite', component: lazyLoading('organization/Invite')},
      {path: '/organization/:name',
-      component: lazyLoading('organization/Index'),
+      component: lazyLoading('organization/Profile'),
       children: [
         {
           path: '',
@@ -61,6 +62,11 @@ export default [
           path: 'people',
           name: 'organization people',
           component: lazyLoading('organization/People')
+        },
+        {
+          path: 'accept',
+          name: 'organization accept',
+          component: lazyLoading('organization/Accept')
         }
       ]}
    ]

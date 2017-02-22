@@ -115,6 +115,14 @@
                   {{ notification.target_desc }}
                 </router-link>
               </template>
+              <!-- watch your notebook -->
+              <template v-if="notification.action === 'invite' && notification.target_type === 'organization'"
+                   :class="{'unread': !notification.is_read}">
+                invite you to join organization
+                <router-link :to="{name: 'organization accept', params: {name: notification.target_desc}}">
+                  {{ notification.target_desc }}
+                </router-link>
+              </template>
             </div>
           </div>
         </div>

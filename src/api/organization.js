@@ -24,11 +24,26 @@ const getPeople = (params) => {
   return api.baseGet('api/organization/people/', params)
 }
 
+const sentInvite = (params) => {
+  return api.baseCreate('api/organization/invite/', params)
+}
+
+const checkMembership = (name) => {
+  return api.baseGet('api/organization/checkmembership/', {name: name})
+}
+
+const accept = (params) => {
+  return api.baseCreate('api/organization/accept/', params)
+}
+
 export default {
   checkOrgName,
   createOrganization,
   getOrganizationProfile,
   getOrganizations,
   getNotebooks,
-  getPeople
+  getPeople,
+  sentInvite,
+  checkMembership,
+  accept
 }
