@@ -22,6 +22,9 @@
           {{ note.created | timeago }}
         </template>
       </span>
+      <router-link v-if="note.revision_count" :to="{name: 'note revision', params: {noteId: note.id}}" class="button is-small">
+        Revisions {{ note.revision_count }}
+      </router-link>
     </div>
     <div class="message-body markdown-body note-content">
       <vue-markdown :source="note.content"></vue-markdown>

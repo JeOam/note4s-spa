@@ -18,6 +18,9 @@
                 <span v-if="subnote.created.substring(0, 19) !== subnote.updated.substring(0, 19)">
                    • edited
                  </span>
+                 <router-link v-if="subnote.revision_count" :to="{name: 'note revision', params: {noteId: subnote.id}}" class="button is-small">
+                   Revisions {{ subnote.revision_count }}
+                 </router-link>
               </div>
             </div>
             <div v-if="isCanEdit" class="level-right">

@@ -62,7 +62,7 @@ Vue.http.interceptors.push((request, next) => {
       }
     } else if (response.status >= 300 || response.data.code !== 200) {
       // API 访问出错
-      App.methods.showNotification(response.data, 'error', 5, app.$children[0])
+      App.methods.showNotification(response.data.message, 'error', 5, app.$children[0])
       response.status = 200
       response.ok = false
       response.data = {

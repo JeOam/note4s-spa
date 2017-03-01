@@ -75,6 +75,11 @@ const watchNotebook = (id) => {
 const cancelWatchNotebook = (id) => {
   return api.baseDelete('api/notebook/watch', id)
 }
+
+const getNoteRivisions = (id) => {
+  return api.baseGetDetail('api/note/revision/', id)
+}
+
 export default {
   getNotebooks,
   createNotebook,
@@ -94,5 +99,6 @@ export default {
   starComment,
   cancelStarComment,
   watchNotebook,
-  cancelWatchNotebook
+  cancelWatchNotebook,
+  getNoteRivisions
 }

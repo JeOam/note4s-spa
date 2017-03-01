@@ -3,14 +3,6 @@
 </template>
 <script>
 import MarkdownIt from 'markdown-it'
-import emoji from 'markdown-it-emoji'
-import subscript from 'markdown-it-sub'
-import superscript from 'markdown-it-sup'
-import footnote from 'markdown-it-footnote'
-import deflist from 'markdown-it-deflist'
-import abbreviation from 'markdown-it-abbr'
-import insert from 'markdown-it-ins'
-import mark from 'markdown-it-mark'
 import toc from 'markdown-it-toc-and-anchor'
 import highlight from 'markdown-it-highlightjs'
 
@@ -37,10 +29,6 @@ export default {
       default: true
     },
     linkify: {
-      type: Boolean,
-      default: true
-    },
-    emoji: {
       type: Boolean,
       default: true
     },
@@ -113,11 +101,7 @@ export default {
   },
   methods: {
     reload: function () {
-      let md = new MarkdownIt().use(subscript).use(superscript).use(footnote
-      ).use(deflist).use(abbreviation).use(insert).use(mark).use(highlight)
-      if (this.emoji) {
-        md.use(emoji)
-      }
+      let md = new MarkdownIt().use(highlight)
       md.set({
         html: this.html,
         xhtmlOut: this.xhtmlOut,

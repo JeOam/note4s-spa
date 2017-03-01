@@ -46,6 +46,7 @@ export default [
      },
      {path: '/note/new', name: 'new note', component: lazyLoading('note/Create')},
      {path: '/note/:noteId', name: 'note detail', component: lazyLoading('note/Detail')},
+     {path: '/note/:noteId/revisions', name: 'note revision', component: lazyLoading('revision/Index')},
      {path: '/note/edit/:noteId', name: 'edit note', component: lazyLoading('note/Create')},
      {path: '/note/:noteId/comment', name: 'note comment', component: lazyLoading('comment/List')},
      {path: '/organizations/new', name: 'new organization', component: lazyLoading('organization/New')},
