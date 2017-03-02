@@ -158,6 +158,9 @@ export default {
         content: note.content
       }).then(result => {
         if (result) {
+          if (note._content && note._content !== note.content) {
+            note.revision_count = (note.revision_count || 0) + 1
+          }
           note._editing = false
           note._content = note.content
         }
