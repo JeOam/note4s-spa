@@ -3,16 +3,27 @@
     <div class="message-header">
       <p class="control">
         <template v-if="notebooks.length">
-          <span class="select center-content is-centered">
-            <select v-model="selectedNotebook">
-              <option v-for="notebook in notebooks" :value="notebook">
-                {{ notebook.name }}
-              </option>
-              <option>
-                Edit
-              </option>
-            </select>
-          </span>
+          <nav class="level">
+            <div class="level-center">
+              <div class="level-item">
+                <span class="select center-content is-centered">
+                  <select v-model="selectedNotebook">
+                    <option v-for="notebook in notebooks" :value="notebook">
+                      {{ notebook.name }}
+                    </option>
+                    <option>
+                      Edit
+                    </option>
+                  </select>
+                </span>
+              </div>
+            </div>
+            <div class="level-right">
+              <p class="level-item">
+                <i v-if="selectedNotebook.private" class="fa fa-lock" aria-hidden="true"></i>
+              </p>
+            </div>
+          </nav>
         </template>
         <template v-else>
           <template v-if="$route.name === 'notebook'">
@@ -21,6 +32,10 @@
                 <div class="level-item">
                   <p>
                     {{ selectedNotebook.name }}
+                    <a v-if="selectedNotebook.private"
+                       class="button is-small is-light is-outlined">
+                       Private
+                     </a>
                   </p>
                 </div>
               </div>
@@ -43,7 +58,7 @@
       </p>
     </div>
     <div v-if="selectedNotebook.id" class="message-body">
-      <template v-if="selectedNotebook.id">
+      <template v-if="selectedNotebook.children && selectedNotebook.children.length">
         <div v-for="(section, index) in selectedNotebook.children" class="section-item">
           <div>
             {{ index + 1 }}. {{ section.name }}
@@ -56,11 +71,8 @@
         </div>
       </template>
       <template v-else>
-        <li v-for="note in selectedNotebook.children" class="note-item">
-          <router-link :to="{name: 'note detail', params: {noteId: note.id}}">
-            {{ note.title }}
-          </router-link>
-        </li>
+        Create notebook section first before you create note.
+        <button @click="createSection(selectedNotebook)" class="button is-default is-small">Create</button>
       </template>
     </div>
     <div v-if="!selectedNotebook.id" class="message-body">
@@ -125,6 +137,9 @@
         <p class="control">
           <input v-model="newNotebook" class="input" type="text" placeholder="New Notebook Name">
         </p>
+        <p class="control control-height">
+          Private?<input v-model="newNotebookPrivate" type="checkbox">
+        </p>
         <p class="control">
           <a @click="addNewNotebook" class="button is-default">
             Create
@@ -144,6 +159,7 @@ export default {
       selectedNotebook: '',
       newNotebook: '',
       newSections: '',
+      newNotebookPrivate: false,
       notebooks: [],
       selectedOrganization: '',
       organizations: [],
@@ -171,7 +187,8 @@ export default {
   methods: {
     addNewNotebook: function () {
       let params = {
-        name: this.newNotebook
+        name: this.newNotebook,
+        private: this.newNotebookPrivate
       }
       if (this.selectedOrganization) {
         params.organization_id = this.selectedOrganization.id
@@ -183,6 +200,8 @@ export default {
           } else {
             this.getNotebooks()
           }
+          this.newNotebook = ''
+          this.newNotebookPrivate = false
         }
       })
     },
@@ -257,6 +276,10 @@ export default {
       }
     },
     selectEditNotebook: function (notebook) {
+      this.selectedEditNotebook = notebook
+    },
+    createSection: function (notebook) {
+      this.selectedNotebook = 'Edit'
       this.selectedEditNotebook = notebook
     },
     fetchData: function () {
