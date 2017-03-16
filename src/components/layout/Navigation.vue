@@ -23,7 +23,7 @@
             Search
           </button>
         </span>
-        <span class="nav-item">
+        <span v-if="$root.userinfo" class="nav-item">
           <router-link :to="{name: 'new note'}" class="button">New Note</router-link>
         </span>
         <span

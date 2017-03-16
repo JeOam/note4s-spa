@@ -70,6 +70,12 @@ export default {
           this.selectedNotebook.children.length &&
           this.selectedSection.parent_id !== this.selectedNotebook.id) {
         this.selectedSection = this.selectedNotebook.children[0]
+      } else if (
+        this.selectedNotebook &&
+        this.selectedNotebook.children &&
+        !this.selectedNotebook.children.length
+      ) {
+        this.$root.showNotification('Please create notebook section first', 'warning', 2)
       }
     }
   },
@@ -109,16 +115,21 @@ export default {
   },
   mounted: function () {
     api.note.getNotebooks().then(data => {
-      this.notebooks = data
-      if (!this.$route.params.noteId) {
-        if (!this.selectedNotebook && this.notebooks.length) {
-          this.selectedNotebook = this.notebooks[0]
-        }
-        if (!this.selectedSection &&
-            this.selectedNotebook &&
-            this.selectedNotebook.children &&
-            this.selectedNotebook.children.length) {
-          this.selectedSection = this.selectedNotebook.children[0]
+      if (!data.length) {
+        this.$root.showNotification('Please create notebook first', 'warning', 2)
+        this.$router.push({name: 'index'})
+      } else {
+        this.notebooks = data
+        if (!this.$route.params.noteId) {
+          if (!this.selectedNotebook && this.notebooks.length) {
+            this.selectedNotebook = this.notebooks[0]
+          }
+          if (!this.selectedSection &&
+              this.selectedNotebook &&
+              this.selectedNotebook.children &&
+              this.selectedNotebook.children.length) {
+            this.selectedSection = this.selectedNotebook.children[0]
+          }
         }
       }
     })

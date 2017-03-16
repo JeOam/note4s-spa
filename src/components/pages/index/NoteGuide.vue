@@ -71,7 +71,9 @@
         </div>
       </template>
       <template v-else>
-        Create notebook section first before you create note.
+        <span class="small-button-text">
+          Create notebook section first before you create note.
+        </span>
         <button @click="createSection(selectedNotebook)" class="button is-default is-small">Create</button>
       </template>
     </div>
@@ -373,5 +375,8 @@ export default {
   hr:first-of-type {
     margin: 10px 0;
   }
+}
+.small-button-text {
+  line-height: 23px;
 }
 </style>

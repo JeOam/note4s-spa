@@ -60,6 +60,8 @@ Vue.http.interceptors.push((request, next) => {
       } else {
         router.push({name: 'login', query: {next: router.app.$route.query.next}})
       }
+    } else if (response.status === 404 || response.data.code === 404) {
+      router.push({name: '404'})
     } else if (response.status >= 300 || response.data.code !== 200) {
       // API 访问出错
       App.methods.showNotification(response.data.message, 'error', 5, app.$children[0])
