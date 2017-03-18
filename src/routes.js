@@ -73,5 +73,5 @@ export default [
    ]
   },
   {path: '/redirect', name: 'redirect', component: lazyLoading('user/Redirect')},
-  {path: '/404', name: '404', component: lazyLoading('404')}
+  {path: '/code/404', name: '404', component: lazyLoading('404')}
 ]
