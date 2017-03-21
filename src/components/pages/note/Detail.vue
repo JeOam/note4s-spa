@@ -216,7 +216,7 @@ export default {
   },
   mounted: function () {
     api.note.getNoteDetail(this.$route.params.noteId).then(data => {
-      if (data.subnotes) {
+      if (data && data.subnotes) {
         for (let note of data.subnotes) {
           note._editing = false
           note._content = note.content

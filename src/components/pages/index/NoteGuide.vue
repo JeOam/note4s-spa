@@ -41,6 +41,12 @@
               </div>
               <div class="level-right">
                 <p class="level-item">
+                  <a @click="getPDF"
+                     class="button is-small is-primary is-inverted is-outlined">
+                     PDF
+                   </a>
+                </p>
+                <p class="level-item">
                   <a @click="watchNotebook"
                      class="button is-small is-primary is-inverted is-outlined">
                      {{ selectedNotebook.is_watch ? 'Watched' : 'Watch' }} - {{ selectedNotebook.watch_count }}
@@ -275,6 +281,11 @@ export default {
             }
           })
         }
+      }
+    },
+    getPDF: function () {
+      if (this.selectedNotebook) {
+        api.note.getNotebookPDF(this.selectedNotebook.id).then()
       }
     },
     selectEditNotebook: function (notebook) {
