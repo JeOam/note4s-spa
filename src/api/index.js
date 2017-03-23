@@ -40,12 +40,32 @@ const baseDelete = (url, id) => {
   })
 }
 
+const getFile = function (response) {
+  let result = document.createElement('a')
+  let contentDisposition = response.headers.get('Content-Disposition') || ''
+  let filename = contentDisposition.split('filename=')[1]
+  filename = filename.replace(/"/g, '')
+  return response.blob().then(function (data) {
+    result.href = window.URL.createObjectURL(data)
+    result.target = '_self'
+    result.download = filename
+    return result
+  })
+}
+
+const baseDownload = (url) => {
+  Vue.http.get(url).then(getFile).then(link => {
+    link.click()
+  })
+}
+
 export default {
   baseGet,
   baseGetDetail,
   baseUpdate,
   baseCreate,
   baseDelete,
+  baseDownload,
   user,
   note,
   organization

@@ -73,7 +73,7 @@ const watchNotebook = (id) => {
 }
 
 const getNotebookPDF = (id) => {
-  return api.baseGet(`api/notebook/pdf/${id}`)
+  return api.baseDownload(`api/notebook/pdf/${id}`)
 }
 
 const cancelWatchNotebook = (id) => {

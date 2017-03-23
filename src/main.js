@@ -31,7 +31,9 @@ Vue.http.interceptors.push((request, next) => {
     request.headers.set('authorization', `${token}`)
   }
   next((response) => {
-    if (!response.ok && response.status === 0) {
+    if (response.headers.map['Content-Type'][0] === 'application/pdf; charset="utf-8"') {
+      console.log(response.headers)
+    } else if (!response.ok && response.status === 0) {
       // 网络错误
       App.methods.showNotification(
         'Network Errors: Please check your network configuration.',
