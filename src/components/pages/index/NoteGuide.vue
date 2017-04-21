@@ -22,6 +22,12 @@
               <p class="level-item">
                 <i v-if="selectedNotebook.private" class="fa fa-lock" aria-hidden="true"></i>
               </p>
+              <p class="level-item">
+                <a @click="getPDF"
+                   class="button is-small is-primary is-inverted is-outlined">
+                   PDF
+                 </a>
+               </p>
             </div>
           </nav>
         </template>
@@ -285,7 +291,7 @@ export default {
     },
     getPDF: function () {
       if (this.selectedNotebook) {
-        api.note.getNotebookPDF(this.selectedNotebook.id).then()
+        api.note.getNotebookPDF(this.selectedNotebook.id)
       }
     },
     selectEditNotebook: function (notebook) {
