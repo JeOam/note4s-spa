@@ -5,6 +5,8 @@
 import MarkdownIt from 'markdown-it'
 import toc from 'markdown-it-toc-and-anchor'
 import highlight from 'markdown-it-highlightjs'
+import subscript from 'markdown-it-sub'
+import superscript from 'markdown-it-sup'
 
 export default {
   props: {
@@ -101,7 +103,7 @@ export default {
   },
   methods: {
     reload: function () {
-      let md = new MarkdownIt().use(highlight)
+      let md = new MarkdownIt().use(highlight).use(subscript).use(superscript)
       md.set({
         html: this.html,
         xhtmlOut: this.xhtmlOut,
