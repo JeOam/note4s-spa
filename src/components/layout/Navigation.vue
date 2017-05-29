@@ -17,12 +17,12 @@
       </span>
 
       <div id="nav-menu" class="nav-right nav-menu" :class="{'is-active': navMenuOpen}">
-        <span class="nav-item">
+        <!-- <span class="nav-item">
           <input class="input" type="text" placeholder="Search a post">
           <button class="button">
             Search
           </button>
-        </span>
+        </span> -->
         <span v-if="$root.userinfo" class="nav-item">
           <router-link :to="{name: 'new note'}" class="button">New Note</router-link>
         </span>

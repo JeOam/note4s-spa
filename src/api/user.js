@@ -16,6 +16,10 @@ const getProfile = (params) => {
   return api.baseGet('api/profile/', params)
 }
 
+const updateProfile = (params) => {
+  return api.baseUpdate('api/profile', params)
+}
+
 const getNotifications = () => {
   return api.baseGet('api/user/notification/')
 }
@@ -56,6 +60,7 @@ export default {
   login,
   register,
   getProfile,
+  updateProfile,
   checkUsername,
   getNotifications,
   getContributions,

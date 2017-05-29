@@ -14,6 +14,9 @@
           <router-link :to="{name: 'profile overview', params: {username: userinfo.username}}">
             @<span>{{ userinfo.username }}</span>
           </router-link>
+          <router-link :to="{name: 'edit profile', params: {username: userinfo.username}}">
+            <i class="fa fa-cog fa-12" aria-hidden="true"></i>
+          </router-link>
         </span>
       </div>
     </div>

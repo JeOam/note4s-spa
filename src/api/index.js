@@ -59,6 +59,16 @@ const baseDownload = (url) => {
   })
 }
 
+const uploadFile = function (url, target) {
+  return new Promise((resolve, reject) => {
+    let formData = new window.FormData()
+    formData.append('file', target.files[0])
+    Vue.http.post(url, formData).then((response) => {
+      resolve(response.data)
+    })
+  })
+}
+
 export default {
   baseGet,
   baseGetDetail,
@@ -66,6 +76,7 @@ export default {
   baseCreate,
   baseDelete,
   baseDownload,
+  uploadFile,
   user,
   note,
   organization

@@ -44,6 +44,7 @@ export default [
          }
        ]
      },
+     {path: '/user/edit/:username', name: 'edit profile', component: lazyLoading('profile/Edit')},
      {path: '/note/new', name: 'new note', component: lazyLoading('note/Create')},
      {path: '/note/:noteId', name: 'note detail', component: lazyLoading('note/Detail')},
      {path: '/note/:noteId/revisions', name: 'note revision', component: lazyLoading('revision/Index')},
