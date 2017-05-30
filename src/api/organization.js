@@ -8,6 +8,10 @@ const createOrganization = (params) => {
   return api.baseCreate('api/organization/', params)
 }
 
+const updateOrganization = (params) => {
+  return api.baseUpdate('api/organization', params)
+}
+
 const getOrganizationProfile = (name) => {
   return api.baseGet('api/organization/', {name: name})
 }
@@ -39,6 +43,7 @@ const accept = (params) => {
 export default {
   checkOrgName,
   createOrganization,
+  updateOrganization,
   getOrganizationProfile,
   getOrganizations,
   getNotebooks,

@@ -35,7 +35,7 @@
       <ul>
         <p v-for="organization in userinfo.organizations" class="image is-32x32">
           <router-link :to="{name: 'organization notebook', params:{name: organization.name}}">
-            <img :src="organization.avatar || $root.imgPH" :title="organization.name">
+            <img :src="organization.avatar || $root.imgPH" :title="organization.name" class="image is-32x32">
           </router-link>
         </p>
       </ul>

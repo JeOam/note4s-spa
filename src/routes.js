@@ -52,6 +52,7 @@ export default [
      {path: '/note/:noteId/comment', name: 'note comment', component: lazyLoading('comment/List')},
      {path: '/organizations/new', name: 'new organization', component: lazyLoading('organization/New')},
      {path: '/organizations/invite/:name', name: 'organization invite', component: lazyLoading('organization/Invite')},
+     {path: '/organizations/edit/:name', name: 'edit organization profile', component: lazyLoading('organization/Edit')},
      {path: '/organization/:name',
       component: lazyLoading('organization/Profile'),
       children: [
@@ -70,7 +71,8 @@ export default [
           name: 'organization accept',
           component: lazyLoading('organization/Accept')
         }
-      ]}
+      ]
+    }
    ]
   },
   {path: '/redirect', name: 'redirect', component: lazyLoading('user/Redirect')},

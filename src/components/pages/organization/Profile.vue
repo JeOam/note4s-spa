@@ -6,13 +6,16 @@
           <div class="media">
             <div class="media-left">
               <figure class="image" style="height: 100px; width: 100px;">
-                <img :src="$root.imgPH" alt="Image">
+                <img :src="organizationInfo.avatar || $root.imgPH" alt="Image" style="height: 100px; width: 100px;">
               </figure>
             </div>
             <div v-if="organizationInfo.name" class="media-content">
               <p class="title is-4">
                 <router-link :to="{name: 'organization notebook', params: {name: organizationInfo.name}}">
                   {{ organizationInfo.name }}
+                </router-link>
+                <router-link :to="{name: 'edit organization profile', params: {name: organizationInfo.name}}">
+                  <i class="fa fa-cog fa-12" aria-hidden="true"></i>
                 </router-link>
               </p>
               <p class="subtitle is-6">
