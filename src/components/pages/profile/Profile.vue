@@ -2,7 +2,7 @@
   <div class="card is-fullwidth">
     <div class="card-content">
       <a class="card-avatar">
-        <img :src="$root.imgPH">
+        <img :src="userinfo.avatar || $root.imgPH">
       </a>
       <div v-if="userinfo.username" class="card-user">
         <div class="card-user-name">
@@ -104,6 +104,8 @@ export default {
     > img {
       height: 100%;
       width: 100%;
+      max-height: 230px;
+      max-width: 230px;
       border: 2px solid #fff;
       border-radius: 7px;
       box-sizing: border-box;

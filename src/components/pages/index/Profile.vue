@@ -2,7 +2,7 @@
   <div class="card is-fullwidth">
     <div class="card-content">
       <a class="card-avatar">
-        <img :src="$root.imgPH" class="card-avatar-img">
+        <img :src="ownerInfo.avatar || $root.imgPH" class="card-avatar-img">
       </a>
       <div v-if="ownerInfo.username" class="card-user">
         <div class="card-user-name">

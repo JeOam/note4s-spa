@@ -20,7 +20,7 @@
         <article class="media">
           <figure class="media-left">
             <p class="image is-48x48">
-              <img :src="$root.imgPH">
+              <img :src="$root.userinfo.avatar || $root.imgPH">
             </p>
           </figure>
           <div class="media-content">

@@ -97,6 +97,8 @@ export default {
     > img {
       height: 100%;
       width: 100%;
+      max-height: 230px;
+      max-width: 230px;
       border: 2px solid #fff;
       border-radius: 7px;
       box-sizing: border-box;

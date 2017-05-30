@@ -129,8 +129,8 @@
         <span v-if="$root.userinfo" class="nav-item">
           <router-link :to="{name: 'profile overview', params: {username: $root.userinfo.username}}">
             <span class="image-button is-small">
-              <p class="image is-32x32">
-                <img :src="$root.imgPH">
+              <p class="image is-24x24">
+                <img :src="$root.userinfo.avatar || $root.imgPH" class="image is-24x24">
               </p>
             </span>
           </router-link>
@@ -230,7 +230,6 @@ export default {
   vertical-align:middle;
   justify-content: center;
   text-align: center;
-  padding-top: 7px;
 }
 .notif-count {
   top: 10px;

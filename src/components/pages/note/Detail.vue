@@ -19,7 +19,7 @@
                 </span>
                 <span class="button image-button is-small">
                   <p class="image is-32x32">
-                    <img :src="$root.imgPH">
+                    <img :src="note.user && note.user.avatar ? nate.user.avatar : $root.imgPH">
                   </p>
                 </span>
                 <span class="is-small">
@@ -75,7 +75,7 @@
       <article v-if="isCanEdit" class="media">
         <figure class="media-left">
           <p class="image is-48x48">
-            <img :src="$root.imgPH">
+            <img :src="$root.userinfo.avatar || $root.imgPH">
           </p>
         </figure>
         <div class="media-content">

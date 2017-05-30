@@ -9,8 +9,8 @@
         {{ note.section.name }}
       </span>
       <span class="button image-button is-small">
-        <p class="image is-32x32">
-          <img :src="$root.imgPH">
+        <p class="image is-24x24">
+          <img :src="note.user && note.user.avatar ? note.user.avatar : $root.imgPH" class="image is-24x24">
         </p>
       </span>
       <span class="is-small">

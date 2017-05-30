@@ -2,7 +2,7 @@
   <article :id="subnote.id" class="media">
     <figure class="media-left">
       <p class="image is-32x32">
-        <img :src="$root.imgPH">
+        <img :src="subnote.user && subnote.user.avatar ? subnote.user.avatar : $root.imgPH" class="image is-32x32">
       </p>
     </figure>
     <div class="media-content">
