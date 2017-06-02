@@ -22,12 +22,12 @@
               <p class="level-item">
                 <i v-if="selectedNotebook.private" class="fa fa-lock" aria-hidden="true"></i>
               </p>
-              <p class="level-item">
+              <!-- <p class="level-item">
                 <a @click="getPDF"
                    class="button is-small is-primary is-inverted is-outlined">
                    PDF
                  </a>
-               </p>
+               </p> -->
             </div>
           </nav>
         </template>
@@ -46,12 +46,12 @@
                 </div>
               </div>
               <div class="level-right">
-                <p class="level-item">
+                <!-- <p class="level-item">
                   <a @click="getPDF"
                      class="button is-small is-primary is-inverted is-outlined">
                      PDF
                    </a>
-                </p>
+                </p> -->
                 <p class="level-item">
                   <a @click="watchNotebook"
                      class="button is-small is-primary is-inverted is-outlined">
