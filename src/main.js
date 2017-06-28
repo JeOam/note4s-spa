@@ -25,10 +25,9 @@ const pendingRequest = {}
 Vue.http.interceptors.push((request, next) => {
   NProgress.inc(0.2)
   pendingRequest[request.url] = 1
-
   let token = window.localStorage.getItem('token')
   if (token && !request.url.startsWith('api/rest-auth')) {
-    request.headers.set('authorization', `${token}`)
+    request.headers.set('Authorization', `${token}`)
   }
   next((response) => {
     if (response.headers.map['Content-Type'][0] === 'application/pdf; charset="utf-8"') {
