@@ -30,7 +30,7 @@ Vue.http.interceptors.push((request, next) => {
     request.headers.set('Authorization', `${token}`)
   }
   next((response) => {
-    if (response.headers.map['Content-Type'][0] === 'application/pdf; charset="utf-8"') {
+    if (response.headers.map['Content-Type'] && response.headers.map['Content-Type'][0] === 'application/pdf; charset="utf-8"') {
       console.log(response.headers)
     } else if (!response.ok && response.status === 0) {
       // 网络错误

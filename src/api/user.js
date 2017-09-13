@@ -12,6 +12,10 @@ const checkUsername = (name) => {
   return api.baseCreate('auth/checkusername/', {username: name})
 }
 
+const verifyEmail = (email) => {
+  return api.baseCreate('auth/verifycode/', {email: email})
+}
+
 const getProfile = (params) => {
   return api.baseGet('api/profile/', params)
 }
@@ -62,6 +66,7 @@ export default {
   getProfile,
   updateProfile,
   checkUsername,
+  verifyEmail,
   getNotifications,
   getContributions,
   getUserList,
